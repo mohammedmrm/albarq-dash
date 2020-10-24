@@ -95,15 +95,17 @@ try{
                   )
                   + if(new_price > 500000 ,( (ceil(new_price/500000)-1) * ".$config['addOnOver500']." ),0)
                   + if(weight > 1 ,( (weight-1) * ".$config['weightPrice']." ),0)
+                  + if(towns.center = 0 ,".$config['countrysidePrice'].",0)
                 ) as dev_price,
                 sum(new_price) as income
             from orders
+            left join towns on  towns.id = orders.to_town
             left JOIN client_dev_price on client_dev_price.client_id = orders.client_id AND client_dev_price.city_id = orders.to_city
             ";
   $query = "select orders.*, date_format(orders.date,'%Y-%m-%d') as dat,
             clients.name as client_name,clients.phone as client_phone,
             cites.name as city,towns.name as town,branches.name as branch_name,
-            stores.name as store_name, b.rep as repated
+            stores.name as store_name, b.rep as repated,towns.center as center
             from orders
             left join clients on clients.id = orders.client_id
             left join cites on  cites.id = orders.to_city
@@ -212,7 +214,11 @@ if($orders > 0 && $msg == ""){
                 if($data[$i]['weight']>1){
                   $weightPrice = ($data[$i]['weight'] - 1) * $config['weightPrice'];
                 }
-                $data[$i]['dev_price'] = $dev_p + $over500 + $weightPrice;
+                $countrysidePrice = 0;
+                if($data[$i]['center'] == 0){
+                  $countrysidePrice = $config['countrysidePrice'];
+                }
+                $data[$i]['dev_price'] = $dev_p + $over500 + $weightPrice + $countrysidePrice;
                 if($data[$i]['order_status_id'] == 9){
                   $data[$i]['dev_price'] = 0;
                   $dev_p = 0;

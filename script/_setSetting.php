@@ -48,6 +48,7 @@ $v->validate([
     'dev_o'       => [$_REQUEST['dev_o'],   'isPrice'],
     'driver_price'=> [$_REQUEST['driver_price'],'isPrice'],
     'weightPrice'=> [$_REQUEST['weightPrice'],'isPrice'],
+    'countrysidePrice'=> [$_REQUEST['countrysidePrice'],'isPrice'],
 ]);
 $i=0;
 if(empty(implode($v->errors()->get('dev_b')))) {
@@ -71,6 +72,12 @@ if(empty(implode($v->errors()->get('weightPrice')))) {
     setData($con,$sql,[$_REQUEST['weightPrice'],'weightPrice']);
     $i++;
 }
+if(empty(implode($v->errors()->get('countrysidePrice')))) {
+    $sql = "update setting set value = ? where control=?";
+    setData($con,$sql,[$_REQUEST['countrysidePrice'],'countrysidePrice']);
+    $i++;
+}
+
 if(empty(implode($v->errors()->get('phone')))) {
     $sql = "update setting set value = ? where control=?";
     setData($con,$sql,[$_REQUEST['phone'],'Company_phone']);

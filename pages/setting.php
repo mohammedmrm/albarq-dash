@@ -53,7 +53,7 @@ include_once('config.php');
 										</div>
 									</div>
                                     <div class="form-group row">
-										<label class="col-3 col-form-label" >توصيل بغداد</label>
+										<label class="col-3 col-form-label" >توصيل دبي</label>
 										<div class="col-9">
 											<div class="input-group">
 												<input type="number" min='0'step="250" name="dev_b" id="dev_b" value="<?php echo $config['dev_b']?>" class="form-control"  value="loop">
@@ -94,6 +94,15 @@ include_once('config.php');
 											<div class="input-group">
 												<input type="number" min='0'step="250" name="weightPrice" id="weightPriceOver500" value="<?php echo $config['weightPrice']?>" class="form-control"  value="loop">
 												<span class="form-text text-danger" d="weightPrice_err"></span>
+											</div>
+										</div>
+									</div>
+                                    <div class="form-group row">
+										<label class="col-3 col-form-label">اجر الاضافي للمناطق البعيده</label>
+										<div class="col-9">
+											<div class="input-group">
+												<input type="number" min='0'step="250" name="countrysidePrice" id="countrysidePrice" value="<?php echo $config['countrysidePrice']?>" class="form-control"  value="loop">
+												<span class="form-text text-danger" d="countrysidePrice_err"></span>
 											</div>
 										</div>
 									</div>
