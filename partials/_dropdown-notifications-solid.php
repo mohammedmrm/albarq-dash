@@ -126,7 +126,7 @@ function getNotification(){
          '<a href="'+link+'" class="'+bg+' kt-notification__item">'+
             '<div class="kt-notification__item-icon"> <i class="flaticon2-pie-chart kt-font-focus"></i> </div>'+
             '<div class="kt-notification__item-details">'+
-                '<div class="kt-notification__item-title"><b>'+this.title+'</b><br />'+this.body+'</div>'+
+                '<div class="kt-notification__item-title"><b>'+this.title+' - '+this.order_no+'</b><br />'+this.body+'</div>'+
                 '<div class="kt-notification__item-time">'+this.date+'</div>'+
             '</div>'+
          '</a>'
