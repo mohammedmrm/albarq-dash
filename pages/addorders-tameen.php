@@ -107,7 +107,7 @@ include("config.php");
 			</div>
             <div class="form-group">
 				<label>المبلغ الكلي</label>
-				<input   price="price" tabindex="7"  onkeyup="CurrencyFormatted($(this),$(this).val())" type="text" class="form-control sp" id="order" name="order_price" placeholder="المبلغ" value="">
+				<input   price="price" tabindex="6"  onkeyup="CurrencyFormatted($(this),$(this).val())" type="text" class="form-control sp" id="order" name="order_price" placeholder="المبلغ" value="">
 				<span id="order_price_err" class="form-text text-danger"></span>
 			</div>
             <div class="form-group">
@@ -141,13 +141,13 @@ include("config.php");
         			</div>
                     <div class="form-group col-md-4">
         				<label>تفاصيل اكثر عن العنوان</label>
-        				<textarea  address="address"  tabindex="6"  type="text" class="form-control" name="order_address" value="" style="margin-top: 0px; margin-bottom: 0px; height: 38px;" ></textarea>
+        				<textarea  address="address"    type="text" class="form-control" name="order_address" value="" style="margin-top: 0px; margin-bottom: 0px; height: 38px;" ></textarea>
         				<span id="order_address_err" class="form-text text-danger"></span>
         			</div>
     			</div>
                 <div class="form-group">
     				<label>ملاحظات</label>
-    				<textarea type="text" tabindex="8" note="note" class="form-control" id="order_note" name="order_note" value="" style="margin-top: 0px; margin-bottom: 0px; height: 38px;"></textarea>
+    				<textarea type="text" tabindex="7" note="note" class="form-control" id="order_note" name="order_note" value="" style="margin-top: 0px; margin-bottom: 0px; height: 38px;"></textarea>
     				<span id="order_note_err" class="form-text text-danger"></span>
     			</div>
            </div>
@@ -155,7 +155,7 @@ include("config.php");
            <input type="hidden" value="1" id="num" name="num[]"/>
           </div>
           <div class="row kt-margin-b-20 text-center">
-              <button type="button" tabindex="9" onclick="addOrders()" class="btn btn-info btn-lg text-white">رفع و تاكيد الشحنه</button>
+              <button type="button" tabindex="9" onclick="addOrders()" class="btn btn-info text-white">رفع و تاكيد الشحنه</button>
           </div>
           <input  type="hidden" value="1" id="counter"/>
 		<!--begin: Datatable -->
