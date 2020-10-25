@@ -107,7 +107,7 @@ function getNotification(){
       $("#noti_menu").html("");
     },
     success:function(res){
-      //console.log(res);
+      console.log(res);
       if(res.success == 1){
         $("#noti-count").text(res.unseen + ' اشعار جديد');
         $("#noti-new").text(res.unseen);

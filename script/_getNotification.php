@@ -23,8 +23,8 @@ $unseen = $res[0]['unseen'];
 $sql = 'select *,notification.id as n_id from notification
         left join orders on orders.id = notification.order_id
         where (for_client = 0 and staff_id = ?)
-        group by notification.date ORDER BY `notification`.`date` DESC limit 100';
-$result = getData($con,$sql,[$user_id,$user_id,$user_id]);
+        group by notification.date ORDER BY `notification`.`date` DESC limit 200';
+$result = getData($con,$sql,[$user_id]);
 $success = 1;
-echo json_encode(['success'=>$success,"data"=>$result,'unseen'=>$unseen]);
+echo json_encode(['notification','success'=>$success,"data"=>$result,'unseen'=>$unseen]);
 ?>
