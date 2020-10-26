@@ -243,7 +243,7 @@ getCities($("#city"));
                                 <div class="col-lg-9 col-xl-6">
                                     <div class="input-group">
                                         <div class="input-group-prepend"><span class="input-group-text"><i class="la la-at"></i></span></div>
-                                        <input type="number" min='0' step='10000' class="form-control" id="staff_salary" name="staff_salary" placeholder="الراتب" aria-describedby="basic-addon1">
+                                        <input type="number" min='0' value='0' step='10000' class="form-control" id="staff_salary" name="staff_salary" placeholder="الراتب" aria-describedby="basic-addon1">
                                     </div>
                                     <span class="form-text text-danger" id="staff_salary_err"></span>
                                 </div>
