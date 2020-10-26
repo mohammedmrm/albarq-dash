@@ -593,6 +593,14 @@ function addStaff(){
          getStaff($("#staffTable"));
          $("#staffTable input").val("");
          $("#addstaffModal").modal('hide');
+         $("#staff_name_err").text('');
+         $("#staff_email_err").text('');
+         $("#staff_phone_err").text('');
+         $("#staff_branch_err").text('');
+         $("#staff_password_err").text('');
+         $("#staff_role_err").text('');
+         $("#staff_salary_err").text('');
+         $("#staff_id_err").text('');
        }else{
            $("#staff_name_err").text(res.error["staff_name_err"]);
            $("#staff_email_err").text(res.error["staff_email_err"]);
