@@ -157,6 +157,13 @@ include("config.php");
           <div class="row kt-margin-b-20 text-center">
               <button type="button" tabindex="9" onclick="addOrders()" class="btn btn-info text-white">رفع و تاكيد الشحنه</button>
           </div>
+          <div class="row">
+          <div class="col-md-12" >
+              <p>اخر طلب مضاف</p>
+             <table id="lastadded" class="table table-borderd">
+             </table>
+          </div>
+          </div>
           <input  type="hidden" value="1" id="counter"/>
 		<!--begin: Datatable -->
         </form>
@@ -520,6 +527,18 @@ function addOrders(){
     success:function(res){
         console.log(res);
        if(res.success == 1){
+         $("#lastadded").html(
+         '<tr>'+
+             '<td>رقم الوصل</td>'+
+             '<td>المبلغ الكلي</td>'+
+             '<td>رقم الزبون</td>'+
+           '</tr>'+
+           '<tr>'+
+            '<td>'+$("#orderstabledata input[name='order_no']").val()+'</td>'+
+            '<td>'+$("#orderstabledata input[name='order_price']").val()+'</td>'+
+            '<td>'+$("#orderstabledata input[name='customer_phone']").val()+'</td>'+
+           '</tr>'
+         );
          $("#orderstabledata input[name='order_no']").val("");
          $("#orderstabledata input[name='order_price']").val("");
          $("#orderstabledata input[name='customer_name']").val("");
