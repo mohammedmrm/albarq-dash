@@ -89,13 +89,13 @@ if($v->passes()  ) {
 
               $sql = 'update orders set order_status_id="'.$status.'"';
               $up = "";
-              if(!empty($city_to) && $city_to > 0){
-                $up .= ' , to_city='.$city_to;
+              if(!empty($city) && $city > 0){
+                $up .= ' , to_city='.$city;
               }
-              if(!empty($town_to) && $town_to > 0){
-                $up .= ' , to_town='.$town_to;
+              if(!empty($town) && $town > 0){
+                $up .= ' , to_town='.$town;
               }
-              if(!empty($order_iprice)){
+              if(!empty($price)){
                 $up .= ' , new_price="'.$price.'"';
               }
               $where = " where bar_code =".$barcode."  and invoice_id=0 and driver_invoice_id=0 and orders.delivery_company_id =".$company[0]['id'];
