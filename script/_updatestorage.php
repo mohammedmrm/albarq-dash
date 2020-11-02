@@ -27,12 +27,7 @@ $v->addRule('isPhoneNumber', function($value, $input, $args) {
 });
 $v->addRuleMessage('unique', 'القيمة المدخلة مستخدمة بالفعل ');
 
-$v->addRule('unique', function($value, $input, $args) {
 
-    $value  = trim($value);
-    $exists = getData($GLOBALS['con'],"SELECT * FROM branches WHERE name ='".$value."' and id <> ".$);
-    return ! (bool) count($exists);
-});
 $v->addRuleMessages([
     'required' => 'الحقل مطلوب',
     'int'      => 'فقط الارقام مسموع بها',
@@ -68,4 +63,3 @@ if($v->passes()) {
            ];
 }
 echo json_encode(['success'=>$success, 'error'=>$error]);
-?>

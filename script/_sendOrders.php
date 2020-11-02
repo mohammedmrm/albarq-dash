@@ -27,10 +27,7 @@ foreach ($ids as $id){
 $f = ' ('.preg_replace('/^ or/', '', $f).') ';
 
 $sql = "select orders.*,to_city as city_id, to_town as town_id, date_format(orders.date,'%Y-%m-%d') as dat,
-            if(orders.to_city=1,
-             orders.price - orders.discount,
-             orders.price - orders.discount
-            ) as price,
+            orders.price as price,
             cites.name as city,
             towns.name as town
             from orders
