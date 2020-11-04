@@ -50,12 +50,12 @@ $v->addRuleMessages([
     'int'      => ' فقط الارقام مسموح بها',
     'regex'    => ' فقط الارقام مسموح بها',
     'min'      => ' قصير جداً',
-    'max'      => ' ( {value} ) قيمة كبيرة جداً غير مسموح بها ',
+    'max'      => ' ( 150 ) قيمة كبيرة جداً غير مسموح بها ',
     'email'    => ' البريد الالكتروني غيز صحيح',
 ]);
 
 $v->validate([
-    'name'  => [$name,  'required|min(3)|max(100)|uniqueStoreName'],
+    'name'  => [$name,  'required|min(3)|max(150)|uniqueStoreName'],
     'client'=> [$client,'required|int'],
     'note'  => [$note,  'max(250)'],
 ]);

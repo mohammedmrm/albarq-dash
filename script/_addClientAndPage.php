@@ -71,7 +71,7 @@ $v->addRuleMessages([
     'int'      => ' فقط الارقام مسموح بها',
     'regex'    => ' فقط الارقام مسموح بها',
     'min'      => ' قصير جداً',
-    'max'      => ' ( {value} ) قيمة كبيرة جداً غير مسموح بها ',
+    'max'      => ' قيمه كبيره جداً',
     'email'    => ' البريد الالكتروني غيز صحيح',
 ]);
 
@@ -81,7 +81,7 @@ $v->validate([
     'client_password'=> [$password,'required|min(6)|max(16)'],
     'client_phone'   => [$phone,   "required|isPhoneNumber|unique(clients,phone)"],
     'client_branch'  => [$branch,  'required|int|max(2)'],
-    'page'  => [$page,  'required|min(3)|max(100)|uniqueStoreName'],
+    'page'  => [$page,  'required|min(3)|max(150)|uniqueStoreName'],
     'client_dev_price_b'=> [$dev_b,  'int|max(5)'],
     'client_dev_price_o'=> [$dev_o ,  'int|max(5)'],
 ]);
