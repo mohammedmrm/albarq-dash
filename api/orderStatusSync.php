@@ -6,7 +6,8 @@ header("Content-Type: application/json; charset=UTF-8");
 require_once("../script/dbconnection.php");
 require_once("../script/_sendNoti.php");
 require_once("../config.php");
-
+require_once("_apiAccess.php");
+access();
 use Violin\Violin;
 require_once('../validator/autoload.php');
 $v = new Violin;
