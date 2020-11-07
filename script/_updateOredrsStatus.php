@@ -7,7 +7,7 @@ access([1,2,5,7,8]);
 require_once("dbconnection.php");
 
 $ids = $_REQUEST['ids'];
-$statues = $_REQUEST['status'];
+$statues = $_REQUEST['statuses'];
 $success="0";
 function httpPost($url, $data)
 {
