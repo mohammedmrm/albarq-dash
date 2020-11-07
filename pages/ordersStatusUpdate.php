@@ -303,6 +303,7 @@ $.ajax({
      }
    }
    $("#total-orders").text(res.total[0].orders);
+   i = 0;
    $.each(res.data,function(){
      if(this.money_status == 1){
        money = '<span class="success">تم التحاسب</span>';
@@ -322,13 +323,13 @@ $.ajax({
      }
      $("#ordersTable").append(
        '<tr class="'+bg+'">'+
-            '<td>'+this.id+'<input type="hidden" value="'+this.id+'" name="ids[]">'+
+            '<td>'+this.id+'<input type="hidden" value="'+this.id+'" name="ids['+i+']">'+
             '</td>'+
             '<td>'+this.order_no+'</td>'+
             '<td>'+formatMoney(this.price)+'</td>'+
             '<td>'+this.store_name+'<br />'+(this.client_phone)+'</td>'+
             '<td>'+
-              '<select status="status" class="form-control" style="height:40px;" name="statuses[]"  value="">'+
+              '<select status="status" class="form-control" style="height:40px;" name="statuses['+i+']"  value="">'+
                 options+
               '</select>'+
             '</td>'+
@@ -341,6 +342,7 @@ $.ajax({
             '<td>'+this.staff_name+'</td>'+
             '<td>'+this.driver_name+'</td>'+
         '</tr>');
+        i++;
      });
      //$('.selectpicker').selectpicker('refresh');
     var myTable= $('#tb-orders').DataTable({
