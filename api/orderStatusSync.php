@@ -52,8 +52,6 @@ $v->addRuleMessages([
 ]);
 $error = [];
 $success = 0;
-$manger = $_SESSION['userid'];
-
 
 $barcode  = $_REQUEST['id'];
 $note     = $_REQUEST['note'];

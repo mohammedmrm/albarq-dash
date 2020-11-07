@@ -8,7 +8,7 @@ require_once("../script/dbconnection.php");
 if(!(empty($_REQUEST['token']))){
   $token = $_REQUEST['token'];
 }else{
-  $token = "";
+  $token = "000";
 }
 $sql = 'select * from clients where api_token=?';
 $res  = getData($con,$sql,[$token]);
