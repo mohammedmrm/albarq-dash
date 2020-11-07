@@ -99,7 +99,7 @@ if($v->passes()  ) {
               }
               $where = " where bar_code =".$barcode."  and invoice_id=0 and driver_invoice_id=0 and orders.delivery_company_id =".$company[0]['id'];
               $sql .= $up.$where;
-              $result = setData($con,$sql,[$clinetdata['id']]);
+              $result = setData($con,$sql);
               if($result > 0){
                 $success = 1;
                 $sql = 'insert into tracking (order_status_id,note,items_no,order_id,staff_id) values(?,?,?,?,?)';

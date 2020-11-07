@@ -10,7 +10,7 @@ if(!(empty($_REQUEST['token']))){
 }else{
   $token = "000";
 }
-$sql = 'select * from companies where api_token=?';
+$sql = 'select * from companies where sync_token=?';
 $res  = getData($con,$sql,[$token]);
 $clinetdata = $res[0];
 if(count($res) == 1){
