@@ -61,37 +61,37 @@ legend
             </div>
            <div class="col-lg-2 kt-margin-b-10-tablet-and-mobile">
             	<label>العميل:</label>
-            	<select onchange="getorders();getStores($('#store'),$(this).val());" data-show-subtext="true" data-live-search="true"  class="selectpicker form-control kt-input" id="client" name="client" data-col-index="7">
+            	<select onchange="getStores($('#store'),$(this).val());" data-show-subtext="true" data-live-search="true"  class="selectpicker form-control kt-input" id="client" name="client" data-col-index="7">
             		<option value="">Select</option>
             	</select>
             </div>
             <div class="col-lg-2 kt-margin-b-10-tablet-and-mobile">
             	<label>الصفحة (البيج):</label>
-            	<select onchange="getorders()" data-show-subtext="true" data-live-search="true"  class="selectpicker form-control kt-input" id="store" name="store" data-col-index="7">
+            	<select onchange="" data-show-subtext="true" data-live-search="true"  class="selectpicker form-control kt-input" id="store" name="store" data-col-index="7">
             		<option value="">Select</option>
             	</select>
             </div>
             <div class="col-lg-2 kt-margin-b-10-tablet-and-mobile">
             	<label>الحالة:</label>
-            	<select onchange="getorders()" class="form-control kt-input" id="orderStatus" name="orderStatus" data-col-index="7">
+            	<select onchange="" class="form-control kt-input" id="orderStatus" name="orderStatus" data-col-index="7">
             		<option value="">Select</option>
             	</select>
             </div>
             <div class="col-lg-3 kt-margin-b-10-tablet-and-mobile">
             <label>الفترة الزمنية :</label>
             <div class="input-daterange input-group" id="kt_datepicker">
-  				<input onchange="getorders()" type="text" class="form-control kt-input" name="start" id="start" placeholder="من" data-col-index="5">
+  				<input onchange="" type="text" class="form-control kt-input" name="start" id="start" placeholder="من" data-col-index="5">
   				<div class="input-group-append">
   					<span class="input-group-text"><i class="la la-ellipsis-h"></i></span>
   				</div>
-  				<input onchange="getorders()" type="text" class="form-control kt-input" name="end"  id="end" placeholder="الى" data-col-index="5">
+  				<input onchange="" type="text" class="form-control kt-input" name="end"  id="end" placeholder="الى" data-col-index="5">
           	</div>
             </div>
           </div>
           <div class="row kt-margin-b-20">
             <div class="col-lg-2 kt-margin-b-10-tablet-and-mobile">
             	<label>رقم الوصل:</label>
-            	<input id="order_no" name="order_no" onkeyup="getorders()" type="text" class="form-control kt-input" placeholder="" data-col-index="0">
+            	<input id="order_no" name="order_no" onkeyup="" type="text" class="form-control kt-input" placeholder="" data-col-index="0">
             </div>
             <div class="col-lg-2 kt-margin-b-10-tablet-and-mobile">
             	<label>رقم الشحنه:</label>
@@ -99,11 +99,11 @@ legend
             </div>
             <div class="col-lg-2 kt-margin-b-10-tablet-and-mobile">
             	<label>اسم او هاتف المستلم:</label>
-            	<input name="customer" onkeyup="getorders()" type="text" class="form-control kt-input" placeholder="" data-col-index="1">
+            	<input name="customer" onkeyup="" type="text" class="form-control kt-input" placeholder="" data-col-index="1">
             </div>
             <div class="col-lg-2 kt-margin-b-10-tablet-and-mobile">
             	<label>المحافظة المرسل لها:</label>
-            	<select id="city" name="city" onchange="getorders()" class="form-control kt-input" data-col-index="2">
+            	<select id="city" name="city" onchange="" class="form-control kt-input" data-col-index="2">
             		<option value="">Select</option>
                 </select>
             </div>
@@ -115,7 +115,7 @@ legend
             </div>
             <div class="col-lg-2 kt-margin-b-10-tablet-and-mobile">
             	<label>حالة تسليم المبلغ للعميل:</label>
-                <select name="money_status" onchange="getorders()" class="form-control kt-input" data-col-index="2">
+                <select name="money_status" onchange="" class="form-control kt-input" data-col-index="2">
             		<option value="">... اختر...</option>
             		<option value="1">تم تسليم المبلغ</option>
             		<option value="0">لم يتم تسليم المبلغ</option>
@@ -211,6 +211,13 @@ legend
 <script src="js/getAllDrivers.js" type="text/javascript"></script>
 <script src="js/getCities.js" type="text/javascript"></script>
 <script type="text/javascript">
+$(document).keydown(function(e) {
+if (event.which === 13 || event.keyCode === 13 ) {
+    event.stopPropagation();
+    event.preventDefault();
+    getorders();
+}
+});
 function getorders(){
 $.ajax({
   url:"script/_getOrdersSendByClient.php",
