@@ -153,9 +153,9 @@ include("config.php");
            </div>
            </div>
            <input type="hidden" value="1" id="num" name="num[]"/>
-          </div>
-          <div class="row kt-margin-b-20 text-center">
+           <div class="row kt-margin-b-20 text-center">
               <button type="button" tabindex="9" onclick="addOrders()" class="btn btn-info text-white">رفع و تاكيد الشحنه</button>
+           </div>
           </div>
           <div class="row">
           <div class="col-md-12" >
