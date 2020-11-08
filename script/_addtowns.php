@@ -3,7 +3,10 @@ session_start();
 error_reporting(0);
 header('Content-Type: application/json');
 require_once("_access.php");
-access([]);
+access([1]);
+if($_SESSION['user_details']['developer'] != 1){
+  die(json_encode(['success'=>$success]));
+}
 require_once("dbconnection.php");
 require_once("_crpt.php");
 
