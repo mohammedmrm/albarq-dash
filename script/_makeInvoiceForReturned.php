@@ -41,6 +41,7 @@ $order = $_REQUEST['order_no'];
 $client= $_REQUEST['client'];
 $status = $_REQUEST['status'];
 $store = $_REQUEST['store'];
+$ids = $_REQUEST['ids'];
 $start = trim($_REQUEST['start']);
 $end = trim($_REQUEST['end']);
 
@@ -78,6 +79,22 @@ $where = "where orders.confirm=1 and
                        ((order_status_id=6 or order_status_id=5) and (orders.invoice_id2=0))
                       )  and storage_id=1 and ";
   $filter = "";
+
+  ////---select orders olny
+  if(count($ids) > 0){
+      $a = 0;
+      foreach($ids as $id){
+        if($a==0){
+          $f = " orders.id =".$id;
+        }else{
+          $f .= " or orders.id =".$id;
+        }
+        $a++;
+     }
+     $f = " and ( ".$f." )";
+  }
+  $filter .= $f;
+
   if($client >= 1){
     $filter .= " and client_id=".$client;
   }
@@ -360,5 +377,5 @@ $pdf->Output(dirname(__FILE__).'/../invoice/'.$pdf_name, 'F');
 }else{
   $success = 2;
 }
-echo json_encode([$query,'num'=>$count,$data,'success'=>$success,'invoice'=>$pdf_name]);
+echo json_encode([$_REQUEST,'num'=>$count,$data,'success'=>$success,'invoice'=>$pdf_name]);
 ?>

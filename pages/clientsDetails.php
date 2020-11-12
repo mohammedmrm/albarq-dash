@@ -202,6 +202,7 @@ hr {
                 <table class="table table-striped  table-bordered table-hover table-checkable responsive no-wrap" id="tb-orders-reciverd">
 			       <thead>
 	  						<tr>
+										<th><input  id="allselector" type="checkbox"></th>
 										<th>رقم الشحنه</th>
 										<th>رقم الوصل</th>
 										<th>تاريخ الطلب</th>
@@ -242,6 +243,7 @@ hr {
                 	<table class="table  table-bordered  responsive no-wrap" id="tb-returned">
                 			       <thead>
                 	  						<tr>
+        										<th><input  id="allselector2" type="checkbox"></th>
         										<th>رقم الشحنه</th>
         										<th>رقم الوصل</th>
         										<th>تاريخ الطلب</th>
@@ -354,6 +356,7 @@ function  getStoreDetails(){
              $.each(v,function(){
                    content = content +
                        '<tr>'+
+                          '<td><input type="checkbox" name="id[]" rowid="'+this.id+'"></td>'+
                           '<td>'+this.id+'</td>'+
                           '<td>'+this.order_no+'</td>'+
                           '<td>'+this.dat+'</td>'+
@@ -426,6 +429,7 @@ function getStoreReturned(){
            $.each(res.data,function(){
                  content = content +
                        '<tr>'+
+                          '<td><input type="checkbox" name="id2[]" rowid="'+this.id+'"></td>'+
                           '<td>'+this.id+'</td>'+
                           '<td>'+this.order_no+'</td>'+
                           '<td>'+this.dat+'</td>'+
@@ -560,6 +564,17 @@ function storeInfo(){
   });
 }
 function makeInvoice() {
+      $('input[name="ids\[\]"]', form).remove();
+      var form = $('#storedataform');
+      $.each($('input[name="id\[\]"]:checked'), function(){
+         rowId = $(this).attr('rowid');
+         form.append(
+             $('<input>')
+                .attr('type', 'hidden')
+                .attr('name', 'ids[]')
+                .val(rowId)
+         );
+      });
  if(Number($("#store").val()) > 0){
         $.ajax({
             url:"script/_makeInvoiceForAll.php",
@@ -591,6 +606,17 @@ function makeInvoice() {
     }
 }
 function makeInvoiceForReturned() {
+     $('input[name="ids\[\]"]', form).remove();
+      var form = $('#storedataform');
+      $.each($('input[name="id2\[\]"]:checked'), function(){
+               rowId = $(this).attr('rowid');
+         form.append(
+             $('<input>')
+                .attr('type', 'hidden')
+                .attr('name', 'ids[]')
+                .val(rowId)
+         );
+      });
  if(Number($("#store").val()) > 0){
         $.ajax({
             url:"script/_makeInvoiceForReturned.php",
@@ -601,7 +627,7 @@ function makeInvoiceForReturned() {
             data: $("#storedataform").serialize()+"&orderStatus=6",
             success:function(res){
               $("#tb-returned").removeClass("loading");
-            console.log(res);
+              console.log(res);
                   if(res.success == 1){
                     getStoreReturned();
                     getInvoices();
@@ -692,6 +718,22 @@ function unpayInvoice(id){
 }
 $( document ).ready(function(){
 getStores($("#store"));
+$("#allselector2").change(function() {
+    var ischecked= $(this).is(':checked');
+    if(!ischecked){
+      $('input[name="id2\[\]"]').attr('checked', false);
+    }else{
+      $('input[name="id2\[\]"]').attr('checked', true);
+    }
+});
+$("#allselector").change(function() {
+    var ischecked= $(this).is(':checked');
+    if(!ischecked){
+      $('input[name="id\[\]"]').attr('checked', false);
+    }else{
+      $('input[name="id\[\]"]').attr('checked', true);
+    }
+});
 });
 
 </script>

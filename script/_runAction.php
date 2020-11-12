@@ -69,7 +69,7 @@ if(isset($_REQUEST['ids'])){
   if($action == 'status' && ( $ac == 1 || $ac == 2 || $ac == 3 || $ac == 5 || $ac == 6 || $ac == 7 || $ac == 8)){
     if($status >= 1){
       try{
-         $query = "update orders set order_status_id=? where id=?";
+         $query = "update orders set order_status_id=? where id=? and storage_id=0 and invoice_id=0";
          $query2 = "insert into tracking (order_id,order_status_id,date,staff_id) values(?,?,?,?)";
          $updateRecord = "update driver_records INNER join orders on orders.id = driver_records.order_id set driver_records.order_status_id = ? where driver_records.driver_id = orders.driver_id and driver_records.order_id = ?";
          $price = "update orders set new_price=? where id=?";

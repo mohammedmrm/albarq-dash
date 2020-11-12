@@ -44,6 +44,7 @@ $loan_outcome = $_REQUEST['loan_outcome'];
 $dev_price_b = $_REQUEST['dev_price_b'];
 $dev_price_o = $_REQUEST['dev_price_o'];
 $start = trim($_REQUEST['start']);
+$ids = $_REQUEST['ids'];
 $end = trim($_REQUEST['end']);
 if(!empty($end)) {
    $end .=" 23:59:59";
@@ -125,6 +126,21 @@ try{
   $filter .= " and (order_status_id =4 or order_status_id = 6 or order_status_id = 5)";
 
   //---------------------end of status
+  ////---select orders olny
+  if(count($ids) > 0){
+      $a = 0;
+      foreach($ids as $id){
+        if($a==0){
+          $f = " orders.id =".$id;
+        }else{
+          $f .= " or orders.id =".$id;
+        }
+        $a++;
+     }
+     $f = " and ( ".$f." )";
+  }
+  $filter .= $f;
+
   if($store >= 1){
     $filter .= " and store_id=".$store;
   }
@@ -429,5 +445,5 @@ $pdf->Output(dirname(__FILE__).'/../invoice/'.$pdf_name, 'F');
  $success = 2;
 
 }
-echo json_encode([$data,$count1,'num'=>$count,'success'=>$success,'invoice'=>$pdf_name,'msg'=>$msg]);
+echo json_encode([$_REQUEST,'num'=>$count,'success'=>$success,'invoice'=>$pdf_name,'msg'=>$msg]);
 ?>
