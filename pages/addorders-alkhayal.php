@@ -473,10 +473,35 @@ require_once("config.php");
 <script src="js/getClients.js" type="text/javascript"></script>
 <script src="js/getorderStatus.js" type="text/javascript"></script>
 <script src="js/getCities.js" type="text/javascript"></script>
-<script src="js/getTowns.js" type="text/javascript"></script>
+<!--<script src="js/getTowns.js" type="text/javascript"></script>-->
 <script src="js/scanner-jquery.js" type="text/javascript"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js" type="text/javascript"></script>
 <script type="text/javascript">
+function getTowns(elem,city){
+   $.ajax({
+     url:"script/_getTowns.php",
+     type:"POST",
+     data:{city: city},
+     beforeSent:function(){
+
+     },
+     success:function(res){
+       elem.html("");
+       if(city == 1){
+         elem.append("<option value=''>-- اختر --</option>");
+       }
+       $.each(res.data,function(){
+         elem.append("<option value='"+this.id+"'>"+this.name+"</option>");
+       });
+       elem.selectpicker('refresh');
+       console.log(res);
+     },
+     error:function(e){
+        elem.append("<option value='' class='bg-danger'>خطأ اتصل بمصمم النظام</option>");
+        console.log(e);
+     }
+   });
+}
 getCities($("#maincity"));
 getCities($("#city1"));
 getCities($("#town_city"));

@@ -9,7 +9,7 @@ if(empty($city)){
   $city =1;
 }
 try{
-  $query = "select * from towns where city_id=".$city;
+  $query = "select * from towns where city_id=".$city." order by main DESC";
   $data = getData($con,$query);
   $success="1";
 } catch(PDOException $ex) {
