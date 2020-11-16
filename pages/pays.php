@@ -216,7 +216,7 @@ $.ajax({
    $("#MoneyMainTable").html("");
    $.each(res.data,function(){
      $("#MoneyMainTable").append(
-       '<tr class="'+bg+'">'+
+       '<tr class="">'+
             '<td>'+this.reason+'</td>'+
             '<td>'+formatMoney(this.price)+'</td>'+
             '<td>'+this.date+'</td>'+
