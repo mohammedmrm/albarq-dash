@@ -41,11 +41,11 @@
           <div class="col-lg-3 kt-margin-b-10-tablet-and-mobile">
             <label>الفترة الزمنية :</label>
             <div class="input-daterange input-group" id="kt_datepicker">
-  				<input  onchange="getMoneyMain()" value="<?php echo date("Y-m-d",strtotime(' - 30 day'));?>" type="text" class="form-control kt-input" name="start" id="start" placeholder="من" data-col-index="5">
+  				<input type="date"  onchange="getMoneyMain()" value="<?php echo date("Y-m-d",strtotime(' - 30 day'));?>" type="text" class="form-control kt-input" name="start" id="start" placeholder="من" data-col-index="5">
   				<div class="input-group-append">
   					<span class="input-group-text"><i class="la la-ellipsis-h"></i></span>
   				</div>
-  				<input onchange="getMoneyMain()" value="<?php echo date("Y-m-d",strtotime(' + 1 day'));?>"  type="text" class="form-control kt-input" name="end" id="end" placeholder="الى" data-col-index="5">
+  				<input type="date"  onchange="getMoneyMain()" value="<?php echo date("Y-m-d",strtotime(' + 1 day'));?>"  type="text" class="form-control kt-input" name="end" id="end" placeholder="الى" data-col-index="5">
           	</div>
             </div>
           </div>
