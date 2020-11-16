@@ -238,7 +238,7 @@ if (event.which === 13 || event.keyCode === 13 ) {
 }
 });
 function getorders(){
-  options = `<option style="" value="">-- اختر الحالة --</option><option style="background-color:" value="1">تم تسجيل الطلب</option><option style="background-color:" value="2">جاهز للارسال</option><option style="background-color:" value="3">بالطريق مع المندوب</option><option style="background-color:#9CDE7C" value="4">تم تسليم الطلب</option><option style="background-color:#FFFFAC" value="5">استبدال الطلب</option><option style="background-color:" value="6">راجع جزئي</option><option style="background-color:" value="7">مؤجل </option><option style="background-color:" value="8">تغير عنوان</option><option style="background-color:#F2A69B" value="9">راجع كلي</option><option style="background-color:" value="10">راجع بمخزن المحافظه</option><option style="background-color:" value="11">راجع بالمخزن الرئيسي</option><option style="background-color:" value="12">راجع للعميل</option><option style="background-color:" value="13">اعادة ارسال</option>`;
+  options = `<option style="" value="_">-- اختر الحالة --</option><option style="background-color:" value="1">تم تسجيل الطلب</option><option style="background-color:" value="2">جاهز للارسال</option><option style="background-color:" value="3">بالطريق مع المندوب</option><option style="background-color:#9CDE7C" value="4">تم تسليم الطلب</option><option style="background-color:#FFFFAC" value="5">استبدال الطلب</option><option style="background-color:" value="6">راجع جزئي</option><option style="background-color:" value="7">مؤجل </option><option style="background-color:" value="8">تغير عنوان</option><option style="background-color:#F2A69B" value="9">راجع كلي</option><option style="background-color:" value="10">راجع بمخزن المحافظه</option><option style="background-color:" value="11">راجع بالمخزن الرئيسي</option><option style="background-color:" value="12">راجع للعميل</option><option style="background-color:" value="13">اعادة ارسال</option>`;
 $.ajax({
   url:"script/_getOrdersReport.php",
   type:"POST",
@@ -323,13 +323,13 @@ $.ajax({
      }
      $("#ordersTable").append(
        '<tr class="'+bg+'">'+
-            '<td>'+this.id+'<input type="hidden" value="'+this.id+'" name="ids['+i+']">'+
+            '<td>'+this.id+'<input type="hidden" value="'+this.id+'" name="ids[]">'+
             '</td>'+
             '<td>'+this.order_no+'</td>'+
             '<td>'+formatMoney(this.price)+'</td>'+
             '<td>'+this.store_name+'<br />'+(this.client_phone)+'</td>'+
             '<td>'+
-              '<select status="status" class="form-control" style="height:40px;" name="statuses['+i+']"  value="">'+
+              '<select status="status" class="form-control" style="height:40px;" name="statuses[]"  value="">'+
                 options+
               '</select>'+
             '</td>'+
