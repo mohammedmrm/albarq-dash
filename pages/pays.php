@@ -38,7 +38,7 @@
           </div>
           <fieldset><legend>فلتر</legend>
           <div class="row kt-margin-b-20">
-          <div class="col-lg-3 kt-margin-b-10-tablet-and-mobile">
+          <div class="col-lg-4 kt-margin-b-10-tablet-and-mobile">
             <label>الفترة الزمنية :</label>
             <div class="input-daterange input-group" id="kt_datepicker">
   				<input type="date"  onchange="getMoneyMain()" value="<?php echo date("Y-m-d",strtotime(' - 30 day'));?>" type="text" class="form-control kt-input" name="start" id="start" placeholder="من" data-col-index="5">
