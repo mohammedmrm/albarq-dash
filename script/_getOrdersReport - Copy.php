@@ -45,7 +45,6 @@ if(!empty($start)) {
 }
 
 try{
-  if($repated == 1 || $repated == 2){
   $count = "select count(*) as count from orders
             left join invoice on invoice.id = orders.invoice_id
             left join (
@@ -104,62 +103,12 @@ try{
               GROUP BY order_no
               HAVING COUNT(orders.id) > 1
             ) b on b.order_no = orders.order_no
-            ";
-}else{
-  $count = "select count(*) as count from orders
-            left join invoice on invoice.id = orders.invoice_id
             left join (
-             select order_no,count(*) as rep from orders
-              GROUP BY order_no
-              HAVING COUNT(orders.id) > 1
-            ) b on b.order_no = orders.order_no";
+              select max(id) as last_id,order_id from tracking group by order_id
+            ) c on c.order_id = orders.id
+            left join tracking on c.last_id = tracking.id
+            ";
 
-  $query = "select orders.*, date_format(orders.date,'%Y-%m-%d') as date,
-            if(to_city = 1,
-                 if(orders.order_status_id=9,0,if(client_dev_price.price is null,(".$config['dev_b']." - discount),(client_dev_price.price - discount))),
-                 if(orders.order_status_id=9,0,if(client_dev_price.price is null,(".$config['dev_o']." - discount),(client_dev_price.price - discount)))
-              )
-            + if(new_price > 500000 ,( (ceil(new_price/500000)-1) * ".$config['addOnOver500']." ),0)
-            + if(weight > 1 ,( (weight-1) * ".$config['weightPrice']." ),0)
-            + if(towns.center = 0 ,".$config['countrysidePrice'].",0)
-            as dev_price,
-            new_price -
-              (if(to_city = 1,
-                  if(orders.order_status_id=9,0,if(client_dev_price.price is null,(".$config['dev_b']." - discount),(client_dev_price.price - discount))),
-                  if(orders.order_status_id=9,0,if(client_dev_price.price is null,(".$config['dev_o']." - discount),(client_dev_price.price - discount)))
-                 )
-                 + if(new_price > 500000 ,( (ceil(new_price/500000)-1) * ".$config['addOnOver500']." ),0)
-                 + if(weight > 1 ,( (weight-1) * ".$config['weightPrice']." ),0)
-             ) as client_price,if(orders.order_status_id=9,0,discount) as discount,
-              if(orders.order_status_id <> 4 ,if(orders.storage_id =0,'عند المندوب',if(orders.storage_id =-1,'عند العميل',storage.name)),'عند الزبون') as storage_status,
-            clients.name as client_name,clients.phone as client_phone,if(orders.t_note is null,'',orders.t_note) as t_note,
-            stores.name as store_name,a.nuseen_msg,callcenter.name as callcenter_name,
-            cites.name as city,towns.name as town,branches.name as branch_name,to_branch.name as to_branch_name,
-            order_status.status as status_name,staff.name as staff_name, if(driver.name is null,'غير معروف',driver.name) as driver_name,if(driver.phone is null,'0',driver.phone)  as driver_phone,
-            orders.invoice_id as invoice_id,invoice.path as invoice_path,invoice.invoice_status as invoice_status,
-            orders.driver_invoice_id as driver_invoice_id,driver_invoice.path as driver_invoice_path,driver_invoice.invoice_status as driver_invoice_status
-            from orders left join
-            clients on clients.id = orders.client_id
-            left join cites on  cites.id = orders.to_city
-            left join stores on  orders.store_id = stores.id
-            left join towns on  towns.id = orders.to_town
-            left join branches on  branches.id = orders.from_branch
-            left join branches as to_branch on  to_branch.id = orders.to_branch
-            left join storage  on  storage.id = orders.storage_id
-            left join staff on  staff.id = orders.manager_id
-            left join staff as driver on  driver.id = orders.driver_id
-            left join staff as callcenter on  callcenter.id = orders.callcenter_id
-            left join order_status on  order_status.id = orders.order_status_id
-            left join invoice on invoice.id = orders.invoice_id
-            left join driver_invoice on driver_invoice.id = orders.driver_invoice_id
-            left JOIN client_dev_price on client_dev_price.client_id = orders.client_id AND client_dev_price.city_id = orders.to_city
-            left join (
-             select count(*) as nuseen_msg, max(order_id) as order_id from message
-             where is_client = 0 and admin_seen = 0
-             group by message.order_id
-            ) a on a.order_id = orders.id
-            ";
-}
   if($_SESSION['role'] == 1 || $_SESSION['role'] == 5 || $_SESSION['role'] == 9){
      $where = "where";
   }else{
