@@ -336,7 +336,7 @@ if (event.which === 13 || event.keyCode === 13 ) {
 getAllDrivers($("#driver"),$("#branch").val());
 function getorders(){
 $.ajax({
-  url:"script/_getOrdersReport.php",
+  url:"script/_getOrdersReport2.php",
   type:"POST",
   data:$("#ordertabledata").serialize(),
   beforeSend:function(){
