@@ -31,7 +31,7 @@ $v->addRuleMessages([
 
 $v->validate([
     'id'    => [$id,    'required|int'],
-    'name'    => [$name,    'required|min(2)|max(20)'],
+    'name'  => [$name,    'required|min(2)|max(250)'],
 ]);
 
 if($v->passes()) {

@@ -72,7 +72,7 @@ try{
                  + if(weight > 1 ,( (weight-1) * ".$config['weightPrice']." ),0)
              ) as client_price,if(orders.order_status_id=9,0,discount) as discount,
               if(orders.order_status_id <> 4 ,if(orders.storage_id =0,'عند المندوب',if(orders.storage_id =-1,'عند العميل',storage.name)),'عند الزبون') as storage_status,
-            clients.name as client_name,clients.phone as client_phone,if(tracking.note is null,'',tracking.note) as t_note,
+            clients.name as client_name,clients.phone as client_phone,if(orders.t_note is null,'',orders.t_note) as t_note,
             stores.name as store_name,a.nuseen_msg,callcenter.name as callcenter_name,
             cites.name as city,towns.name as town,branches.name as branch_name,to_branch.name as to_branch_name,
             order_status.status as status_name,staff.name as staff_name,b.rep as repated , if(driver.name is null,'غير معروف',driver.name) as driver_name,if(driver.phone is null,'0',driver.phone)  as driver_phone,

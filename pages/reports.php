@@ -179,7 +179,7 @@ legend
 	<div class="kt-portlet__head">
 		<div class="kt-portlet__head-label">
 			<h3 class="kt-portlet__head-title">
-				تقرير الطبات
+				تقرير الطلبيات
 			</h3>
 		</div>
 	</div>
