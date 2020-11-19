@@ -55,8 +55,21 @@ $success = 0;
 $manger = $_SESSION['userid'];
 
 $id = $_REQUEST['barcode'];
-$client_phone = $_REQUEST['client_phone'];
-$client_phone = $_REQUEST['drive_phone'];
+$number = $_REQUEST['order']['e_order_no'];
+$order_type = 'multi';
+$order_price = $_REQUEST['order']['e_price'];
+$order_discount= $_REQUEST['order']['e_discount'];
+$client = $_REQUEST['order']['e_client'];
+$store = $_REQUEST['order']['e_store'];
+$client_phone = $_REQUEST['order']['e_client_phone'];
+$customer_name = $_REQUEST['order']['e_customer_name'];
+$customer_phone = $_REQUEST['order']['e_customer_phone'];
+$city_to = $_REQUEST['order']['e_city'];
+$town_to = $_REQUEST['order']['e_town'];
+$order_note= $_REQUEST['order']['e_order_note'];
+$price = $_REQUEST['price'];
+$barcode = $_REQUEST['barcode'];
+$date= $_REQUEST['order']['e_date'];
 if(!validateDate($date)){
   $date_err = "تاريخ غير صالح";
 }else{
