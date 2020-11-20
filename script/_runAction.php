@@ -222,5 +222,5 @@ if(isset($_REQUEST['ids'])){
   $success="2";
 }
 
-echo (json_encode(array("success"=>$success,"data"=>$data,"response"=>json_decode(substr($response, 3)))));
+echo (json_encode(array("success"=>$success,"data"=>$data,"response"=>json_decode(substr($response, 3)),'ids'=>$ids)));
 ?>
