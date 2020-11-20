@@ -76,7 +76,7 @@ $order = setData($con,$sql,[$id]);
 if($v->passes()) {
   try{
     $sql   = 'update orders set remote_confirm="'.$confirm.'"';
-    $where = " where id =".$id." and barcode=".$barcode;
+    $where = " where id =".$id." and bar_code=".$barcode;
     $sql  .= $where;
     $result = setData($con,$sql);
   if($result > 0){

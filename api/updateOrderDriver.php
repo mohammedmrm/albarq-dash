@@ -52,7 +52,7 @@ $sql ="select * from orders where id = ?";
 $order = setData($con,$sql,[$id]);
 if($v->passes() && $date_err =="" ) {
   try{
-  $sql = 'update orders set remote_driver_phone='.$driver_phone.' where id ='.$id.' and barcode='.$barcode;
+  $sql = 'update orders set remote_driver_phone='.$driver_phone.' where id ='.$id.' and bar_code='.$barcode;
   $result = setData($con,$sql);
   if($result > 0){
     $success = 1;
