@@ -31,7 +31,7 @@ $manger = $_SESSION['userid'];
 
 $id = $_REQUEST['id'];
 $barcode = $_REQUEST['barcode'];
-$driver_phone= $_REQUEST['order']['driver_phone'];
+$driver_phone= $_REQUEST['driver_phone'];
 ;
 if(!validateDate($date)){
   $date_err = "تاريخ غير صالح";
