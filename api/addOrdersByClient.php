@@ -101,7 +101,7 @@ if($v->passes()) {
             $getdriver = getData($con,$sql,[$val['town_id']]);
             if(count($getdriver) > 0){
              $driver = $getdriver[0]['driver_id'];
-             $driver_phone = $getdriver[0]['driver_phone'];
+             $driver_phone = $getdriver[0]['phone'];
             }else{
              $driver_phone = '';
              $driver = 0;
