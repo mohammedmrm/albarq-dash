@@ -146,7 +146,7 @@ if($v->passes()) {
                          [$val['c_phone'],2,$driver,$val['order_no'],$val['order_type'],$val['weight'],$val['items'],
                           $val['price'],$dev_price,$mainbranch,
                           $client,$store,$val['customer_name'],
-                          $val['customer_phone'],$val['city_id'],$val['town_id'],$to_branch,$with_dev,$val['note'],$new_price,$val['addess'],$company,$confirm,$val['id']]);
+                          $val['customer_phone'],$val['city_id'],$val['town_id'],$to_branch,$with_dev,$val['note'],$new_price,$val['address'],$company,$confirm,$val['id']]);
            if($result > 1){
              $data[] = ['barcode'=>$result,'id'=>$val['id'],'order_no'=>$val['order_no'],'driver_id'=>$driver_phone];
              $success = 1;
