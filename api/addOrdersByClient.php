@@ -97,11 +97,13 @@ if($v->passes()) {
               $val['price'] = '-'.$val['note'];
               $val['note'] = $val['note']. " (تسليم مبلغ)";
             }
-            $sql = "select * from driver_towns where town_id = ?";
+            $sql = "select * from driver_towns left join staff on driver_towns.driver_id = staff.id where town_id = ?";
             $getdriver = getData($con,$sql,[$val['town_id']]);
             if(count($getdriver) > 0){
-            $driver = $getdriver[0]['driver_id'];
+             $driver = $getdriver[0]['driver_id'];
+             $driver_phone = $getdriver[0]['driver_phone'];
             }else{
+             $driver_phone = '';
              $driver = 0;
             }
             $sql = "select * from stores inner join clients on clients.id = stores.client_id where stores.id = ?";
@@ -134,19 +136,19 @@ if($v->passes()) {
             }
             $new_price = $val['price'];
 
-            $sql = 'insert into orders (isfrom,driver_id,order_no,order_type,weight,qty,
+            $sql = 'insert into orders (remote_client_phone,isfrom,driver_id,order_no,order_type,weight,qty,
                                     price,dev_price,from_branch,
                                     client_id,store_id,customer_name,
                                     customer_phone,to_city,to_town,to_branch,with_dev,note,new_price,address,company_id,confirm,remote_id)
                                     VALUES
-                                    (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
+                                    (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
            $result = setDataWithLastID($con,$sql,
-                         [2,$driver,$val['order_no'],$val['order_type'],$val['weight'],$val['items'],
+                         [$val['c_phone'],2,$driver,$val['order_no'],$val['order_type'],$val['weight'],$val['items'],
                           $val['price'],$dev_price,$mainbranch,
                           $client,$store,$val['customer_name'],
                           $val['customer_phone'],$val['city_id'],$val['town_id'],$to_branch,$with_dev,$val['note'],$new_price,$val['addess'],$company,$confirm,$val['id']]);
            if($result > 1){
-             $data[] = ['barcode'=>$result,'id'=>$val['id'],'order_no'=>$val['order_no']];
+             $data[] = ['barcode'=>$result,'id'=>$val['id'],'order_no'=>$val['order_no'],'driver_id'=>$driver_phone];
              $success = 1;
            }
             $add++;

@@ -26,13 +26,14 @@ foreach ($ids as $id){
 }
 $f = ' ('.preg_replace('/^ or/', '', $f).') ';
 
-$sql = "select orders.*,to_city as city_id, to_town as town_id, date_format(orders.date,'%Y-%m-%d') as dat,
+$sql = "select orders.*,clients.phone as c_phone,to_city as city_id, to_town as town_id, date_format(orders.date,'%Y-%m-%d') as dat,
             orders.price as price,
             cites.name as city,
             towns.name as town
             from orders
             left join cites on  cites.id = orders.to_city
             left join towns on  towns.id = orders.to_town
+            left join clients on  clients.id = orders.client_id
            where orders.confirm = 1 and ".$f." group by orders.id";
 $result =getData($con,$sql);
 if(count($res) == 1){
@@ -40,8 +41,8 @@ if(count($res) == 1){
     $response = json_decode($response, true);
     foreach($response['data'] as $k=>$val){
         if(isset($val['barcode'])){
-          $sql = "update orders set bar_code = ?,delivery_company_id=? where id=? ";
-          $update = setData($con,$sql,[$val['barcode'],$company,$val['id']]);
+          $sql = "update orders set bar_code = ?,delivery_company_id=?,remote_driver_phone=? where id=? ";
+          $update = setData($con,$sql,[$val['barcode'],$company,$val['driver_phone'],$val['id']]);
         }
       }
 }else{
