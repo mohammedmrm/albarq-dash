@@ -13,6 +13,18 @@ $ids = $_REQUEST['ids'];
 $ac = $_SESSION['role'];
 $success="0";
 $response=[];
+//---update
+function httpPost($url, $data)
+{
+    $curl = curl_init($url);
+    curl_setopt($curl, CURLOPT_POST, true);
+    curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+    curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($data));
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    $response = curl_exec($curl);
+    curl_close($curl);
+    return $response;
+}
 if(isset($_REQUEST['ids'])){
   if($action == 'asign' && ( $ac == 1 || $ac == 2 || $ac == 3 || $ac == 5)){
     if($driver >= 1){
@@ -70,18 +82,7 @@ if(isset($_REQUEST['ids'])){
       }
 
   }
-  //---update
-  function httpPost($url, $data)
-  {
-      $curl = curl_init($url);
-      curl_setopt($curl, CURLOPT_POST, true);
-      curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-      curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($data));
-      curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-      $response = curl_exec($curl);
-      curl_close($curl);
-      return $response;
-  }
+
   if($action == 'status' && ( $ac == 1 || $ac == 2 || $ac == 3 || $ac == 5 || $ac == 6 || $ac == 7 || $ac == 8)){
     if($status >= 1){
       try{
