@@ -52,10 +52,8 @@ $sql ="select * from orders where id = ?";
 $order = setData($con,$sql,[$id]);
 if($v->passes() && $date_err =="" ) {
   try{
-  $sql = 'update orders set remote_driver_phone='.$driver_phone;
-  $where = " where id ='".$id."' and barcode='".$barcode."'";
-  $sql .= $up.$where;
-  $result = setData($con,$sql,[$clinetdata['id']]);
+  $sql = 'update orders set remote_driver_phone='.$driver_phone.' where id ='.$id.' and barcode='.$barcode;
+  $result = setData($con,$sql);
   if($result > 0){
     $success = 1;
   }

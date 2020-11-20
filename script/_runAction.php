@@ -30,7 +30,7 @@ if(isset($_REQUEST['ids'])){
                 setData($con,$query2,[$v,3,date('Y-m-d H:i:s'),$_SESSION['userid']]);
                }
                $success="1";
-           }
+
                ///---sync
                $sql = "select isfrom ,clients.sync_token as token,clients.sync_dns as dns,staff.phone as driver_phone,
                        remote_id from orders
@@ -46,7 +46,8 @@ if(isset($_REQUEST['ids'])){
                        'id'=>$order[0]['remote_id'],
                        'barcode'=>$v,
                       ]);
-               }           
+               }
+           }
          }
       } catch(PDOException $ex) {
          $data=["error"=>$ex];
@@ -222,5 +223,5 @@ if(isset($_REQUEST['ids'])){
   $success="2";
 }
 
-echo (json_encode(array("success"=>$success,"data"=>$data,"response"=>json_decode(substr($response, 3)),'ids'=>$ids)));
+echo (json_encode(array("success"=>$success,"data"=>$data,"response"=>$response,'ids'=>$ids)));
 ?>
