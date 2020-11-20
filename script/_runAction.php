@@ -45,15 +45,14 @@ if(isset($_REQUEST['ids'])){
                        'id'=>$order[0]['remote_id'],
                        'barcode'=>$v,
                       ]);
+               }
            }
-         }
-           }
-
          }
       } catch(PDOException $ex) {
          $data=["error"=>$ex];
          $success="0";
       }
+     }
     }
    //---delete
   if($action == 'delete' && ( $ac == 1 || $ac == 2 || $ac == 3 || $ac == 5)){
