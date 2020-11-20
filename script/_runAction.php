@@ -30,21 +30,21 @@ if(isset($_REQUEST['ids'])){
                 setData($con,$query2,[$v,3,date('Y-m-d H:i:s'),$_SESSION['userid']]);
                }
                $success="1";
-           ///---sync
-           $sql = "select isfrom ,clients.sync_token as token,clients.sync_dns as dns,staff.phone as driver_phone,
-                   remote_id from orders
-                   inner join clients on clients.id = orders.client_id
-                   inner join staff on staff.id = orders.driver_id
-                   where orders.id=?";
-           $order = getData($con,$sql,[$v]);
-           if($order[0]['isfrom'] == 2){
-             $response = httpPost($order[0]['dns'].'/api/updateOrderDriver.php',
-                  [
-                   'token'=>$order[0]['token'],
-                   'driver_phone'=>$order[0]['driver_phone'],
-                   'id'=>$order[0]['remote_id'],
-                   'barcode'=>$v,
-                  ]);
+               ///---sync
+               $sql = "select isfrom ,clients.sync_token as token,clients.sync_dns as dns,staff.phone as driver_phone,
+                       remote_id from orders
+                       inner join clients on clients.id = orders.client_id
+                       inner join staff on staff.id = orders.driver_id
+                       where orders.id=?";
+               $order = getData($con,$sql,[$v]);
+               if($order[0]['isfrom'] == 2){
+                 $response = httpPost($order[0]['dns'].'/api/updateOrderDriver.php',
+                      [
+                       'token'=>$order[0]['token'],
+                       'driver_phone'=>$order[0]['driver_phone'],
+                       'id'=>$order[0]['remote_id'],
+                       'barcode'=>$v,
+                      ]);
            }
          }
            }
@@ -55,8 +55,7 @@ if(isset($_REQUEST['ids'])){
          $success="0";
       }
     }
-  }
-  //---delete
+   //---delete
   if($action == 'delete' && ( $ac == 1 || $ac == 2 || $ac == 3 || $ac == 5)){
 
       try{
