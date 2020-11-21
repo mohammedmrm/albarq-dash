@@ -162,6 +162,7 @@ legend
 										<th >رقم هاتف المستلم</th>
 										<th>عنوان المستلم</th>
 										<th>شركه التوصل</th>
+										<th>حاله التاكيد</th>
 										<th>مبلغ الوصل</th>
                                         <th>مبلغ التوصيل</th>
                                         <th>الخصم</th>
@@ -282,6 +283,15 @@ $.ajax({
    $("#orders_count").text(res.orders);
    i=0;
    $.each(res.data,function(){
+     if(this.remote_confirm == 1){
+           remote_confirm = "مؤكد";
+     }else if(this.remote_confirm == 3){
+           remote_confirm = "محوف مؤقت";
+     }else if(this.remote_confirm == 99){
+           remote_confirm = "محذوف نهائي";
+     }else{
+         remote_confirm = "غير مؤكد";
+     }
       $('#ordersTable').append(
        '<tr>'+
             '<td class=""><input type="checkbox" value="'+this.id+'" name="ids[]" rowid="'+this.id+'"><span></span></td>'+
@@ -291,6 +301,7 @@ $.ajax({
             '<td>'+phone_format(this.customer_phone)+'</td>'+
             '<td>'+this.city+'/'+this.town+'<br />'+this.address+'</td>'+
             '<td>'+this.dev_comp_name+'</td>'+
+            '<td>'+remote_confirm+'</td>'+
             '<td>'+formatMoney(this.total_price)+'</td>'+
             '<td>'+formatMoney(this.dev_price)+'</td>'+
             '<td>'+formatMoney(this.discount)+'</td>'+
