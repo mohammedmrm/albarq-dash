@@ -89,9 +89,9 @@ if($v->passes()) {
    $not=0;
    $add=0;
    foreach($Orders as $k=>$val){
-            $sql = "select * from orders where store_id=? and remote_id=?";
-            $check = getData($con,$sql,[$store,$val["id"]]);
-            if(count($check) >= 0){
+            $sql = "select * from orders where store_id=? and remote_id=? and price=?";
+            $check = getData($con,$sql,[$store,$val["id"],$val['price']]);
+            if(count($check) == 0){
             $no=$_REQUEST['num'][$k];
             if($money[$k] == 1){
               $val['price'] = '-'.$val['note'];
