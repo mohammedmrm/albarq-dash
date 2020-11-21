@@ -73,7 +73,7 @@ try{
     $filter .= " and to_city=".$city;
   }
   if($remote_confirm >= 0){
-    $filter .= " and remote_confirm=".$remote_confirm;
+    $filter .= " and orders.remote_confirm=".$remote_confirm;
   }
   if(($money_status == 1 || $money_status == 0) && $money_status !=""){
     $filter .= " and money_status='".$money_status."'";
@@ -154,5 +154,5 @@ if($success == '1'){
     }
   }
 }
-echo (json_encode(array($_REQUEST,"success"=>$success,"data"=>$data,'pages'=>$pages,'page'=>$page+1,'orders'=>$ps[0]['count'])));
+echo (json_encode(array($query,"success"=>$success,"data"=>$data,'pages'=>$pages,'page'=>$page+1,'orders'=>$ps[0]['count'])));
 ?>
