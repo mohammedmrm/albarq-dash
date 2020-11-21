@@ -3,6 +3,7 @@ session_start();
 error_reporting(0);
 header('Content-Type: application/json');
 require_once("_access.php");
+require_once("_httpRequest.php"); 
 access([1]);
 $id= $_REQUEST['id'];
 $success = 0;

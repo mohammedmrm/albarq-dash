@@ -8,6 +8,7 @@ $id= $_REQUEST['id'];
 $success = 0;
 $msg="";
 require_once("dbconnection.php");
+require_once("_httpRequest.php"); 
 use Violin\Violin;
 require_once('../validator/autoload.php');
 $v = new Violin;
@@ -21,7 +22,7 @@ if($v->passes()){
          $result = setData($con,$sql,[$id]);
          if($result > 0){
             $success = 1;
-            
+
            //--- snyc
            $sql = "select
                    isfrom ,
