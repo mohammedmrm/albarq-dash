@@ -72,7 +72,7 @@ try{
   if($city >= 1){
     $filter .= " and to_city=".$city;
   }
-  if($remote_confirm >= 0){
+  if($remote_confirm >= 0 && $remote_confirm='all'){
     $filter .= " and orders.remote_confirm=".$remote_confirm;
   }
   if(($money_status == 1 || $money_status == 0) && $money_status !=""){
