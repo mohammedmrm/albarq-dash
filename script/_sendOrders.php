@@ -41,7 +41,7 @@ if(count($res) == 1){
     $response = json_decode($response, true);
     foreach($response['data'] as $k=>$val){
         if(isset($val['barcode'])){
-          $sql = "update orders set bar_code = ?,delivery_company_id=?,remote_driver_phone=? where id=? ";
+          $sql = "update orders set bar_code = ?,delivery_company_id=?,remote_driver_phone=?, remote_confirm=0 where id=? ";
           $update = setData($con,$sql,[$val['barcode'],$company,$val['driver_phone'],$val['id']]);
         }
       }

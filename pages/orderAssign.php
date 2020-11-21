@@ -125,6 +125,16 @@ legend
                 </select>
             </div>
             <div class="col-lg-2 kt-margin-b-10-tablet-and-mobile">
+            	<label>تاكيد الشركه السانده:</label>
+            	<select id="remote_confirm" name="remote_confirm" onchange="getorders()" class="form-control kt-input" data-col-index="2">
+            		<option value="all">الكل</option>
+            		<option value="5">لم يتم التأكيد</option>
+            		<option value="1">مؤكد</option>
+            		<option value="3">محذوف مؤقت</option>
+            		<option value="99">محذوف نهائياً</option>
+                </select>
+            </div>
+            <div class="col-lg-2 kt-margin-b-10-tablet-and-mobile">
             	<label>بغداد او محافظات:</label>
             	<select id="BOrO" name="BOrO" onchange="getorders()" class="form-control kt-input" data-col-index="2">
             		<option value="all">الكل</option>

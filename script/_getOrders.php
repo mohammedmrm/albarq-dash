@@ -20,6 +20,7 @@ $end = trim($_REQUEST['end']);
 $limit = trim($_REQUEST['limit']);
 $page = trim($_REQUEST['p']);
 $BOrO  = trim($_REQUEST['BOrO']);
+$remote_confirm  = trim($_REQUEST['remote_confirm']);
 
 $assignStatus= trim($_REQUEST['assignStatus']);
 $money_status = trim($_REQUEST['money_status']);
@@ -70,6 +71,9 @@ try{
   }
   if($city >= 1){
     $filter .= " and to_city=".$city;
+  }
+  if($remote_confirm >= 0){
+    $filter .= " and remote_confirm=".$remote_confirm;
   }
   if(($money_status == 1 || $money_status == 0) && $money_status !=""){
     $filter .= " and money_status='".$money_status."'";
