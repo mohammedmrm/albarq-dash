@@ -21,6 +21,27 @@ if($v->passes()){
          $result = setData($con,$sql,[$id]);
          if($result > 0){
             $success = 1;
+            
+           //--- snyc
+           $sql = "select
+                   isfrom ,
+                   clients.sync_token as token,
+                   clients.sync_dns as dns,
+                   orders.id as id,
+                   orders.remote_id as remote_id
+                   from orders
+                   inner join clients on clients.id = orders.client_id
+                   where orders.id=?";
+           $order = getData($con,$sql,[$id]);
+           if($order[0]['isfrom'] == 2){
+             $response = httpPost($order[0]['dns'].'/api/updateOrderConfirm.php',
+                  [
+                   'token'=>$order[0]['token'],
+                   'confirm'=>1,
+                   'barcode'=>$order[0]['id'],
+                   'id'=>$order[0]['remote_id'],
+              ]);
+           }
          }else{
             $msg = "فشل الاعادة";
          }

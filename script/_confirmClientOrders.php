@@ -34,7 +34,7 @@ if(count($ids)){
              $response = httpPost($order[0]['dns'].'/api/updateOrderConfirm.php',
                   [
                    'token'=>$order[0]['token'],
-                   'comfirm'=>1,
+                   'confirm'=>1,
                    'barcode'=>$order[0]['id'],
                    'id'=>$order[0]['remote_id'],
               ]);
