@@ -34,14 +34,17 @@ if($v->passes()){
                    from orders
                    inner join clients on clients.id = orders.client_id
                    where orders.id=?";
+
            $order = getData($con,$sql,[$id]);
-           $response = httpPost($order[0]['dns'].'/api/updateOrderConfirm.php',
-                [
-                 'token'=>$order[0]['token'],
-                 'comfirm'=>1,
-                 'barcode'=>$order[0]['id'],
-                 'remote_id'=>$order[0]['remote_id'],
-            ]);
+           if($order[0]['isfrom'] == 2){
+             $response = httpPost($order[0]['dns'].'/api/updateOrderConfirm.php',
+                  [
+                   'token'=>$order[0]['token'],
+                   'comfirm'=>1,
+                   'barcode'=>$order[0]['id'],
+                   'id'=>$order[0]['remote_id'],
+              ]);
+           }
          }else{
             $msg = "فشل التأكيد, قد يكون مؤكد مسبقاً";
          }
@@ -49,5 +52,5 @@ if($v->passes()){
   $msg = "فشل التأكيد";
   $success = 0;
 }
-echo json_encode([$sql,$_SESSION['user_details']['branch_id'],'success'=>$success, 'msg'=>$msg]);
+echo json_encode([$sql,$_SESSION['user_details']['branch_id'],'success'=>$success, 'msg'=>$msg,'response'=>$response]);
 ?>

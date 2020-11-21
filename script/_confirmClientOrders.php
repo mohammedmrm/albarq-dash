@@ -30,13 +30,15 @@ if(count($ids)){
                    inner join clients on clients.id = orders.client_id
                    where orders.id=?";
            $order = getData($con,$sql,[$v]);
-           $response = httpPost($order[0]['dns'].'/api/updateOrderConfirm.php',
-                [
-                 'token'=>$order[0]['token'],
-                 'comfirm'=>1,
-                 'barcode'=>$order[0]['id'],
-                 'remote_id'=>$order[0]['remote_id'],
-            ]);
+           if($order[0]['isfrom'] == 2){
+             $response = httpPost($order[0]['dns'].'/api/updateOrderConfirm.php',
+                  [
+                   'token'=>$order[0]['token'],
+                   'comfirm'=>1,
+                   'barcode'=>$order[0]['id'],
+                   'id'=>$order[0]['remote_id'],
+              ]);
+           }
          }
       } catch(PDOException $ex) {
          $data=["error"=>$ex];
@@ -46,5 +48,5 @@ if(count($ids)){
   $msg = "فشل تأكيد الطلبيات";
   $success = 0;
 }
-echo json_encode(['success'=>$success, 'msg'=>$msg]);
+echo json_encode(['success'=>$success, 'msg'=>$msg,'response'=>$response]);
 ?>
