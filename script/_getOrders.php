@@ -154,5 +154,5 @@ if($success == '1'){
     }
   }
 }
-echo (json_encode(array("success"=>$success,"data"=>$data,'pages'=>$pages,'page'=>$page+1,'orders'=>$ps[0]['count'])));
+echo (json_encode(array($query,"success"=>$success,"data"=>$data,'pages'=>$pages,'page'=>$page+1,'orders'=>$ps[0]['count'])));
 ?>
