@@ -543,6 +543,37 @@ legend
 
     </div>
   </div>
+<div class="modal fade" id="storageTrackOrderModal" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">تتبع الادخال والاخراج المخزني</h4>
+        </div>
+        <div class="modal-body">
+		<!--begin::Portlet-->
+         <div class="kt-portlet kt-portlet--height-fluid">
+            <div class="kt-portlet__head">
+                <div class="kt-portlet__head-label">
+                    <h3 class="kt-portlet__head-title">تتبع الطلبية</h3>
+                </div>
+            </div>
+            <div class="kt-portlet__body">
+                <div class="kt-scroll ps ps--active-y" data-scroll="true" data-mobile-height="764" style="">
+                    <!--Begin::Timeline -->
+                    <div class="kt-timeline" id="orderStorageTimeline">
+                    </div>
+                    <!--End::Timeline 1 -->
+                <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; height: 946px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 300px;"></div></div></div>
+            </div>
+        </div>
+        <!--end::Portlet-->
+        </div>
+      </div>
+
+    </div>
+  </div>
 <div class="modal fade" id="receiptOrderModal" role="dialog">
     <div class="modal-dialog modal-lg">
       <!-- Modal content-->
@@ -861,6 +892,7 @@ $.ajax({
                 '<button type="button" class="btn btn-clean" onclick="editOrder('+this.id+')" data-toggle="modal" data-target="#editOrderModal"><span class="flaticon-edit"></sapn></button>'+
                 '<button type="button" class="btn btn-clean" onclick="deleteOrder('+this.id+')" data-toggle="modal" data-target="#deleteOrderModal"><span class="flaticon-delete"></sapn></button>'+
                 '<button type="button" class="btn btn-clean" onclick="OrderTracking('+this.id+')" data-toggle="modal" data-target="#trackOrderModal"><span class="flaticon-information"></span></button>'+
+                '<button type="button" class="btn btn-clean" onclick="OrderStorageTracking('+this.id+')" data-toggle="modal" data-target="#storageTrackOrderModal"><span class="flaticon-interface-3"></span></button>'+
                 '<button type="button" class="btn btn-clean" onclick="OrderReceipt('+this.id+')" data-toggle="modal" data-target="#receiptOrderModal"><span class="fa fa-barcode"></span></button>'+
                 '<button type="button" class="btn btn-clean" onclick="OrderChat('+this.id+');setMsgSeen('+this.id+')" data-toggle="modal" data-target="#chatOrderModal">'+
                    '<span class="kt-header__topbar-icon"> <i class="flaticon-chat"></i> <span class="kt-badge  kt-badge--notify kt-badge--sm '+notibg+'">'+nuseen_msg+'</span> </span>'+
@@ -1270,6 +1302,56 @@ function OrderTracking(id){
         });
        }else{
          $("#orderTimeline").append("<h2>لا يوجد معلومات</h2>")
+       }
+     },
+     error:function(e){
+       console.log(e);
+     }
+   });
+}
+
+function OrderStorageTracking(id){
+   $.ajax({
+     url:"script/_getOrderStorageTrack.php",
+     data:{id: id},
+     beforeSend:function(){
+
+     },
+     success:function(res){
+       $("#orderStorageTimeline").html('');
+       console.log(res);
+     if(res.success == 1){
+       $.each(res.data,function(){
+         if(this.status == 1){
+             status =" ادخال الى :  "+this.storage_name
+             icon = "flaticon-attachment kt-font-primary";
+             color = "primary";
+         } else {
+            icon = "flaticon-open-box kt-font-info";
+            color = "danger";
+            status =" اخراج من المخزن";
+         }
+         $("#orderStorageTimeline").append(
+                    '<div class="kt-timeline__item kt-timeline__item--'+color+'">'+
+                            '<div class="kt-timeline__item-section">'+
+                                '<div class="kt-timeline__item-section-border">'+
+                                    '<div class="kt-timeline__item-section-icon">'+
+                                        '<i class="'+ icon +'"></i>'+
+                                    '</div>'+
+                                '</div>'+
+                               '<span class="kt-timeline__item-datetime">'+this.date+'<br />'+this.hour+'</span>'+
+                            '</div>'+
+                            '<a href="" class="kt-timeline__item-text">'+
+                            '</a>'+
+                            '<span class="kt-timeline__item-info h5 text-info"> حدث من قبل : '+this.staff_name+'</span>'+
+                            '<div class="kt-timeline__item-info">'+
+                             status+
+                            '</div>'+
+                        '</div>'
+            );
+        });
+       }else{
+         $("#orderStorageTimeline").append("<h2>لا يوجد معلومات</h2>")
        }
      },
      error:function(e){
