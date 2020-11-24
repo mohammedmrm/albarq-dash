@@ -34,7 +34,7 @@ if($v->passes()) {
     $order=getData($con,$sql,[$id,$barcode]);
     if(count($order)>0){
       $sql = 'insert into message (message,order_id,from_id) values (?,?,?)';
-      $result = setData($con,$sql,[$message,$id,$userid]);
+      $result = setData($con,$sql,[$message,$id,1]);
       if($result > 0){
         $success = 1;
         $sql = "select staff.token as s_token, clients.token as c_token,order_no from orders inner join staff

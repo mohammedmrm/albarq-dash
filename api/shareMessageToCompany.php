@@ -33,8 +33,8 @@ if($v->passes()) {
     $sql="select * from orders where id=? and remote_id=?";
     $order=getData($con,$sql,[$id,$remote_id]);
     if(count($order)>0){
-      $sql = 'insert into message (message,order_id,from_id) values (?,?,?)';
-      $result = setData($con,$sql,[$message,$id,$userid]);
+      $sql = 'insert into message (message,order_id,from_id,is_client) values (?,?,?,?)';
+      $result = setData($con,$sql,[$message,$id,$userid,1]);
       if($result > 0){
         $success = 1;
         $sql = "select staff.token as s_token, clients.token as c_token,order_no from orders inner join staff
