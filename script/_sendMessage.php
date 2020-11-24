@@ -62,7 +62,7 @@ if($v->passes()) {
                    where orders.id=?";
            $order = getData($con,$sql,[$order_id]);
            if($order[0]['isfrom'] == 2 && $order[0]['remote_id'] > 1){
-             $response = httpPost($order[0]['dns'].'/api/shareMessageToClinet.php',
+             $response = httpPost($order[0]['dns'].'/api/shareMessageToClient.php',
                   [
                    'token'=>$order[0]['token'],
                    'message'=>$message,
