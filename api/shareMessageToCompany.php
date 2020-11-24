@@ -22,7 +22,7 @@ $message = $_REQUEST['message'];
 $v->validate([
     'remote_id'   => [$remote_id,  'required|int'],
     'id' => [$id,'required|int'],
-    'confirm'   => [$confirm,  'required|int'],
+    'message'   => [$message,  'required|min(1)'],
 ]);
 
 $response = [];
@@ -57,7 +57,7 @@ if($v->passes()) {
 $error = [
            'remote_id'=>implode($v->errors()->get('remote_id')),
            'id'=>implode($v->errors()->get('id')),
-           'confirm'=>implode($v->errors()->get('confirm')),
+           'message'=>implode($v->errors()->get('message')),
            ];
 }
 echo json_encode([$_REQUEST,'success'=>$success, 'error'=>$error]);
