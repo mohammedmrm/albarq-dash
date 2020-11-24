@@ -44,9 +44,46 @@ if($v->passes()) {
             staff.id = orders.driver_id
             inner join clients on clients.id = orders.client_id
             where orders.id = ?";
+
     $res =getData($con,$sql,[$order_id]);
     sendNotification([$res[0]['s_token'],$res[1]['s_token'],$res[0]['c_token']],[$order_id],'رساله جديد - '.$res[0]['order_no'],$message,"../orderDetails.php?o=".$order_id);
 
+           //--- snyc
+           $sql = "select
+                   isfrom ,
+                   clients.sync_token as token,
+                   clients.sync_dns as dns,
+                   orders.id as id,
+                   orders.remote_id as remote_id
+                   from orders
+                   inner join clients on clients.id = orders.client_id
+                   where orders.id=?";
+           $order = getData($con,$sql,[$order_id]);
+           if($order[0]['isfrom'] == 2 && $order[0]['remote_id'] > 1){
+             $response = httpPost($order[0]['dns'].'/api/shareMessageToClinet.php',
+                  [
+                   'token'=>$order[0]['token'],
+                   'message'=>$message,
+                   'barcode'=>$order[0]['id'],
+                   'id'=>$order[0]['remote_id'],
+              ]);
+           }else{
+             $sql = "select
+                     companies.sync_token as token,
+                     companies.dns as dns, orders.id as id,
+                     orders.remote_id as remote_id
+                     from orders
+                     left join companies on orders.delivery_company_id = companies.id
+                     where orders.id=?";
+             $order = getData($con,$sql,[$order_id]);
+             $response = httpPost($order[0]['dns'].'/api/shareMessageToCompany.php',
+                  [
+                   'token'=>$order[0]['token'],
+                   'message'=>$message,
+                   'remote_id'=>$order[0]['id'],
+                   'id'=>$order[0]['bar_code'],
+              ]);
+           }
   }
 }else{
   $error = [
@@ -54,5 +91,5 @@ if($v->passes()) {
            'order_id'=>implode($v->errors()->get('order_id')),
            ];
 }
-echo json_encode(['success'=>$success,'error'=>$error]);
+echo json_encode(['success'=>$success,'error'=>$error,'response'=>$response]);
 ?>
