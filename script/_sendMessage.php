@@ -71,7 +71,7 @@ if($v->passes()) {
              $sql = "select
                      companies.sync_token as token,
                      companies.dns as dns, orders.id as id,
-                     orders.remote_id as remote_id
+                     orders.bar_code as bar_code
                      from orders
                      left join companies on orders.delivery_company_id = companies.id
                      where orders.id=?";
