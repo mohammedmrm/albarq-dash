@@ -36,6 +36,7 @@ if($v->passes()) {
                              (?,?,?)';
   $result = setData($con,$sql,[$message,$order_id,$_SESSION['userid']]);
   if($result > 0){
+    try{
     $success = 1;
     $sql = "select staff.token as s_token, clients.token as c_token,order_no from orders inner join staff
             on
@@ -84,6 +85,10 @@ if($v->passes()) {
                    'id'=>$order[0]['bar_code'],
               ]);
            }
+  }
+  }catch(PDOException $ex) {
+     $error=["error"=>$ex];
+     $success="0";
   }
 }else{
   $error = [
