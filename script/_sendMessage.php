@@ -7,6 +7,7 @@ access([1,2,3,4,5,9,8,7]);
 require_once("_sendNoti.php");
 require_once("dbconnection.php");
 require_once("_crpt.php");
+require_once("_httpRequest.php");
 
 use Violin\Violin;
 require_once('../validator/autoload.php');
