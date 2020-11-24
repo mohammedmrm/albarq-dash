@@ -85,11 +85,12 @@ if($v->passes()) {
                    'id'=>$order[0]['bar_code'],
               ]);
            }
+    }catch(PDOException $ex) {
+       $error=["error"=>$ex];
+       $success="0";
+    }
   }
-  }catch(PDOException $ex) {
-     $error=["error"=>$ex];
-     $success="0";
-  }
+
 }else{
   $error = [
            'message'=> implode($v->errors()->get('message')),
