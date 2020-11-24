@@ -71,7 +71,7 @@ if($v->passes()) {
               ]);
            }else{
              $sql = "select
-                     companies.sync_token as token,
+                     companies.token as token,
                      companies.dns as dns, orders.id as id,
                      orders.bar_code as bar_code
                      from orders
