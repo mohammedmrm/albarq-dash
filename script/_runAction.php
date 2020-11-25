@@ -46,8 +46,8 @@ if(isset($_REQUEST['ids'])){
                ///---sync
                $sql = "select isfrom ,clients.sync_token as token,clients.sync_dns as dns,staff.phone as driver_phone,
                        remote_id from orders
-                       inner join clients on clients.id = orders.client_id
-                       inner join staff on staff.id = orders.driver_id
+                       left join clients on clients.id = orders.client_id
+                       left join staff on staff.id = orders.driver_id
                        where orders.id=?";
                $order = getData($con,$sql,[$v]);
                if($order[0]['isfrom'] == 2){
