@@ -79,7 +79,7 @@
               $r[] = $expo->notify([$channelName], $notification);
             }
         } catch (Exception $e) {
-            $r[] = [$e,'error'];
+            //$r[] = [$e,'error'];
         }
 
         $ch = curl_init();
