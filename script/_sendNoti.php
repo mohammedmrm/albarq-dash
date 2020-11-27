@@ -49,8 +49,7 @@
             'Content-Type: application/json'
         ];
 
-        try{
-            $notification = [
+        $notification = [
              'body'   => $body,
              'title'  =>$title,
              "sound"=>'default',
@@ -68,17 +67,13 @@
               if (substr($v, 0, 17) == 'ExponentPushToken') {
                 $channelName = 'alnahr_user_'.$ids[$i];
                 // You can quickly bootup an expo instance
-                $expo = ExponentPhpSDK\Expo::normalSetup();
+                $expo = \ExponentPhpSDK\Expo::normalSetup();
                 $recipient= $v;
                 $expo->subscribe($channelName, $recipient);
                 $r = $expo->notify([$channelName], $notification);
               }
               $i++;
             }
-            // Notify an interest with a notification
-         } catch (Exception $e) {
-              $r = [$e,'error'];
-        }
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL,$fcmUrl);
