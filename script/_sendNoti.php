@@ -55,6 +55,7 @@
              'title'  =>$title,
              "sound"=>'default',
              'subtitle'=> $order,
+             '_displayInForeground'=>true,
              'vibrate'=> [300,100,400,100,400,100,400],
              'vibrationPattern'=> [300,100,400,100,400,100,400],
              'data' => $extraNotificationData
