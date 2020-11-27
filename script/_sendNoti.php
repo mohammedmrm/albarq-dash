@@ -76,10 +76,10 @@
             }
             // Notify an interest with a notification
             if($channelName){
-              $r = $expo->notify([$channelName], $notification);
+              $r[] = $expo->notify([$channelName], $notification);
             }
         } catch (Exception $e) {
-            $r = [$e,'error'];
+            $r[] = [$e,'error'];
         }
 
         $ch = curl_init();
