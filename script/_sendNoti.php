@@ -71,15 +71,13 @@
                 $expo = ExponentPhpSDK\Expo::normalSetup();
                 $recipient= $v;
                 $expo->subscribe($channelName, $recipient);
+                $r = $expo->notify([$channelName], $notification);
               }
               $i++;
             }
             // Notify an interest with a notification
-            if(!empty($channelName)){
-              $r[] = $expo->notify([$channelName], $notification);
-            }
-        } catch (Exception $e) {
-             $r[] = [$e,'error'];
+         } catch (Exception $e) {
+              $r = [$e,'error'];
         }
 
         $ch = curl_init();
