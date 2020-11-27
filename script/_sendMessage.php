@@ -48,7 +48,7 @@ if($v->passes()) {
             where orders.id = ?";
 
     $res =getData($con,$sql,[$order_id]);
-    sendNotification([$res[0]['s_token'],$res[1]['s_token'],$res[0]['c_token']],[$order_id],'رساله جديد - '.$res[0]['order_no'],$message,"../orderDetails.php?o=".$order_id);
+    $f = sendNotification([$res[0]['s_token'],$res[1]['s_token'],$res[0]['c_token']],[$order_id],'رساله جديد - '.$res[0]['order_no'],$message,"../orderDetails.php?o=".$order_id);
 
            //--- snyc
            $sql = "select
@@ -98,5 +98,5 @@ if($v->passes()) {
            'order_id'=>implode($v->errors()->get('order_id')),
            ];
 }
-echo json_encode(['success'=>$success,'error'=>$error,'response'=>$response]);
+echo json_encode(['success'=>$success,'error'=>$error,'response'=>$response,$f]);
 ?>
