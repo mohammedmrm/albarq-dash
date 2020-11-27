@@ -90,7 +90,7 @@
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fcmNotification));
         $result = curl_exec($ch);
         curl_close($ch);
-         $f = [$result,$r,$recipient,$channelName,substr($v, 0, 17)];
+         $f = [$result,$r,$recipient,$channelName,substr($recipient, 0, 17)];
         return $f;
  }
 ?>
