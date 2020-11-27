@@ -49,7 +49,8 @@
             'Content-Type: application/json'
         ];
 
-        $notification = [
+        try{
+            $notification = [
              'body'   => $body,
              'title'  =>$title,
              "sound"=>'default',
@@ -74,6 +75,10 @@
               }
               $i++;
             }
+            // Notify an interest with a notification
+         } catch (Exception $e) {
+              $r = [$e,'error'];
+         }
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL,$fcmUrl);
@@ -84,7 +89,7 @@
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fcmNotification));
         $result = curl_exec($ch);
         curl_close($ch);
-         $f = [$result,$r,$recipient,$channelName,substr($recipient, 0, 17)];
+         $f = [$result,$r,$recipient,$channelName];
         return $f;
  }
 ?>
