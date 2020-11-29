@@ -200,6 +200,10 @@ legend
             	<label>احالة:</label>
             	<input type="button" onclick="sendOrders()" class="form-control btn btn-success" value="نفذ" />
             </div>
+            <div class="col-lg-2 kt-margin-b-10-tablet-and-mobile">
+            	<label>احالة الى شركه همسه:</label>
+            	<input type="button" onclick="sendOrdershamsa()" class="form-control btn btn-success" value="نفذ" />
+            </div>
           </div>
           </fieldset>
         </form>
@@ -435,6 +439,22 @@ function sendOrders(){
         error:function(e){
            Toast.error("خطأ!");
           console.log(e);
+        }
+      });
+}
+function sendOrdershamsa(){
+      $.ajax({
+        url:"script/_sendOrders-hamsa.php",
+        type:"POST",
+        data:$("#ordertabledata").serialize(),
+        success:function(res){
+          console.log(res);
+          Toast.success("تم الاحاله ");
+          getorders();
+        },
+        error:function(e){
+           Toast.error("خطأ!");
+           console.log(e);
         }
       });
 }

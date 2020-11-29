@@ -66,7 +66,8 @@
             $i=0;
             foreach($token as $v){
               if (substr($v, 0, 17) == 'ExponentPushToken') {
-                $channelName = 'alnahr_users_'.$ids[$i];
+                //$channelName = 'alnahr_users_'.$ids[$i];
+                $channelName = uniqid();
                 // You can quickly bootup an expo instance
                 $expo = ExponentPhpSDK\Expo::normalSetup();
                 $recipient= $v;

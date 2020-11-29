@@ -1,7 +1,7 @@
 <?php
 session_start();
 header('Content-Type: application/json');
-//error_reporting(0);
+error_reporting(0);
 require_once("_access.php");
 access([1,2,3,4,5,6]);
 require_once("dbconnection.php");
@@ -43,14 +43,20 @@ $sql = "select orders.*,
            where orders.confirm = 1 and ".$f." group by orders.id";
 $result =getData($con,$sql);
 if(count($res) == 1){
-    $response = httpPost($res[0]['dns'].'/IntegrationWs/createCases/'.$res[0]['token'],['store'=>$store,'orders'=>$result]);
-    $response = json_decode($response, true);
-    foreach($response['data'] as $k=>$val){
+  $data = json_encode([
+    'source'=>'فرع بابل',
+    'custName'=>$config['Company_name'],
+    'custHp'=>$config['Company_phone'],
+    'casesList'=>$result]);
+    $response = httpPost($res[0]['dns'].'/IntegrationWs/createCases/'.$res[0]['token'],
+    $data);
+    //$response = json_decode($response, true);
+/*    foreach($response['data'] as $k=>$val){
         if(isset($val['barcode'])){
           $sql = "update orders set bar_code = ?, delivery_company_id=?,remote_driver_phone=?, remote_confirm=0 where id=? ";
           $update = setData($con,$sql,[$val['barcode'],$company,$val['driver_phone'],$val['id']]);
         }
-      }
+      }*/
 }else{
   $msg = "يجب اختيار شركة التوصيل";
 }
