@@ -43,13 +43,12 @@ $sql = "select orders.*,
            where orders.confirm = 1 and ".$f." group by orders.id";
 $result =getData($con,$sql);
 if(count($res) == 1){
-  $data = json_encode([
+    $response = httpPost($res[0]['dns'].'/IntegrationWs/createCases/'.$res[0]['token'],
+    [
     'source'=>'فرع بابل',
     'custName'=>$config['Company_name'],
     'custHp'=>$config['Company_phone'],
     'casesList'=>$result]);
-    $response = httpPost($res[0]['dns'].'/IntegrationWs/createCases/'.$res[0]['token'],
-    $data);
     //$response = json_decode($response, true);
 /*    foreach($response['data'] as $k=>$val){
         if(isset($val['barcode'])){
