@@ -73,6 +73,7 @@ foreach($Orders as $k=>$val){
           'store'         => [$store,'required|int'],
           'customer_name' => [$val['customer_name'], 'max(200)'],
           'customer_phone'=> [$val['customer_phone'],'required|isPhoneNumber'],
+          'client_phone'  => [$val['client_phone'],'required|isPhoneNumber'],
           'city'          => [$val['city_id'],'required|int'],
           'town'          => [$val['town_id'],'int'],
           'order_note'    => [$val['note'],   'max(250)'],
@@ -147,7 +148,7 @@ if($v->passes()) {
                                     VALUES
                                     (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
            $result = setDataWithLastID($con,$sql,
-                         [0,2,$driver,$val['order_no'],'عام',$val['weight'],$val['items'],
+                         [$val['client_phone'],2,$driver,$val['order_no'],'عام',$val['weight'],$val['items'],
                           $val['price'],$dev_price,$mainbranch,
                           $client,$store,$val['customer_name'],
                           $val['customer_phone'],$val['city_id'],$val['town_id'],$to_branch,$with_dev,$val['note'],$new_price,$val['address'],$company,$confirm,0]);
@@ -179,6 +180,7 @@ $error = [
            'store'=>implode($v->errors()->get('store')),
            'customer_name'=>implode($v->errors()->get('customer_name')),
            'customer_phone'=>implode($v->errors()->get('customer_phone')),
+           'client_phone'=>implode($v->errors()->get('client_phone')),
            'city'=>implode($v->errors()->get('city')),
            'town'=>implode($v->errors()->get('town')),
            'order_note'=>implode($v->errors()->get('order_note')),
