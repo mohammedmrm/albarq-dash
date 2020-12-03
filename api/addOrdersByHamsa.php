@@ -91,7 +91,7 @@ if($v->passes()) {
    $add=0;
    foreach($Orders as $k=>$val){
             $sql = "select * from orders where store_id=? and remote_id=? and price=?";
-            $check = getData($con,$sql,[$store,$val["id"],$val['price']]);
+            $check = 0;
             if(count($check) == 0){
             $no=$_REQUEST['num'][$k];
             if($money[$k] == 1){
@@ -154,7 +154,7 @@ if($v->passes()) {
                           $client,$store,$val['customer_name'],
                           $val['customer_phone'],$val['city_id'],$val['town_id'],$to_branch,$with_dev,$val['note'],$new_price,$val['address'],$company,$confirm,0]);
            if($result > 1){
-             $data[] = ['barcode'=>$result,'id'=>$val['id'],'order_no'=>$val['order_no'],'driver_phone'=>$driver_phone];
+             $data[] = ['barcode'=>$result,'id'=>0,'order_no'=>$val['order_no'],'driver_phone'=>$driver_phone];
              $success = 1;
            }
             $add++;
