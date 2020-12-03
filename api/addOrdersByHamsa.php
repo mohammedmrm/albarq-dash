@@ -68,7 +68,6 @@ foreach($Orders as $k=>$val){
   if($by == 'store'){
       $v->validate([
           'order_no'      => [$val['order_no'], 'required|int|min(1)|max(100)'],
-          'order_type'    => [$val['cat_name'], 'required|min(3)|max(10)'],
           'weight'        => [$val['weight'],   'int'],
           'qty'           => [$val['qty'],'int'],
           'order_price'   => [$val['price'],"isPrice"],
@@ -150,7 +149,7 @@ if($v->passes()) {
                                     VALUES
                                     (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
            $result = setDataWithLastID($con,$sql,
-                         [$val['c_phone'],2,$driver,$val['order_no'],$val['order_type'],$val['weight'],$val['items'],
+                         [$val['c_phone'],2,$driver,$val['order_no'],'عام',$val['weight'],$val['items'],
                           $val['price'],$dev_price,$mainbranch,
                           $client,$store,$val['customer_name'],
                           $val['customer_phone'],$val['city_id'],$val['town_id'],$to_branch,$with_dev,$val['note'],$new_price,$val['address'],$company,$confirm,$val['id']]);
