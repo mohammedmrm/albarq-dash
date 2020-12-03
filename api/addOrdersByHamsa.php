@@ -1,7 +1,7 @@
 <?php
 ob_start();
 session_start();
-//error_reporting(0);
+error_reporting(0);
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 require_once("_apiAccess.php");
@@ -69,6 +69,7 @@ foreach($Orders as $k=>$val){
           'order_no'      => [$val['order_no'], 'required|int|min(1)|max(100)'],
           'weight'        => [$val['weight'],   'int'],
           'qty'           => [$val['qty'],'int'],
+          'id'            => [$val['id'],'int'],
           'order_price'   => [$val['price'],"required|isPrice"],
           'store'         => [$store,'required|int'],
           'customer_name' => [$val['customer_name'], 'max(200)'],
@@ -151,7 +152,7 @@ if($v->passes()) {
                          [$val['client_phone'],2,$driver,$val['order_no'],'عام',$val['weight'],$val['items'],
                           $val['price'],$dev_price,$mainbranch,
                           $client,$store,$val['customer_name'],
-                          $val['customer_phone'],$val['city_id'],$val['town_id'],$to_branch,$with_dev,$val['note'],$new_price,$val['address'],$company,$confirm,0]);
+                          $val['customer_phone'],$val['city_id'],$val['town_id'],$to_branch,$with_dev,$val['note'],$new_price,$val['address'],$company,$confirm,$val['id']]);
            if($result > 1){
              $data[] = ['barcode'=>$result,'id'=>0,'order_no'=>$val['order_no'],'driver_phone'=>$driver_phone];
              $success = 1;
@@ -173,6 +174,7 @@ if($v->passes()) {
 $error = [
            'no'=>$no,
            'order_no'=>implode($v->errors()->get('order_no')),
+           'id'=>implode($v->errors()->get('id')),
            'order_type'=>implode($v->errors()->get('order_type')),
            'weight'=>implode($v->errors()->get('weight')),
            'qty'=>implode($v->errors()->get('qty')),
@@ -187,6 +189,6 @@ $error = [
            'order_address'=>implode($v->errors()->get('order_address'))
            ];
 }
-//ob_end_clean();
+ob_end_clean();
 echo json_encode(['success'=>$success,'error'=>$error,"count"=>$count,'data'=>$data]);
 ?>
