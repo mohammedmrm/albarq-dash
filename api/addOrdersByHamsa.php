@@ -91,7 +91,7 @@ if($v->passes()) {
    $add=0;
    foreach($Orders as $k=>$val){
             $sql = "select * from orders where store_id=? and remote_id=? and price=?";
-            $check = 0;
+            $check = [];
             if(count($check) == 0){
             $no=$_REQUEST['num'][$k];
             if($money[$k] == 1){
