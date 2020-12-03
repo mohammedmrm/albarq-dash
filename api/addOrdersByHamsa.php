@@ -69,7 +69,7 @@ foreach($Orders as $k=>$val){
           'order_no'      => [$val['order_no'], 'required|int|min(1)|max(100)'],
           'weight'        => [$val['weight'],   'int'],
           'qty'           => [$val['qty'],'int'],
-          'order_price'   => [$val['price'],"isPrice"],
+          'order_price'   => [$val['price'],"required|isPrice"],
           'store'         => [$store,'required|int'],
           'customer_name' => [$val['customer_name'], 'max(200)'],
           'customer_phone'=> [$val['customer_phone'],'required|isPhoneNumber'],
@@ -86,6 +86,7 @@ foreach($Orders as $k=>$val){
 if($v->passes()) {
    $not=0;
    $add=0;
+   try{
    foreach($Orders as $k=>$val){
             $sql = "select * from orders where store_id=? and remote_id=? and price=?";
             $check = [];
@@ -162,6 +163,11 @@ if($v->passes()) {
    }
     $count['added']=$add;
     $count['not']=$not;
+    } catch(PDOException $ex) {
+       $error=["error"=>$ex];
+       $success="0";
+       $msg = "Query Error";
+    }
 }else{
 $error = [
            'no'=>$no,
