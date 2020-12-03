@@ -65,8 +65,7 @@ if(empty($number)){
 $confirm = 5;
 $no = 0;
 foreach($Orders as $k=>$val){
-  if($by == 'store'){
-      $v->validate([
+    $v->validate([
           'order_no'      => [$val['order_no'], 'required|int|min(1)|max(100)'],
           'weight'        => [$val['weight'],   'int'],
           'qty'           => [$val['qty'],'int'],
@@ -79,8 +78,6 @@ foreach($Orders as $k=>$val){
           'order_note'    => [$val['note'],   'max(250)'],
           'order_address' => [$val['address'],'max(250)'],
       ]);
-
-      }
       if(!$v->passes()) {
         break;
       }
