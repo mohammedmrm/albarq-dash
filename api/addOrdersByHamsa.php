@@ -183,6 +183,5 @@ $error = [
            ];
 }
 ob_end_clean();
-print_r($_REQUEST);
 echo json_encode(['success'=>$success,'error'=>$error,"count"=>$count,'data'=>$data]);
 ?>
