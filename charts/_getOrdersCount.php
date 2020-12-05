@@ -70,6 +70,7 @@ function httpPost($url, $data)
     return $response;
 }
 /// --- المعلق
+$j=0;
 foreach($res as $val){
    ///-- auto status update ---
    if($val['active'] == 1){
@@ -116,7 +117,7 @@ foreach($res as $val){
                        ) a on a.order_id = orders.id
               SET order_status_id = 4
               WHERE (orders.order_status_id = 7 ) and driver_id > 0 and invoice_id = 0 and driver_invoice_id = 0 and confirm=1 and to_city = '".$val['city_id']."' and
-              DATE(a.date) < DATE_SUB(CURDATE(), INTERVAL ".$val['p_days']." DAY) AND ( SELECT @uids := CONCAT_WS(',', id, @uids)) limit 500
+              DATE(a.date) < DATE_SUB(CURDATE(), INTERVAL ".$val['p_days']." DAY) AND ( SELECT @uids := CONCAT_WS(',', id, @uids)) limit 200;
               SELECT @uids as ids;";
    $ids = getAllUpdatedIds($mysqlicon,$auto);
    $idss = explode (",", $ids[0][0]);
@@ -154,7 +155,7 @@ foreach($res as $val){
                        ) a on a.order_id = orders.id
               SET order_status_id = 4 , new_price = price
               WHERE (orders.order_status_id = 9 ) and driver_id > 0 and invoice_id = 0 and driver_invoice_id = 0 and storage_id=0 and confirm=1 and to_city = '".$val['city_id']."' and
-              DATE(a.date) < DATE_SUB(CURDATE(), INTERVAL ".$val['r_days']." DAY) AND ( SELECT @uids := CONCAT_WS(',', id, @uids)) limit 100
+              DATE(a.date) < DATE_SUB(CURDATE(), INTERVAL ".$val['r_days']." DAY) AND ( SELECT @uids := CONCAT_WS(',', id, @uids)) limit 100;
               SELECT @uids as ids;";
    $ids = getAllUpdatedIds($mysqlicon,$auto);
    $idss = explode (",", $ids[0][0]);
@@ -193,5 +194,5 @@ foreach($res as $val){
   $delete = "delete FROM storage_tracking WHERE date < DATE_SUB(NOW(), INTERVAL 6 MONTH)";
   setData($con,$delete);
 
-echo json_encode(['data'=>$result,$j,"response"=>json_decode(substr($response, 3))]);
+echo json_encode(['data'=>$result,$idss,"response"=>json_decode(substr($response, 3))]);
 ?>
