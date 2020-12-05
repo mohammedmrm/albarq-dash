@@ -8,9 +8,9 @@ require_once("dbconnection.php");
 $config = $_REQUEST['config'];
 try{
   foreach($config as $v){
-   if($v['days'] > 1 and $v['city']){
-     $sql = "update auto_update set days=?  where city_id = ?";
-     $res=setData($con,$sql,[$v['days'],$v['city']]);
+   if($v['days'] > 1 and $v['p_days'] > 1 and $v['r_days'] > 1and $v['city']){
+     $sql = "update auto_update set days=?, p_days=?, r_days=?  where city_id = ?";
+     $res=setData($con,$sql,[$v['days'],$v['p_days'],$v['r_days'],$v['city']]);
      $success = 1;
    }
   }

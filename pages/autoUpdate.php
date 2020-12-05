@@ -33,7 +33,9 @@ table.dataTable tr th.select-checkbox.selected::after {
 	  						<tr>
 	 							<th>ID</th>
 								<th>المدينة</th>
-								<th>بعد مضي</th>
+								<th>بعد مضي (المعلق)</th>
+								<th>بعد مضي (المؤجل)</th>
+								<th>بعد مضي (الراجع)</th>
 								<th>الحالة</th>
                             </tr>
       	            </thead>
@@ -80,6 +82,12 @@ $.ajax({
             '<td>'+
                 '<input name="config['+i+'][days]" type="number" class="form-control" value="'+this.days+'">'+
                 '<input name="config['+i+'][city]" type="hidden" class="form-control" value="'+this.city_id+'">'+
+            '</td>'+
+            '<td>'+
+                '<input name="config['+i+'][p_days]" type="number" class="form-control" value="'+this.p_days+'">'+
+            '</td>'+
+            '<td>'+
+                '<input name="config['+i+'][r_days]" type="number" class="form-control" value="'+this.r_days+'">'+
             '</td>'+
             '<td>'+
                   btn+

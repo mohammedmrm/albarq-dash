@@ -5,7 +5,7 @@ require_once("_access.php");
 access([1,2,3,4,5,6,7,8,9,10,11,12]);
 require_once("dbconnection.php");
 try{
-  $query = "SELECT * FROM `auto_update` INNER join cites on city_id = cites.id";
+  $query = "SELECT `auto_update`.*, cites.name  FROM `auto_update` INNER join cites on city_id = cites.id";
   $data = getData($con,$query);
   $success="1";
 } catch(PDOException $ex) {
