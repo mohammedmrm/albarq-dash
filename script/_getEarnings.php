@@ -49,7 +49,7 @@ if($_SESSION['user_details']['role_id'] == 1){
                         )
                    ),0
                 )
-             ) as with_company,sum(a.balance) as balance,
+             ) as with_company,min(a.balance) as balance,
              sum(if(order_status_id = 4 or order_status_id = 5 or order_status_id = 6,new_price,0)) as income,
              sum(if(order_status_id=9,0,discount)) as discount,
              count(orders.id) as orders,
@@ -97,7 +97,7 @@ if($_SESSION['user_details']['role_id'] == 1){
                            if(order_status_id=9,0,if(client_dev_price.price is null,('.$config['dev_o'].' - discount),(client_dev_price.price - discount)))
                       )
                 ),0)
-             ) as with_company,sum(a.balance) as balance,
+             ) as with_company,min(a.balance) as balance,
             sum(if(order_status_id = 4 or order_status_id = 5 or order_status_id = 6,new_price,0)) as income,
             sum(if(order_status_id=9,0,discount)) as discount,
             count(orders.id) as orders,
@@ -120,14 +120,23 @@ if($_SESSION['user_details']['role_id'] == 1){
 $sql1 = $sql."  GROUP by  orders.client_id";
 $data =  getData($con,$sql1);
 $total=  getData($con,$sql);
+$sql = 'SELECT sum(if(type = 1,price,-price)) as balance, client_id
+               from loans
+               left join clients on clients.id = loans.client_id
+               where clients.branch_id ="'.$_SESSION['user_details']['branch_id'].'" and date between "'.$start.'" and "'.$end.'"
+               ';
+$loans =  getData($con,$sql);
+$total[0]['total_blance'] = $loans[0]['balance'];
+$sql2 = 'SELECT sum(price) as pays FROM `pays` where date between "'.$start.'" and "'.$end.'"';
+$pay=  getData($con,$sql2);
+$total[0]['pays'] = $pay[0]['pays'];
 
-if($_SESSION['user_details']['role_id'] == 1){
-    $sql2 = 'SELECT sum(price) as pays FROM `pays` where date between "'.$start.'" and "'.$end.'"';
-    $pay=  getData($con,$sql);
-    $total[0]['pays'] = $pay[0]['pays'];
-}else{
-   $total[0]['pays'] = 0;
-}
+$sql = 'select sum(new_price) as with_driver from orders
+where date between "'.$start.'" and "'.$end.'" and driver_invoice_id=0
+and (order_status_id = 4 or order_status_id=5 or order_status_id=6)';
+
+$withdriver = getData($con,$sql);
+$total[0]['with_driver'] = $withdriver[0]['with_driver'];
 $total[0]['start'] = date('Y-m-d', strtotime($start));
 $total[0]['end'] = date('Y-m-d', strtotime($end." -1 day"));
 echo json_encode(['data'=>$data,"total"=>$total]);
