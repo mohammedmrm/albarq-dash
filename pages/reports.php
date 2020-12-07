@@ -251,11 +251,11 @@ legend
             	</select>
             </div>
             <div class="col-lg-2 kt-margin-b-10-tablet-and-mobile">
-            	<label>حالة تسليم المبلغ للعميل:</label>
-                <select name="money_status"  class="selectpicker form-control kt-input" data-col-index="2">
-            		<option value="">... اختر...</option>
-            		<option value="1">تم تسليم المبلغ</option>
-            		<option value="0">لم يتم تسليم المبلغ</option>
+            	<label>كشف المندوب:</label>
+                <select name="driver_invoice"  class="selectpicker form-control kt-input" data-col-index="2">
+            		<option value="">الكل</option>
+            		<option value="1">طلبات بدون كشف</option>
+            		<option value="2">طلبات بكشف</option>
                 </select>
             </div>
             <div class="col-lg-2 kt-margin-b-10-tablet-and-mobile">
@@ -263,7 +263,7 @@ legend
                 <select id="invoice" name="invoice"  class="selectpicker form-control kt-input" data-col-index="2">
             		<option value="">... اختر...</option>
             		<option value="1">طلبات بدون كشف</option>
-            		<option value="2">طلبات كشف</option>
+            		<option value="2">طلبات بكشف</option>
                 </select>
             </div>
           <div class="kt-separator kt-separator--border-dashed kt-separator--space-md"></div>

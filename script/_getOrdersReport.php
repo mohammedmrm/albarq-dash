@@ -15,6 +15,7 @@ $customer = $_REQUEST['customer'];
 $order = $_REQUEST['order_no'];
 $store= $_REQUEST['store'];
 $invoice= $_REQUEST['invoice'];
+$driver_invoice= $_REQUEST['driver_invoice'];
 $status = $_REQUEST['orderStatus'];
 $storageStatus = $_REQUEST['storageStatus'];
 $callcenter = $_REQUEST['callcenter'];
@@ -218,6 +219,12 @@ try{
   }else if($invoice == 2){
     $filter .= " and ((orders.invoice_id !='' and orders.invoice_id != 0))";
   }
+  //--------
+  if($driver_invoice == 1){
+    $filter .= " and (orders.driver_invoice_id ='' or orders.driver_invoice_id =0) ";
+  }else if($driver_invoice == 2){
+    $filter .= " and ((orders.driver_invoice_id !='' and orders.driver_invoice_id != 0))";
+  }
   if(!empty($customer)){
     $filter .= " and (customer_name like '%".$customer."%' or
                       customer_phone like '%".$customer."%')";
@@ -322,5 +329,5 @@ if($store >=1){
    $total=["error"=>$ex];
    $success="0";
 }
-echo json_encode(array($query,"success"=>$success,"data"=>$data,'total'=>$total,"pages"=>$pages,"page"=>$page));
+echo json_encode(array($driver_invoice,$query,"success"=>$success,"data"=>$data,'total'=>$total,"pages"=>$pages,"page"=>$page));
 ?>
