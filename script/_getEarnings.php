@@ -19,6 +19,7 @@ if(empty($start)) {
 }else{
    $start .=" 00:00:00";
 }
+try{
 if($_SESSION['user_details']['role_id'] == 1){
   $sql = 'select
             sum(
@@ -140,5 +141,8 @@ $withdriver = getData($con,$sql);
 $total[0]['with_driver'] = $withdriver[0]['with_driver'];
 $total[0]['start'] = date('Y-m-d', strtotime($start));
 $total[0]['end'] = date('Y-m-d', strtotime($end." -1 day"));
+}catch (PDOException $ex) {
+              $data = [$ex,'error'];
+}
 echo json_encode([$sqlw,'data'=>$data,"total"=>$total]);
 ?>
