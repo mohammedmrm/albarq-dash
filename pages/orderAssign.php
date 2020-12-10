@@ -144,7 +144,13 @@ legend
             </div>
             <div class="col-lg-2 kt-margin-b-10-tablet-and-mobile">
                 	<label>عدد السجلات</label>
-                	<input onchange="getorders()" type="number" value="10" class="form-control kt-input" name="limit" data-col-index="7" />
+                    <select id="limit" name="limit" onchange="getorders()" class="form-control kt-input" data-col-index="2">
+            		    <option value="10">10</option>
+            		    <option value="25">25</option>
+            		    <option value="50">50</option>
+            		    <option value="75">75</option>
+            		    <option value="100">100</option>
+                     </select>
             </div>
             <div class="col-lg-2 kt-margin-b-10-tablet-and-mobile">
                 	<label class=" fa-2x">عدد الطلبيات</label><br />

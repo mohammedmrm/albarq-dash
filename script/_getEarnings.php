@@ -117,6 +117,7 @@ if($_SESSION['user_details']['role_id'] == 1){
             ';
 
 }
+$sqlw = $sql;
 $sql1 = $sql."  GROUP by  orders.client_id";
 $data =  getData($con,$sql1);
 $total=  getData($con,$sql);
@@ -139,5 +140,5 @@ $withdriver = getData($con,$sql);
 $total[0]['with_driver'] = $withdriver[0]['with_driver'];
 $total[0]['start'] = date('Y-m-d', strtotime($start));
 $total[0]['end'] = date('Y-m-d', strtotime($end." -1 day"));
-echo json_encode(['data'=>$data,"total"=>$total]);
+echo json_encode([$sqlw,'data'=>$data,"total"=>$total]);
 ?>
