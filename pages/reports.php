@@ -329,16 +329,19 @@ legend
         <div class="" id="section-to-print">
           <div class="col-md-12" id="">
           <div class="row kt-margin-b-20 text-white" id="total-section">
-               <div class="col-sm-4">
-                    <label>الصفحه:&nbsp;</label><label id="total-client"> لم يتم تحديد عميل </label>
+                <div class="col-sm-3">
+                    <label>الدخل الكلي:&nbsp;</label><label id="total-income"> 0.0</label>
                  </div>
                  <div class="col-sm-3">
-                    <label>المبلغ الصافي:&nbsp;</label><label id="total-price"> 0.0 </label>
+                    <label>المبلغ الصافي:&nbsp;</label><label id="total-client-price"> 0.0 </label>
+                 </div>
+                 <div class="col-sm-2">
+                    <label>مبلغ التوصيل:&nbsp;</label><label id="total-dev"> 0.0 </label>
                  </div>
                  <div class="col-sm-2">
                     <label>مجوع الخصم:&nbsp;</label><label id="total-discount"> 0.0 </label>
                  </div>
-                 <div class="col-sm-3">
+                 <div class="col-sm-2">
                     <label>عدد الطلبات:&nbsp;</label><label id="total-orders"> 0 </label>
                  </div>
           </div>
@@ -789,9 +792,10 @@ $.ajax({
     $('#branch').selectpicker('refresh');
    }*/
 
-   $("#total-client").html(res.total[0].store);
-   $("#total-price").text(formatMoney(res.total[0].client_price));
+   $("#total-client-price").html(res.total[0].client_price);
+   $("#total-income").text(formatMoney(res.total[0].income));
    $("#total-discount").text(formatMoney(res.total[0].discount));
+   $("#total-dev").text(formatMoney(res.total[0].dev));
    $("#total-orders").text(res.total[0].orders);
 
    if(res.pages >= 1){
