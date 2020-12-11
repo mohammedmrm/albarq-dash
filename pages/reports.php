@@ -333,7 +333,7 @@ legend
                     <label>الدخل الكلي:&nbsp;</label><label id="total-income"> 0.0</label>
                  </div>
                  <div class="col-sm-3">
-                    <label>المبلغ الصافي:&nbsp;</label><label id="total-client-price"> 0.0 </label>
+                    <label>مبلغ العميل:&nbsp;</label><label id="total-client-price"> 0.0 </label>
                  </div>
                  <div class="col-sm-2">
                     <label>مبلغ التوصيل:&nbsp;</label><label id="total-dev"> 0.0 </label>
@@ -792,7 +792,7 @@ $.ajax({
     $('#branch').selectpicker('refresh');
    }*/
 
-   $("#total-client-price").html(res.total[0].client_price);
+   $("#total-client-price").text(formatMoney(res.total[0].client_price));
    $("#total-income").text(formatMoney(res.total[0].income));
    $("#total-discount").text(formatMoney(res.total[0].discount));
    $("#total-dev").text(formatMoney(res.total[0].dev));
