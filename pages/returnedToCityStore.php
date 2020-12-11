@@ -486,6 +486,7 @@ function setOrderStorage(id){
          if(res.success == 1){
            Toast.success('تم الادخال الى المخزن');
            getorders();
+           $("#order_no").focus();
          }else{
            Toast.warning(res.msg);
          }
@@ -506,6 +507,7 @@ function setOrderOutToClient(id){
          if(res.success == 1){
            Toast.success('تم ارجاع الطلب للعميل');
            getorders();
+           $("#order_no").focus();
          }else{
            Toast.warning(res.msg);
          }
