@@ -99,7 +99,7 @@ legend
             </div>
             <div class="col-lg-2 kt-margin-b-10-tablet-and-mobile">
             	<label>المحافظة المرسل لها:</label>
-            	<select id="city" name="city" onchange="getorders();getTowns2($('#town'),$(this).val());" class="form-control kt-input" data-col-index="2">
+            	<select id="city" name="city[]" onchange="getorders();getTowns2($('#town'),$(this).val());" title="الكل" data-live-search="true" data-show-subtext="true" data-actions-box="true" multiple class="form-control kt-input" data-col-index="2">
             		<option value="">Select</option>
                 </select>
             </div>
@@ -336,6 +336,7 @@ $.ajax({
 });
 }
 function getTowns2(elem,city){
+  console.log(city);
    $.ajax({
      url:"script/_getTowns.php",
      type:"POST",

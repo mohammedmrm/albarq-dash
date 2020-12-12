@@ -69,8 +69,26 @@ try{
   if($to_branch >= 1){
    $filter .= " and to_branch =".$to_branch;
   }
-  if($city >= 1){
-    $filter .= " and to_city=".$city;
+  if( is_array($city)){
+  ///-----------------status
+    $s = "";
+    if(count($city) > 0){
+      foreach($city as $cit){
+        if($cit > 0){
+          $s .= " or orders.to_city=".$cit;
+        }
+      }
+    }
+    $s = preg_replace('/^ or/', '', $s);
+     if($s != ""){
+      $s = " and (".$s." )";
+      $filter .= $s;
+    }
+  //---------------------end of status
+  }else{
+    if($city >= 1){
+      $filter .= " and to_city=".$city;
+    }
   }
   if(!empty($remote_confirm) && $remote_confirm >= 0 && $remote_confirm != 'all'){
     $filter .= " and orders.remote_confirm=".$remote_confirm;
