@@ -796,8 +796,7 @@ function addOrders(){
          $("#orderstabledata input[name='customer_phone[]']").val("");
          $("#orderstabledata input[name='order_note[]']").val("");
          $("#orderstabledata input[name='order_address[]']").val("");
-         $("#orderstabledata input[name='weight[]']").val("");
-         $("#orderstabledata input").val("");
+         $("#orderstabledata input[name='weight[]']").val("1");
          $('[city="city"]').val("");
          $('[store="store"]').val("");
          $('[town="town"]').val("");
