@@ -206,12 +206,18 @@ legend
             	<label>احالة:</label>
             	<input type="button" onclick="sendOrders()" class="form-control btn btn-success" value="نفذ" />
             </div>
-<!--            <div class="col-lg-2 kt-margin-b-10-tablet-and-mobile">
-            	<label>احالة الى شركه همسه:</label>
-            	<input type="button" onclick="sendOrdershamsa()" class="form-control btn btn-success" value="نفذ" />
-            </div>-->
           </div>
           </fieldset>
+          <!--
+          <fieldset><legend>احاله</legend>
+          <div class="row kt-margin-b-20">
+            <div class="col-lg-2 kt-margin-b-10-tablet-and-mobile">
+            	<label>احالة الى شركه همسه:</label>
+            	<input type="button" onclick="sendOrdershamsa()" class="form-control btn btn-success" value="احاله" />
+            </div>
+          </div>
+          </fieldset>
+          -->
         </form>
 		<!--end: Datatable -->
 	</div>
