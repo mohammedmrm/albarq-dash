@@ -6,7 +6,7 @@ require_once("_access.php");
 access([1,2,3,4,5,6]);
 require_once("dbconnection.php");
 require_once("../config.php");
-$company = 2;
+$company = 1;
 $store = $_REQUEST['apistore'];
 $ids = $_REQUEST['ids'];
 if($company > 0){
@@ -19,6 +19,7 @@ $data=[];
 $sql ="select * from companies where id=?";
 $res= getData($con,$sql,[$company]);
 $f=0;
+try{
 foreach ($ids as $id){
   if($id > 1){
     $f .= ' or orders.id = '.$id.' ';
@@ -72,6 +73,10 @@ $f = ' ('.preg_replace('/^ or/', '', $f).') ';
 
 $sql = "update orders set delivery_company_id=".$company." where ".$f;
 setData($con,$sql);
+}catch(PDOException $ex) {
+   $result=["error"=>$ex];
+   $msg ="Query Error";
+}
 function httpPost($url, $data)
 {
     $postdata = json_encode($data);
