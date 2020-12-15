@@ -89,5 +89,5 @@ function httpPost($url, $data)
     curl_close($curl);
     return $response;
 }
-echo json_encode([$orders,$result,"msg"=>$msg,"response"=>$response]);
+echo json_encode([$res[0]['dns'].'IntegrationWs/ReceiveCasesOtherSystem/SYSBBL/'.$res[0]['token'],$_REQUEST,$result,"msg"=>$msg,"response"=>$response]);
 ?>
