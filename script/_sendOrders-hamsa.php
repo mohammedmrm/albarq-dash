@@ -55,7 +55,7 @@ $sql = "select
             left join towns on  towns.id = orders.to_town
             left join clients on  clients.id = orders.client_id
             left JOIN client_dev_price on client_dev_price.client_id = orders.client_id AND client_dev_price.city_id = orders.to_city
-           where orders.confirm = 1 and ".$f." group by orders.id";
+            where orders.confirm = 1 and ".$f." group by orders.id";
 $result =getData($con,$sql);
 if(count($res) == 1){
     $response = httpPost($res[0]['dns'].'IntegrationWs/ReceiveCasesOtherSystem/SYSBBL/'.$res[0]['token'],
