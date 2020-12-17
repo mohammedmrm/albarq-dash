@@ -31,5 +31,5 @@ $orders = $_REQUEST['bar_codes'];
      $success="0";
   }
 }
-echo json_encode(["success"=>$success,"data"=>$data,'messgae'=>"",$query,$_REQUEST]);
+echo json_encode(["success"=>$success,"data"=>$data,'messgae'=>""]);
 ?>
