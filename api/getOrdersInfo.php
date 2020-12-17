@@ -11,15 +11,11 @@ $orders = $_REQUEST['bar_codes'];
   if(count($orders) > 0){
     if(count($orders) > 0){
         $a = 0;
-        foreach($ids as $id){
+        foreach($orders as $id){
           if($a==0){
-            if(is_int($id)){
-              $f = " orders.id =".$id;
-            }
+             $f = " orders.id =".$id;
           }else{
-            if(is_int($id)){
-              $f .= " or orders.id =".$id;
-            }
+            $f .= " or orders.id =".$id;
           }
           $a++;
        }
@@ -35,5 +31,5 @@ $orders = $_REQUEST['bar_codes'];
      $success="0";
   }
 }
-echo json_encode(["success"=>$success,"data"=>$data,'messgae'=>""]);
+echo json_encode(["success"=>$success,"data"=>$data,'messgae'=>"",$query,$_REQUEST]);
 ?>
