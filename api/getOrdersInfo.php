@@ -24,7 +24,7 @@ $orders = $_REQUEST['bar_codes'];
   require_once("../script/dbconnection.php");
   try{
     $query = "select
-     id as bar_code,
+     orders.id as bar_code,
      confirm,
      order_status_id as status,
      price,
