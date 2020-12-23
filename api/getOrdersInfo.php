@@ -23,7 +23,18 @@ $orders = $_REQUEST['bar_codes'];
     }
   require_once("../script/dbconnection.php");
   try{
-    $query = "select id as bar_code, confirm, order_status_id as status from orders where client_id='".$clinetdata['id']."'  ".$f;
+    $query = "select
+     id as bar_code,
+     confirm,
+     order_status_id as status,
+     price,
+     new_price as received_price,
+     discount,
+     staff.name as driver_name,
+     staff.phone as driver_phone,
+    from orders
+    left join staff on staff.id = orders.driver_id
+    where client_id='".$clinetdata['id']."'  ".$f;
     $data = getData($con,$query);
     $success="1";
   } catch(PDOException $ex) {
