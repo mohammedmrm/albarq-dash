@@ -28,6 +28,7 @@ function validateDate($date, $format = 'Y-m-d H:i:s')
 if(validateDate($start) && validateDate($end)){
   $filter .= " and orders.date between '".$start."' AND '".$end."'";
 }
+try{
 $query = "select orders.*,date_format(orders.date,'%Y-%m-%d') as dat,  order_status.status as status_name,
           cites.name as city_name,
           towns.name as town_name,
@@ -97,6 +98,9 @@ $sql= "select * from stores where id= ?";
 $client =getData($con,$sql,[$id]);
 $sql = "SELECT sum(if(type = 1,(price),0)) as total,sum(if(type = 1,price,-price)) as balance, client_id from loans where client_id=? GROUP by client_id ";
 $balance = getData($con,$sql,[$client[0]['client_id']]);
-
+} catch(PDOException $ex) {
+         $data=["error"=>$ex];
+         $success="0";
+}
 echo json_encode(array($query,"success"=>$success,"data"=>$data,'pay'=>$res4,'balance'=>$balance[0]['balance']));
 ?>
