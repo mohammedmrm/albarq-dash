@@ -26,6 +26,7 @@ function httpPost($url, $data)
     return $response;
 }
 if(isset($_REQUEST['ids'])){
+  try{
   if($action == 'asign' && ( $ac == 1 || $ac == 2 || $ac == 3 || $ac == 5)){
     if($driver >= 1){
       try{
@@ -220,6 +221,10 @@ if(isset($_REQUEST['ids'])){
           $success="0";
       }
   }
+} catch(PDOException $ex) {
+          $data=["error"=>$ex];
+          $success="0";
+}
 }else{
   $success="2";
 }
