@@ -1,6 +1,6 @@
 <?php
 session_start();
-error_reporting(0);
+//error_reporting(0);
 header('Content-Type: application/json');
 require_once("_access.php");
 require_once("_httpRequest.php"); 
@@ -18,6 +18,7 @@ $v->validate([
     ]);
 
 if($v->passes()){
+     try{
          $sql = "update orders set confirm = 99 where id=?";
          $result = setData($con,$sql,[$id]);
          if($result > 0){
@@ -35,7 +36,7 @@ if($v->passes()){
                      inner join clients on clients.id = orders.client_id
                      where orders.id=?";
 
-             $order = getData($con,$sql,[$v]);
+             $order = getData($con,$sql,[$id]);
              if($order[0]['isfrom'] == 2){
                $response = httpPost($order[0]['dns'].'/api/updateOrderConfirm.php',
                     [
@@ -48,6 +49,10 @@ if($v->passes()){
          }else{
             $msg = "فشل الحذف";
          }
+     }catch(PDOException $ex) {
+         $msg=["error"=>$ex];
+         $success="0";
+      }
 }else{
   $msg = "فشل الحذف";
   $success = 0;

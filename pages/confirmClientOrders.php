@@ -192,6 +192,9 @@ legend
             <div class="col-lg-2 kt-margin-b-10-tablet-and-mobile">
             	<input type="button" onclick="confirmOrders()" class="btn btn-info btn-lg" value="تأكيد كل المحدد" />
             </div>
+            <div class="col-lg-2 kt-margin-b-10-tablet-and-mobile">
+            	<input type="button" onclick="deleteOrdersTotally()" class="btn btn-danger btn-lg" value="حذف كل المحدد" />
+            </div>
           </div>
           </fieldset>
         </form>
@@ -283,6 +286,7 @@ $.ajax({
             '</td>'+
             '<td width="100px;">'+
                 '<button type="button" class="btn btn-icon text-success" onclick="confirmOrder('+this.id+')"><span class="flaticon-like"></span></button>'+
+                '<button type="button" class="btn btn-link btn-icon" onclick="deleteOrderTotally('+this.id+')"><span class="flaticon-delete"></span></button>'+
             '</td>'+
             '<td>'+this.id+'</td>'+
             '<td>'+this.order_no+'</td>'+
@@ -452,6 +456,61 @@ function confirmOrder(id){
         success:function(res){
          if(res.success == 1){
            Toast.success('تم تأكيد الطلب');
+           getorders();
+         }else{
+           Toast.warning(res.msg);
+         }
+         console.log(res);
+        },
+        error:function(e){
+          console.log(e);
+        }
+      });
+}
+function deleteOrdersTotally(){
+     $('input[name="ids\[\]"]', form).remove();
+      var form = $('#ordertabledata');
+      $.each($('input[name="id\[\]"]:checked'), function(){
+               rowId = $(this).attr('rowid');
+         form.append(
+             $('<input>')
+                .attr('type', 'hidden')
+                .attr('name', 'ids[]')
+                .val(rowId)
+         );
+      });
+
+      $.ajax({
+        url:"script/_deleteOrdersTotally.php",
+        type:"POST",
+        data:$("#ordertabledata").serialize(),
+        success:function(res){
+          getorders();
+          console.log(res);
+          if(res.success == 1){
+            Toast.success("تم الحذف بنجاح");
+          }else{
+            Toast.warning("حدث خطاء! حاول مرة اخرى. تاكدد من تحديد عنصر واحد على اقل تقدير");
+          }
+        },
+        error:function(e){
+           Toast.error("خطأ!");
+          console.log(e);
+        }
+      });
+
+      // Remove added elements
+      //$('input[name="id\[\]"]', form).remove();
+}
+
+function deleteOrderTotally(id){
+        $.ajax({
+        url:"script/_deleteOrderTotally.php",
+        type:"POST",
+        data:{id:id},
+        success:function(res){
+         if(res.success == 1){
+           Toast.success('تم الحذف');
            getorders();
          }else{
            Toast.warning(res.msg);
