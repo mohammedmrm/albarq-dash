@@ -25,19 +25,19 @@ function httpPost($url, $data)
     curl_close($curl);
     return $response;
 }
-if(isset($_REQUEST['ids'])){ 
+if(isset($_REQUEST['ids'])){
   if($action == 'asign' && ( $ac == 1 || $ac == 2 || $ac == 3 || $ac == 5)){
     if($driver >= 1){
       try{
          $query = "update orders set driver_id=? where id=? and driver_invoice_id=0 and (storage_id=0 or order_status_id=4)";
          $record = "call update_or_insert(?,?,?)";
-         $order = "update orders set order_status_id = ? where id =? and (order_status_id = 1 or  order_status_id = 2 or order_status_id = 3 or order_status_id = 8 or order_status_id = 13)";
+         $orderS = "update orders set order_status_id = ? where id =? and (order_status_id = 1 or  order_status_id = 2 or order_status_id = 3 or order_status_id = 8 or order_status_id = 13)";
          $query2 = "insert into tracking (order_id,order_status_id,date,staff_id) values(?,?,?,?)";
          foreach($ids as $v){
            $data = setData($con,$query,[$driver,$v]);
            if($data > 0){
                setData($con,$record,[$driver,$v,3]);
-               $up = setData($con,$order,[3,$v]);
+               $up = setData($con,$orderS,[3,$v]);
                if($up) {
                 setData($con,$query2,[$v,3,date('Y-m-d H:i:s'),$_SESSION['userid']]);
                }

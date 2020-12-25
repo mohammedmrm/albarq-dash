@@ -165,7 +165,13 @@ if($v->passes()) {
             if(count($getdriver) > 0){
                 $driver = $getdriver[0]['driver_id'];
             }else{
-             $driver = 0;
+                $sql = "select * from driver_cities where city_id = ?";
+                $getdriver = getData($con,$sql,[$city_to[$k]]);
+                if(count($getdriver) > 0){
+                 $driver = $getdriver[0]['driver_id'];
+                }else{
+                 $driver = 0;
+                }
             }
 
             $sql = "select * from stores inner join clients on clients.id = stores.client_id where stores.id = ?";

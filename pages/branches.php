@@ -308,7 +308,7 @@ getbraches($("#branchesTable"));
                   <fieldset><legend>اضافه محافظه للفرع</legend>
                   <div class="row kt-margin-b-20">
                     <div class="col-lg-3 kt-margin-b-10-tablet-and-mobile">
-                    	<label>المنطقه:</label>
+                    	<label>المحافظه:</label>
                         <select data-live-search="true" class="form-control selectpicker" id="city" name="city"></select>
                     </div>
                     <div class="col-lg-3 kt-margin-b-10-tablet-and-mobile">

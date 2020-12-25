@@ -93,6 +93,7 @@ access([1,2]);
 <script src="js/getRoles.js" type="text/javascript"></script>
 <script src="js/getStorage.js" type="text/javascript"></script>
 <script src="js/getAllunAssignedTowns.js" type="text/javascript"></script>
+<script src="js/getAllunAssignedCitiesToDriver.js" type="text/javascript"></script>
 <script type="text/javascript">
 function getStaff(elem){
 $.ajax({
@@ -105,9 +106,10 @@ $.ajax({
    $.each(res.data,function(){
       btn ='';
      if(this.role_id == 4){
-       btn = "<button data-toggle='modal' data-target='#driverTownsModal' class='btn btn-warning text-white' onclick='getDriverTowns("+this.id+")'>مناطق</button>"
+       btn = "<button data-toggle='modal' data-target='#driverTownsModal' class='btn btn-warning text-white' onclick='getDriverTowns("+this.id+")'>مناطق</button>";
+       btn += "<button data-toggle='modal' data-target='#DriverCitiesModal' class='btn btn-info text-white' onclick='getDriverCities("+this.id+")'>المحافظات</button>";
      }else if(this.role_id == 9){
-       btn = "<button data-toggle='modal' data-target='#callcenterCitiesModal' class='btn btn-info text-white' onclick='getCallcenterCities("+this.id+")'>المحافظات</button>"
+       btn = "<button data-toggle='modal' data-target='#callcenterCitiesModal' class='btn btn-info text-white' onclick='getCallcenterCities("+this.id+")'>المحافظات</button>";
      }
      elem.append(
        '<tr>'+
@@ -570,7 +572,62 @@ getCities($("#city"));
 
     </div>
 </div>
+<div class="modal fade" id="DriverCitiesModal" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">محافظة المندوب</h4>
+          <span><b>(الاولوية للمناطق)</b></span>
+        </div>
+        <div class="modal-body">
+        <!--Begin:: App Content-->
+        <div class="kt-grid__item kt-grid__item--fluid kt-app__content">
+            <div class="kt-portlet">
+                <form class="kt-form kt-form--label-right" id="DriverCitiesForm">
+                  <fieldset><legend>اضافه محافظه للفرع</legend>
+                  <div class="row kt-margin-b-20">
+                    <div class="col-lg-3 kt-margin-b-10-tablet-and-mobile">
+                    	<label>المحافظه:</label>
+                        <select data-live-search="true" class="form-control selectpicker" id="driver_city" name="city"></select>
+                    </div>
+                    <div class="col-lg-3 kt-margin-b-10-tablet-and-mobile">
+                    	<label>اضافه:</label><br>
+                    	<button type="button" onclick="setCityToDriver()" class="btn btn-success" value="" placeholder="" data-col-index="0">اضافه
 
+                        </button>
+                    </div>
+                    <div class="col-lg-4 kt-margin-b-10-tablet-and-mobile">
+                    	<label>اسم المندوب:</label><br>
+                    	<label id="c_Driver_name"></label><br>
+                    </div>
+                  </div>
+                  </fieldset>
+		<!--begin: Datatable -->
+		<table class="table table-striped table-bordered table-hover table-checkable responsive no-wrap" id="tb-DriverCity">
+			       <thead>
+	  						<tr>
+										<th>ID</th>
+										<th>المحافظه</th>
+										<th>حذف</th>
+
+		  					</tr>
+      	            </thead>
+                    <tbody id="DriverCity">
+                    </tbody>
+		</table>
+		<!--end: Datatable -->
+        <input type="hidden" value="" id="c_Driver_id" name="c_Driver_id" />
+                </form>
+            </div>
+        </div>
+        <!--End:: App Content-->
+        </div>
+      </div>
+
+    </div>
+</div>
 <script>
 function addStaff(){
     var myform = document.getElementById('addStaffForm');
@@ -874,4 +931,89 @@ function deleteCallcenterCity(id){
 getBraches($("#staff_branch"));
 getRoles($("#staff_role"));
 getAllunAssignedTowns($("#town"));
+
+$("#tb-BranchCity").DataTable();
+function getDriverCities(id){
+      $('#c_Driver_id').val(id);
+      $.ajax({
+        url:"script/_getDriverCities.php",
+        type:"POST",
+        data:{id:id},
+        beforeSend:function(){
+          $("#tb-DriverCity").DataTable().destroy();
+        },
+        success:function(res){
+          console.log(res,'DAta');
+         if(res.success == 1){
+          $('#DriverCity').html("");
+          $('#c_Driver_name').text(res.Driver_info.name);
+
+          $.each(res.data,function(){
+            $('#DriverCity').append(
+            '<tr>'+
+              '<td>'+this.id+'</td>'+
+              '<td>'+this.city_name+'</td>'+
+              '<td><button type="button" onclick="deleteDriverCity('+this.id+')" class="btn btn-icon btn-danger"><span class="flaticon-delete"></span></button></td>'+
+            '</tr>'
+            );
+          });
+          $("#tb-driverCity").DataTable();
+         }else{
+
+         }
+         console.log(res)
+        } ,
+        error:function(e){
+          console.log(e);
+        }
+      });
+}
+function setCityToDriver(){
+      $.ajax({
+        url:"script/_setCityToDriver.php",
+        type:"POST",
+        data:$("#DriverCitiesForm").serialize(),
+        beforeSend:function(){
+          $("#driverCitiesForm").addClass("loading");
+        },
+        success:function(res){
+        $("#DriverCitiesForm").removeClass("loading");
+         if(res.success == 1){
+           Toast.success(res.msg);
+           getDriverCities($('#c_Driver_id').val());
+           getAllunAssignedCitiesToDriver($("#driver_city"));
+         }else{
+           Toast.warning(res.msg);
+         }
+         console.log(res)
+        } ,
+        error:function(e){
+          $("#DriverCitiesForm").removeClass("loading");
+          console.log(e);
+        }
+      });
+}
+function deleteDriverCity(id){
+  if(confirm("هل انت متاكد من الحذف")){
+      $.ajax({
+        url:"script/_deleteDriverCity.php",
+        type:"POST",
+        data:{id:id},
+        success:function(res){
+         if(res.success == 1){
+           Toast.success('تم الحذف');
+           getDriverCities($('#c_Driver_id').val());
+           getAllunAssignedCitiesToDriver($("#driver_city"));
+         }else{
+           Toast.warning(res.msg);
+         }
+         console.log(res)
+        } ,
+        error:function(e){
+          console.log(e);
+        }
+      });
+  }
+}
+getAllunAssignedCitiesToDriver($("#driver_city"));
 </script>

@@ -159,7 +159,13 @@ if($v->passes()) {
             if(count($getdriver) > 0){
                 $driver = $getdriver[0]['driver_id'];
             }else{
-             $driver = 0;
+                $sql = "select * from driver_cities where city_id = ?";
+                $getbranch = getData($con,$sql,[$city_to[$k]]);
+                if(count($getbranch) > 0){
+                 $driver = $getbranch[0]['driver_id'];
+                }else{
+                 $driver = 0;
+                }
             }
             //-- get possible to_branch  of the order
             $sql = "select * from branch_towns where town_id = ?";
