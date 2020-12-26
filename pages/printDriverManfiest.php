@@ -33,14 +33,14 @@ include_once("config.php");
 						<span class="form-text  text-danger" id="item_err"></span>
 			   </div>
           </div>
-            <div class="col-lg-3 kt-margin-b-10-tablet-and-mobile">
+            <div class="col-lg-4 kt-margin-b-10-tablet-and-mobile">
             <label>الفترة الزمنية :</label>
             <div class="input-daterange input-group" id="kt_datepicker">
-  				<input value="<?php echo date('Y-m-d'); ?>" onchange="genrateManifest" type="text" class="form-control kt-input" name="start" id="start" placeholder="من" data-col-index="5">
+  				<input value="<?php echo date('Y-m-d 00:00'); ?>" onchange="genrateManifest()" type="text" class="form-control kt-input" name="start" id="start" placeholder="من" data-col-index="5">
   				<div class="input-group-append">
   					<span class="input-group-text"><i class="la la-ellipsis-h"></i></span>
   				</div>
-  				<input  type="text" onchange="genrateManifest" class="form-control kt-input" name="end"  id="end" placeholder="الى" data-col-index="5">
+  				<input  type="text" onchange="genrateManifest()" class="form-control kt-input" name="end"  id="end" placeholder="الى" data-col-index="5">
           	</div>
             </div>
            </div>
@@ -115,16 +115,16 @@ function genrateManifest(){
       });
 }
 genrateManifest();
-$('#start').datepicker({
-    format: "yyyy-mm-dd",
+$('#start').datetimepicker({
+    format: "yyyy-mm-dd hh:ii",
     showMeridian: true,
     todayHighlight: true,
     autoclose: true,
     pickerPosition: 'bottom-left',
     defaultDate:'now'
 });
-$('#end').datepicker({
-    format: "yyyy-mm-dd",
+$('#end').datetimepicker({
+    format: "yyyy-mm-dd hh:ii",
     showMeridian: true,
     todayHighlight: true,
     autoclose: true,

@@ -94,7 +94,7 @@ require_once("config.php");
       	padding: 5px 5px 5px 10px;
       	background-color: #ffffff;
       }
-        body * :not(.fa):not(.la):not(.kt-widget-20__label):not(.kt-widget-19__label):not(.close):not(.check-mark) {
+        body * :not(.fa):not(.la):not(.kt-widget-20__label):not(.kt-widget-19__label):not(.close):not(.check-mark):not(.prev):not(.next) {
           font-family: 'Cairo', sans-serif !important;
         }
 
@@ -103,7 +103,7 @@ require_once("config.php");
            overflow-x: hidden;
         }
 
-        body,body * :not([type="tel"]):not(.other):not(td):not(th):not(.datepicker):not(div) {
+        body,body * :not([type="tel"]):not(.other):not(td):not(th):not(.datepicker):not(div):not(.hour):not(.prev):not(.next):not(.minute) {
             direction: rtl !important;
             text-align: right ;
         }

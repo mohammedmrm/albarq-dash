@@ -91,7 +91,7 @@ if($v->passes()) {
    foreach($Orders as $k=>$val){
             $sql = "select * from orders where store_id=? and remote_id=? and price=?";
             $check = getData($con,$sql,[$store,$val["id"],$val['price']]);
-            if(count($check) <= 5){
+            if(count($check) <= 1){
             $no=$_REQUEST['num'][$k];
             if($money[$k] == 1){
               $val['price'] = '-'.$val['note'];
