@@ -103,8 +103,17 @@ if($v->passes()) {
              $driver = $getdriver[0]['driver_id'];
              $driver_phone = $getdriver[0]['phone'];
             }else{
-             $driver_phone = '';
-             $driver = 0;
+                $sql = "select * from driver_cities
+                        left join staff on driver_towns.driver_id = staff.id
+                        where city_id = ?";
+                $getdriver = getData($con,$sql,[$city_to[$k]]);
+                if(count($getdriver) > 0){
+                 $driver = $getdriver[0]['driver_id'];
+                 $driver_phone = $getdriver[0]['phone'];
+                }else{
+                 $driver = 0;
+                 $driver_phone = '';
+                }
             }
             $sql = "select * from stores inner join clients on clients.id = stores.client_id where stores.id = ?";
             $getbranch = getData($con,$sql,[$store]);
