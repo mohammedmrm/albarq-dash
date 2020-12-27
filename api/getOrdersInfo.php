@@ -1,6 +1,8 @@
 <?php
+ob_start();
 session_start();
-header('Content-Type: application/json');
+header("Access-Control-Allow-Origin: *");
+header("Content-Type: application/json; charset=UTF-8");
 error_reporting(0);
 require_once("_apiAccess.php");
 access();
@@ -42,5 +44,6 @@ $orders = $_REQUEST['bar_codes'];
      $success="0";
   }
 }
+ob_end_clean();  
 echo json_encode(["success"=>$success,"data"=>$data,'messgae'=>""]);
 ?>
