@@ -2,6 +2,7 @@
 ob_start();
 session_start();
 error_reporting(0);
+header("Access-Control-Allow-Headers");
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 require_once("_apiAccess.php");

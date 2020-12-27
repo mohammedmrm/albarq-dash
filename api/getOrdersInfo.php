@@ -1,6 +1,7 @@
 <?php
 ob_start();
 session_start();
+header("Access-Control-Allow-Headers");
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 error_reporting(0);
