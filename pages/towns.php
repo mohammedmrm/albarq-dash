@@ -273,7 +273,9 @@ function edittowns(id){
       if(res.success == 1){
         $.each(res.data,function(){
           $('#e_town_name').val(this.name);
+          $('#e_town_city').val(this.city_id);
           $('#e_town_city').selectpicker('val', this.city_id);
+          $('#e_center').val(this.center);
           $('#e_center').selectpicker('val', this.center);
           $('.select').selectpicker('refresh');
         });
