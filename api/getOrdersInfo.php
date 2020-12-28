@@ -34,9 +34,14 @@ $orders = $_REQUEST['bar_codes'];
      new_price as received_price,
      discount,
      staff.name as driver_name,
+     tracking.note as status_note
      staff.phone as driver_phone
     from orders
     left join staff on staff.id = orders.driver_id
+    left join (
+      select max(id) as last_id,order_id from tracking group by order_id
+    ) a on a.order_id = orders.id
+    left join tracking on a.last_id = tracking.id
     where client_id='".$clinetdata['id']."'  ".$f;
     $data = getData($con,$query);
     $success="1";
