@@ -80,14 +80,8 @@ table.dataTable tr th.select-checkbox.selected::after {
 <!-- end:: Content -->				</div>
 
 
-            <!--begin::Page Vendors(used by this page) -->
-                            <script src="assets/vendors/custom/datatables/datatables.bundle.js" type="text/javascript"></script>
-                        <!--end::Page Vendors -->
-
-
-
-            <!--begin::Page Scripts(used by this page) -->
-                            <script src="assets/js/demo1/pages/components/datatables/extensions/responsive.js" type="text/javascript"></script>
+<script src="assets/vendors/custom/datatables/datatables.bundle.js" type="text/javascript"></script>
+<script src="assets/js/demo1/pages/components/datatables/extensions/responsive.js" type="text/javascript"></script>
                        <script type="text/javascript">
 function gettowns(){
 $.ajax({
@@ -280,6 +274,8 @@ function edittowns(id){
         $.each(res.data,function(){
           $('#e_town_name').val(this.name);
           $('#e_town_city').selectpicker('val', this.city_id);
+          $('#e_center').selectpicker('val', this.center);
+          $('.select').selectpicker('refresh');
         });
       }
       console.log(res);
