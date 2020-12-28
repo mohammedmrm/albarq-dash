@@ -28,7 +28,7 @@ $v->addRuleMessages([
 ]);
 
 $v->validate([
-    'town_name' => [$name,'required|min(2)|max(20)'],
+    'town_name' => [$name,'required|min(2)|max(100)'],
     'town_city' => [$city,'required|int'],
     'town_center' => [$center,'int'],
     'town_id'   => [$id,  'required|int'],
