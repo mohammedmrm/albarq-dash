@@ -29,6 +29,7 @@ $orders = $_REQUEST['bar_codes'];
     $query = "select
      orders.id as bar_code,
      confirm,
+     order_no,
      orders.order_status_id as status,
      price,
      new_price as received_price,
