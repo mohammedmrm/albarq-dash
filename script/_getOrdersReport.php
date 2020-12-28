@@ -36,13 +36,13 @@ if(empty($page) || $page <=0){
 $total = [];
 $money_status = trim($_REQUEST['money_status']);
 if(!empty($end)) {
-   $end .=" 23:59:59";
+   $end .=":59";
 }else{
    $end =date('Y-m-d', strtotime(' + 1 day'));
    $end .=" 23:59:59";
 }
 if(!empty($start)) {
-   $start .=" 00:00:00";
+   $start .=":00";
 }
 
 try{

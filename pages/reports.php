@@ -238,7 +238,7 @@ legend
             <div class="col-lg-3 kt-margin-b-10-tablet-and-mobile">
             <label>الفترة الزمنية :</label>
             <div class="input-daterange input-group" id="kt_datepicker">
-  				<input value="<?php echo date('Y-m-d', strtotime("-31 days")); ?>" onchange="" type="text" class="form-control kt-input" name="start" id="start" placeholder="من" data-col-index="5">
+  				<input value="<?php echo date('Y-m-d h:i', strtotime("-31 days")); ?>" onchange="" type="text" class="form-control kt-input" name="start" id="start" placeholder="من" data-col-index="5">
   				<div class="input-group-append">
   					<span class="input-group-text"><i class="la la-ellipsis-h"></i></span>
   				</div>
@@ -1211,16 +1211,16 @@ $("#allselector").change(function() {
       $('input[name="id\[\]"]').attr('checked', true);;
     }
 });
-$('#start').datepicker({
-    format: "yyyy-mm-dd",
+$('#start').datetimepicker({
+    format: "yyyy-mm-dd hh:ii",
     showMeridian: true,
     todayHighlight: true,
     autoclose: true,
     pickerPosition: 'bottom-left',
     defaultDate:'now'
 });
-$('#end').datepicker({
-    format: "yyyy-mm-dd",
+$('#end').datetimepicker({
+    format: "yyyy-mm-dd hh:ii",
     showMeridian: true,
     todayHighlight: true,
     autoclose: true,
