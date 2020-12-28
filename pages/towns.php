@@ -99,13 +99,18 @@ $.ajax({
    $("#tb-towns").DataTable().destroy();
    $("#townsTable").html("");
    $.each(res.data,function(){
+     if(this.center == 1){
+       center = '<span class="text-success">مركز</span>';
+     }else{
+       center = 'قضاء او  ناحيه';
+     }
      $("#townsTable").append(
        '<tr>'+
             '<td>'+this.id+'</td>'+
             '<td>'+this.city+'</td>'+
             '<td>'+this.town+'</td>'+
             '<td>'+this.driver_name+'</td>'+
-            '<td>'+this.center+'</td>'+
+            '<td>'+center+'</td>'+
             '<td>'+
                 '<button class="btn btn-clean btn-link" onclick="edittowns('+this.id+')" data-toggle="modal" data-target="#edittownsModal"><span class="flaticon-edit"></sapn></button>'+
                 '<button class="btn btn-clean btn-link" onclick="deletetowns('+this.id+')" data-toggle="modal" data-target="#deletetownsModal"><span class="flaticon-delete"></sapn></button>'+
@@ -200,6 +205,14 @@ gettowns();
 						<select data-show-subtext="true" data-live-search="true" type="text" class="selectpicker form-control dropdown-primary" name="e_town_city" id="e_town_city"  value="">
                         </select>
                         <span class="form-text text-danger" id="e_town_city_err"></span>
+					</div>
+					<div class="form-group">
+						<label>قضاء او مركز</label>
+						<select data-show-subtext="true" data-live-search="true" type="text" class="selectpicker form-control dropdown-primary" name="e_center" id="e_center">
+                           <option value="1">مركز</option>
+                           <option value="0">قضاء</option>
+                        </select>
+                        <span class="form-text text-danger" id="town_city_err"></span>
 					</div>
 					<div class="form-group">
 						<label>الاسم:</label>

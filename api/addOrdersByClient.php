@@ -106,7 +106,7 @@ if($v->passes()) {
                 $sql = "select * from driver_cities
                         left join staff on driver_cities.driver_id = staff.id
                         where city_id = ?";
-                $getdriver = getData($con,$sql,[$city_to[$k]]);
+                $getdriver = getData($con,$sql,[$val['city_to']]);
                 if(count($getdriver) > 0){
                  $driver = $getdriver[0]['driver_id'];
                  $driver_phone = $getdriver[0]['phone'];
