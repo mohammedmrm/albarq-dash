@@ -34,7 +34,7 @@ $orders = $_REQUEST['bar_codes'];
      new_price as received_price,
      discount,
      staff.name as driver_name,
-     tracking.note as status_note
+     tracking.note as status_note ,
      staff.phone as driver_phone
     from orders
     left join staff on staff.id = orders.driver_id
