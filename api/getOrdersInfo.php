@@ -25,6 +25,7 @@ $orders = $_REQUEST['bar_codes'];
        $f = " and ( ".$f." )";
     }
   require_once("../script/dbconnection.php");
+if(count($orders)<= 100){
   try{
     $query = "select
      orders.id as bar_code,
@@ -45,12 +46,23 @@ $orders = $_REQUEST['bar_codes'];
     left join tracking on a.last_id = tracking.id
     where client_id='".$clinetdata['id']."'  ".$f;
     $data = getData($con,$query);
+    foreach($data as $order){
+      $sql = "select order_status_id as status, note,date from traking where order_id=?";
+      $tracking = getData($con,$sql,[$order['bar_code']]);
+      $data[$i]['tracking']=$tracking;
+    }
     $success="1";
   } catch(PDOException $ex) {
      $data=["error"=>$ex];
      $success="0";
+     $message ='Error contact the developer'
   }
 }
+}else{
+     $data=[];
+     $success="0";
+     $message = "Max orders per request 100";
+}
 ob_end_clean();
-echo json_encode(["success"=>$success,"data"=>$data,'messgae'=>""]);
+echo json_encode(["success"=>$success,"data"=>$data,'messgae'=>$message]);
 ?>
