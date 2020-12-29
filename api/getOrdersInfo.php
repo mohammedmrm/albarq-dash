@@ -51,7 +51,7 @@ if(count($orders)<= 100){
       $sql = "select order_status_id as status, note,date from tracking where order_id=?";
       $tracking = getData($con,$sql,[$order['bar_code']]);
       $data[$i]['tracking']=$tracking;
-      $i++
+      $i++;
     }
     $success="1";
   } catch(PDOException $ex) {
