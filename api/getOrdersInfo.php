@@ -6,6 +6,7 @@ header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, X-Requested-With");
 error_reporting(0);
 require_once("_apiAccess.php");
+require_once("../config.php");
 access();
 $data=["No Data"];
 $success="0";
@@ -32,19 +33,29 @@ if(count($orders)<= 100){
      confirm,
      order_no,
      orders.order_status_id as status,
-     price,
+     orders.price,
      new_price as received_price,
      discount,
      staff.name as driver_name,
      tracking.note as status_note ,
-     staff.phone as driver_phone
+     staff.phone as driver_phone,
+      if(to_city = 1,
+           if(orders.order_status_id=9,0,if(client_dev_price.price is null,(".$config['dev_b']." - discount),(client_dev_price.price - discount))),
+           if(orders.order_status_id=9,0,if(client_dev_price.price is null,(".$config['dev_o']." - discount),(client_dev_price.price - discount)))
+        )
+      + if(new_price > 500000 ,( (ceil(new_price/500000)-1) * ".$config['addOnOver500']." ),0)
+      + if(weight > 1 ,( (weight-1) * ".$config['weightPrice']." ),0)
+      + if(towns.center = 0 ,".$config['countrysidePrice'].",0)
+      as delivery_price
     from orders
     left join staff on staff.id = orders.driver_id
     left join (
       select max(id) as last_id,order_id from tracking group by order_id
     ) a on a.order_id = orders.id
     left join tracking on a.last_id = tracking.id
-    where client_id='".$clinetdata['id']."'  ".$f;
+    left join towns on  towns.id = orders.to_town
+    left JOIN client_dev_price on client_dev_price.client_id = orders.client_id AND client_dev_price.city_id = orders.to_city
+    where orders.client_id='".$clinetdata['id']."'  ".$f;
     $data = getData($con,$query);
     $i =0;
     foreach($data as $order){
