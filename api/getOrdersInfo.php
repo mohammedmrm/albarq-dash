@@ -46,10 +46,12 @@ if(count($orders)<= 100){
     left join tracking on a.last_id = tracking.id
     where client_id='".$clinetdata['id']."'  ".$f;
     $data = getData($con,$query);
+    $i =0;
     foreach($data as $order){
       $sql = "select order_status_id as status, note,date from tracking where order_id=?";
       $tracking = getData($con,$sql,[$order['bar_code']]);
       $data[$i]['tracking']=$tracking;
+      $i++
     }
     $success="1";
   } catch(PDOException $ex) {
