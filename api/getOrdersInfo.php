@@ -55,7 +55,7 @@ if(count($orders)<= 100){
   } catch(PDOException $ex) {
      $data=["error"=>$ex];
      $success="0";
-     $message ='Error contact the developer'
+     $message ='Error contact the developer';
   }
 }
 }else{
