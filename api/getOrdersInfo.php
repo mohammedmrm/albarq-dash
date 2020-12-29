@@ -47,7 +47,7 @@ if(count($orders)<= 100){
     where client_id='".$clinetdata['id']."'  ".$f;
     $data = getData($con,$query);
     foreach($data as $order){
-      $sql = "select order_status_id as status, note,date from traking where order_id=?";
+      $sql = "select order_status_id as status, note,date from tracking where order_id=?";
       $tracking = getData($con,$sql,[$order['bar_code']]);
       $data[$i]['tracking']=$tracking;
     }
