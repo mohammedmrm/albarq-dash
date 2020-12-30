@@ -82,6 +82,7 @@ $response = [];
 $sql ="select * from orders where id = ? and client_id=?";
 $order = getData($con,$sql,[$id,$clinetdata['id']]);
 if(count($order) == 1){
+if($order[0]['confirm'] == 1){
 if($v->passes()) {
   if(!empty($city_to)&& $city_to > 0){
     $sql = "select * from towns where city_id=? and main=1 limit 1";
@@ -167,7 +168,11 @@ $error = [
            ];
 }
 }else{
-   $error=["error"=>'No premission'];
+   $error='Cannot be edited It is already confirmed';
+   $success="0";
+}
+}else{
+   $error='No premission';
    $success="0";
 }
 echo json_encode(['success'=>$success, 'error'=>$error]);
