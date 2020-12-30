@@ -65,9 +65,7 @@ $address = $_REQUEST['address'];
 $order_note= $_REQUEST['note'];
 $price = $_REQUEST['price'];
 
-if(empty($number)){
-  $number = "1";
-}
+
 $v->validate([
     'id'            => [$id,    'required|int'],
     'order_no'      => [$number,'required|min(1)|max(100)'],
@@ -172,5 +170,5 @@ $error = [
    $error=["error"=>'No premission'];
    $success="0";
 }
-echo json_encode([$_REQUEST,'success'=>$success, 'error'=>$error]);
+echo json_encode(['success'=>$success, 'error'=>$error]);
 ?>
