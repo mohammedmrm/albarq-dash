@@ -146,7 +146,7 @@ if($v->passes()) {
   if(!empty($order_note)){
     $up .= ' , note="'.$order_note.'"';
   }
-  $where = " where id =".$barcode."  and invoice_id=0 and driver_invoice_id=0 and confirm = 5 and client_id=?";
+  $where = " where id =".$id."  and invoice_id=0 and driver_invoice_id=0 and confirm = 5 and client_id=?";
   $sql .= $up.$where;
   $result = setData($con,$sql,[$clinetdata['id']]);
   if($result > 0){
