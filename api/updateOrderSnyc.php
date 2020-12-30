@@ -118,16 +118,16 @@ try{
     $up .= ' , to_city='.$city_to;
   }
   if(!empty($address)){
-    $up .= ' , address='.$address;
+    $up .= ' , address="'.$address.'"';
   }
   if(!empty($driver) && $driver > 0){
     $up .= ' , driver_id='.$driver;
   }
   if(!empty($town_to) && $town_to > 0){
-    $up .= ' , to_town='.$town_to;
+    $up .= ' , to_town="'.$town_to.'"';
   }
   if(!empty($to_branch) && $to_branch > 0){
-    $up .= ' , to_branch='.$to_branch;
+    $up .= ' , to_branch="'.$to_branch.'"';
   }
   if(!empty($order_price)){
     $up .= ' , price="'.$price.'"';
