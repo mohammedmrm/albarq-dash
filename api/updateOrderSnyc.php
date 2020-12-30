@@ -53,8 +53,6 @@ $v->addRuleMessages([
 ]);
 $error = [];
 $success = 0;
-$manger = $_SESSION['userid'];
-
 $id = $_REQUEST['bar_code'];
 $number = $_REQUEST['order_no'];
 $order_price = $_REQUEST['price'];
@@ -84,6 +82,7 @@ $order = getData($con,$sql,[$id,$clinetdata['id']]);
 if(count($order) == 1){
 if($order[0]['confirm'] == 1){
 if($v->passes()) {
+try{
   if(!empty($city_to)&& $city_to > 0){
     $sql = "select * from towns where city_id=? and main=1 limit 1";
     $town = getData($con,$sql,[$city_to]);
@@ -112,7 +111,7 @@ if($v->passes()) {
     }
   }
 
-  try{
+
   $sql = 'update orders set order_no="'.$number.'"';
   $up = "";
   if(!empty($city_to) && $city_to > 0){
@@ -175,5 +174,5 @@ $error = [
    $error='No premission';
    $success="0";
 }
-echo json_encode([$order,'success'=>$success, 'error'=>$error]);
+echo json_encode(['success'=>$success, 'error'=>$error]);
 ?>
