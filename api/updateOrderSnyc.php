@@ -80,7 +80,7 @@ $response = [];
 $sql ="select * from orders where id = ? and client_id=?";
 $order = getData($con,$sql,[$id,$clinetdata['id']]);
 if(count($order) == 1){
-if($order[0]['confirm'] == 1){
+if($order[0]['confirm'] == 5){
 if($v->passes()) {
 try{
   if(!empty($city_to)&& $city_to > 0){
