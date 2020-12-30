@@ -149,9 +149,12 @@ try{
   $result = setData($con,$sql,[$clinetdata['id']]);
   if($result > 0){
     $success = 1;
+  }else{
+   $error="Nothing changed";
+   $success="0";
   }
   }catch(PDOException $ex) {
-   $error=["error"=>$ex];
+   $error="Query Error";
    $success="0";
 }
 }else{
