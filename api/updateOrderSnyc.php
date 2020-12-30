@@ -61,38 +61,30 @@ $order_price = $_REQUEST['price'];
 $customer_name = $_REQUEST['customer_name'];
 $customer_phone = $_REQUEST['customer_phone'];
 $city_to = $_REQUEST['city'];
-
-
-
+$address = $_REQUEST['address'];
 $order_note= $_REQUEST['note'];
 $price = $_REQUEST['price'];
-$date= $_REQUEST['date'];
-if(!validateDate($date)){
-  $date_err = "تاريخ غير صالح";
-}else{
-  $date_err = "";
-}
+
 if(empty($number)){
   $number = "1";
 }
 $v->validate([
     'id'            => [$id,    'required|int'],
     'order_no'      => [$number,'required|min(1)|max(100)'],
-    'order_price'   => [$order_price,   "isPrice"],
-    'order_discount'=> [$order_discount,"isPrice"],
+    'order_price'   => [$order_price,"isPrice"],
     'store'         => [$store,  'int'],
     'customer_name' => [$customer_name, 'min(2)|max(100)'],
     'customer_phone'=> [$customer_phone,'isPhoneNumber'],
     'city'          => [$city_to,  'int'],
-    'town'          => [$town_to,  'int'],
     'order_note'    => [$order_note,'max(250)'],
+    'address'    => [$address,'max(250)'],
 ]);
 
 $response = [];
 $sql ="select * from orders where id = ? and client_id=?";
 $order = getData($con,$sql,[$id,$clinetdata['id']]);
 if(count($order) == 1){
-if($v->passes() && $date_err =="") {
+if($v->passes()) {
   if(!empty($city_to)&& $city_to > 0){
     $sql = "select * from towns where city_id=? and main=1 limit 1";
     $town = getData($con,$sql,[$city_to]);
@@ -127,6 +119,9 @@ if($v->passes() && $date_err =="") {
   if(!empty($city_to) && $city_to > 0){
     $up .= ' , to_city='.$city_to;
   }
+  if(!empty($address)){
+    $up .= ' , address='.$address;
+  }
   if(!empty($driver) && $driver > 0){
     $up .= ' , driver_id='.$driver;
   }
@@ -151,9 +146,6 @@ if($v->passes() && $date_err =="") {
   if(!empty($order_note)){
     $up .= ' , note="'.$order_note.'"';
   }
-  if(!empty($date)){
-    $up .= ' , date="'.$date.'"';
-  }
   $where = " where id =".$barcode."  and invoice_id=0 and driver_invoice_id=0 and confirm = 5 and client_id=?";
   $sql .= $up.$where;
   $result = setData($con,$sql,[$clinetdata['id']]);
@@ -166,16 +158,14 @@ if($v->passes() && $date_err =="") {
 }
 }else{
 $error = [
-           'id'=> implode($v->errors()->get('id')),
+           'bar_code'=> implode($v->errors()->get('id')),
            'order_no'=>implode($v->errors()->get('order_no')),
            'order_price'=>implode($v->errors()->get('order_price')),
            'customer_name'=>implode($v->errors()->get('customer_name')),
            'customer_phone'=>implode($v->errors()->get('customer_phone')),
            'city'=>implode($v->errors()->get('city')),
-           'town'=>implode($v->errors()->get('town')),
+           'address'=>implode($v->errors()->get('address')),
            'order_note'=>implode($v->errors()->get('order_note')),
-           'date'=>$date_err,
-           'premission'=>$premission
            ];
 }
 }else{
