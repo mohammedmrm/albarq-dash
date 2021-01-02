@@ -1,9 +1,11 @@
 <?php
+ob_start();
 session_start();
 error_reporting(0);
 header('Access-Control-Allow-Origin: *');
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, X-Requested-With");
+
 require_once("_apiAccess.php");
 access();
 require_once("../script/dbconnection.php");
@@ -177,5 +179,6 @@ $error = [
    $error='No premission';
    $success="0";
 }
+ob_end_clean(); 
 echo json_encode(['success'=>$success, 'error'=>$error]);
 ?>
