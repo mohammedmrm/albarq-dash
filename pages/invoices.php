@@ -320,7 +320,7 @@ function getInvoices(){
         "sLengthMenu": "عرض_MENU_سجل",
         "sSearch": "بحث:"
       },
-
+      "ordering": false,
       });
      },
      error:function(e){

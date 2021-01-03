@@ -316,6 +316,11 @@ $.ajax({
        nuseen_msg = "";
        notibg="";
      }
+     if(this.usd > 0){
+       usd ="<br />($"+this.usd+")";
+     }else{
+       usd ="";
+     }
      if(this.confirm == 4){
        bg ="bg-warning";
      }else{
@@ -326,7 +331,7 @@ $.ajax({
             '<td>'+this.id+'<input type="hidden" value="'+this.id+'" name="ids[]">'+
             '</td>'+
             '<td>'+this.order_no+'</td>'+
-            '<td>'+formatMoney(this.price)+'</td>'+
+            '<td>'+formatMoney(this.price)+usd+'</td>'+
             '<td>'+this.store_name+'<br />'+(this.client_phone)+'</td>'+
             '<td>'+
               '<select status="status" class="form-control" style="height:40px;" name="statuses[]"  value="">'+
@@ -348,6 +353,7 @@ $.ajax({
     var myTable= $('#tb-orders').DataTable({
        "bPaginate": false,
        "bFilter": false,
+       "ordering": false
       });
 
     },

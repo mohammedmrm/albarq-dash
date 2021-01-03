@@ -65,6 +65,7 @@ $money = $_REQUEST['moneycheck'];
 $qty = 1;//$_REQUEST['qty'];
 $order_price = str_replace(',','',$_REQUEST['order_price']);
 $order_price = str_replace('.','',$order_price);
+$usd = str_replace(',','',$_REQUEST['usd']);
 
 $branch = $_REQUEST['branch'];
 $store = $_REQUEST['store'];
@@ -108,6 +109,7 @@ foreach($onumber as $k=>$val){
           'weight'        => [$weight[$k],   'required|int'],
           'qty'           => [$qty/*$qty[$k]*/,'int'],
           'order_price'   => [$order_price[$k],   "isPrice"],
+          'usd'           => [$usd[$k],   "isPrice"],
           'store'         => [$mainstore,  'required|int'],
           'customer_phone'=> [$customer_phone[$k],  'required|isPhoneNumber'],
           'city'          => [$city_to[$k],  'required|int'],
@@ -213,8 +215,8 @@ if($v->passes()) {
               $order_address[$k] = "";
             }
             $new_price = $order_price[$k];
-       if($order_id[$k] > 0 && !empty($order_id[$k])){
-               $sql = 'update orders set driver_id=?, manager_id =? ,order_no = ?,order_type =? ,weight =? ,qty =?,
+            if($order_id[$k] > 0 && !empty($order_id[$k])){
+               $sql = 'update orders set usd=?, driver_id=?, manager_id =? ,order_no = ?,order_type =? ,weight =? ,qty =?,
                                     price=?,dev_price=?,client_phone = ?,customer_name = ?  ,
                                     customer_phone=?,to_city=?,to_town = ?,to_branch = ?,with_dev = ?,note = ?,address = ? , confirm = ? , date = ? ,
                                     new_price=?
@@ -222,7 +224,7 @@ if($v->passes()) {
                                     ';
 
         $result = setData($con,$sql,
-                         [$driver,$manger,$prefix.$onumber[$k],$order_type,$weight[$k],$qty,
+                         [$usd[$k],$driver,$manger,$prefix.$onumber[$k],$order_type,$weight[$k],$qty,
                           $order_price[$k],$dev_price,$client_phone[$k],$customer_name,
                           $customer_phone[$k],$city_to[$k],$town_to[$k],$to_branch,$with_dev,$order_note[$k],$order_address[$k],$confirm,date('Y-m-d H:m:i'),$new_price,$order_id[$k]]);
          // get nofificaton tokens
@@ -237,14 +239,14 @@ if($v->passes()) {
 
       $a = "update";
       }else{
-        $sql = 'insert into orders (driver_id,manager_id,order_no,order_type,weight,qty,
+        $sql = 'insert into orders (usd,driver_id,manager_id,order_no,order_type,weight,qty,
                                     price,dev_price,from_branch,
                                     client_id,client_phone,store_id,customer_name,
                                     customer_phone,to_city,to_town,to_branch,with_dev,note,new_price,address,company_id,confirm)
                                     VALUES
-                                    (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
+                                    (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
         $result = setDataWithLastID($con,$sql,
-                         [$driver,$manger,$prefix.$onumber[$k],$order_type,$weight[$k],$qty,
+                         [$usd[$k],$driver,$manger,$prefix.$onumber[$k],$order_type,$weight[$k],$qty,
                           $order_price[$k],$dev_price,$mainbranch,
                           $client,$client_phone[$k],$mainstore,$customer_name,
                           $customer_phone[$k],$city_to[$k],$town_to[$k],$to_branch,$with_dev,$order_note[$k],$new_price,$order_address[$k],$company,$confirm]);
@@ -333,14 +335,14 @@ if($v->passes()) {
               $order_address[$k] = "";
             }
             $new_price = $order_price[$k];
-      if($order_id[$k] > 0 && !empty($order_id[$k])){
-               $sql = 'update orders set driver_id=?,manager_id =? ,order_no = ?,order_type =? ,weight =? ,qty =?,
+        if($order_id[$k] > 0 && !empty($order_id[$k])){
+               $sql = 'update orders set usd=?,driver_id=?,manager_id =? ,order_no = ?,order_type =? ,weight =? ,qty =?,
                                     price=?,dev_price=?,client_phone = ?,customer_name = ?  ,
                                     customer_phone=?,store_id=?,to_town = ?,to_branch = ?,with_dev = ?,note = ?,address = ? , confirm = ? , date = ? ,new_price=?
                                     where id = ?
                                     ';
         $result = setData($con,$sql,
-                         [$driver,$manger,$prefix.$onumber[$k],$order_type,$weight[$k],$qty,
+                         [$usd[$k],$driver,$manger,$prefix.$onumber[$k],$order_type,$weight[$k],$qty,
                           $order_price[$k],$dev_price,$client_phone[$k],$customer_name,
                           $customer_phone[$k],$store[$k],$town_to[$k],$to_branch,$with_dev,$order_note[$k],$order_address[$k],$confirm,date('Y-m-d H:m:i'),$new_price,$order_id[$k]]);
           $sql = 'select token from clients where id = ? ';
@@ -351,14 +353,14 @@ if($v->passes()) {
           $orders[] =$order_id[$k];
       $a = "update";
       }else{
-        $sql = 'insert into orders (driver_id,manager_id,order_no,order_type,weight,qty,
+        $sql = 'insert into orders (usd,driver_id,manager_id,order_no,order_type,weight,qty,
                                     price,dev_price,from_branch,
                                     client_id,client_phone,store_id,customer_name,
                                     customer_phone,to_city,to_town,to_branch,with_dev,note,new_price,address,company_id,confirm)
                                     VALUES
-                                    (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
+                                    (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
         $result = setDataWithLastID($con,$sql,
-                         [$driver,$manger,$prefix.$onumber[$k],$order_type[$k],$weight[$k],$qty[$k],
+                         [$usd[$k],$driver,$manger,$prefix.$onumber[$k],$order_type[$k],$weight[$k],$qty[$k],
                           $order_price[$k],$dev_price,$mainbranch,
                           $client,$client_phone[$k],$store[$k],$customer_name[$k],
                           $customer_phone[$k],$maincity,$town_to[$k],$to_branch,$with_dev,$order_note[$k],$new_price,$order_address[$k],$company,$confirm]);
@@ -400,6 +402,7 @@ $error = [
            'weight'=>implode($v->errors()->get('weight')),
            'qty'=>implode($v->errors()->get('qty')),
            'order_price'=>implode($v->errors()->get('order_price')),
+           'usd'=>implode($v->errors()->get('usd')),
            'branch_from'=>implode($v->errors()->get('mainbranch')),
            'store'=>implode($v->errors()->get('store')),
            'client_phone'=>implode($v->errors()->get('client_phone')),

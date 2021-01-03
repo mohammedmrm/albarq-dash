@@ -309,7 +309,7 @@ function  getdriverInvoices(){
       });
       $("#driver_orders").append(content);
       var myTable= $('#tb-orders').DataTable({
-
+        "ordering": false,
       "oLanguage": {
         "sLengthMenu": "عرض_MENU_سجل",
         "sSearch": "بحث:"

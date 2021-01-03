@@ -870,6 +870,11 @@ $.ajax({
      }else{
        bg ="";
      }
+     if(this.usd > 0){
+       usd ="<br />($"+this.usd+")";
+     }else{
+       usd ="";
+     }
      date = this.date;
      d1 = new Date(date);
      d2 = new Date();
@@ -890,7 +895,7 @@ $.ajax({
             '<br />'+(this.customer_phone)+'</td>'+
             '<td>'+this.status_name+'<br /> ('+this.storage_status+')</td>'+
             '<td>'+date+'</td>'+
-            '<td>'+formatMoney(this.price)+'</td>'+
+            '<td>'+formatMoney(this.price)+usd+'</td>'+
             '<td>'+formatMoney(this.new_price)+'</td>'+
             '<td>'+
                 '<button type="button" class="btn btn-clean" onclick="editOrder('+this.id+')" data-toggle="modal" data-target="#editOrderModal"><span class="flaticon-edit"></sapn></button>'+

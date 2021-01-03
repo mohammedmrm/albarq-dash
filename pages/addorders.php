@@ -186,6 +186,11 @@ require_once("config.php");
 				<input  type="tel" phone="phone" style="direction: ltr !important;"  data-inputmask="'mask': '9999-999-9999'" value="" class="form-control sp" noseq="1" id="customer_phone1" name="customer_phone[]"/>
 				<span id="customer_phone_err1"  class="form-text text-danger"></span>
 			</div>
+            <div class="form-group col-lg-2">
+            	<label>المبلغ بالدولار:</label>
+            	<input onfocus="this.select();" value="0" usd="usd" id="usd1" oninput="CurrencyFormatted($(this),$(this).val())" name="usd[]"   type="text" class="form-control kt-input sp" placeholder="">
+               <span id="usd_err1" class="form-text text-danger"></span>
+           </div>
             <div class="form-group  col-lg-2">
 				<label>ملاحظات</label>
 				<textarea type="text" note="note" class="form-control" id="order_note1" name="order_note[]" value="" style="margin-top: 0px; margin-bottom: 0px; height: 38px;"></textarea>
@@ -193,7 +198,7 @@ require_once("config.php");
 			</div>
             <div class="form-group  col-lg-2">
 				<label>الوزن</label>
-				<input  type="weight" phone="phone" style="direction: ltr !important;"   value="1" class="form-control" noseq="1" id="weight1" name="weight[]"/>
+				<input  type="weight" onfocus="this.select();" phone="phone" style="direction: ltr !important;"   value="1" class="form-control" noseq="1" id="weight1" name="weight[]"/>
 				<span id="weight_err1"  class="form-text text-danger"></span>
 			</div>            
             <div class="form-group  col-lg-2">
@@ -664,6 +669,11 @@ function addMore(){
 				<input  phone="phone" noseq="`+number+`" type="tel" style="direction: ltr !important;" data-inputmask="'mask': '9999-999-9999'" class="form-control sp" id="customer_phone`+number+`" name="customer_phone[]" value="" />
 				<span id="customer_phone_err`+number+`" class="form-text text-danger"></span>
 			</div>
+            <div class="form-group col-lg-2">
+            	<label>المبلغ بالدولار:</label>
+            	<input onfocus="this.select();" value="0" usd="usd" id="usd`+number+`" oninput="CurrencyFormatted($(this),$(this).val())" name="usd[]"   type="text" class="form-control kt-input sp" placeholder="">
+                <span id="usd_err`+number+`" class="form-text text-danger"></span>
+           </div>
             <div class="form-group  col-lg-2">
 				<label>ملاحظات</label>
 				<textarea  note="note" type="text" class="form-control" name="order_note[]" style="height: 38px;">`+order_note+`</textarea>
@@ -671,7 +681,7 @@ function addMore(){
 			</div>
             <div class="form-group  col-lg-2">
 				<label>الوزن</label>
-				<input  type="number" weight="weight" style="direction: ltr !important;"   value="1" class="form-control" noseq="`+number+`" id="weight`+number+`" name="weight[]"/>
+				<input  type="number" onfocus="this.select();" weight="weight" style="direction: ltr !important;"   value="1" class="form-control" noseq="`+number+`" id="weight`+number+`" name="weight[]"/>
 				<span id="weight_err`+number+`"  class="form-text text-danger"></span>
 			</div>
             <div class="form-group  col-lg-2">
@@ -689,11 +699,9 @@ function addMore(){
             <div class="form-group  col-lg-1">
 				<label>تاريخ الزبون</label> <br />
 				<button type="button"  class="btn btn-clean btn-icon-lg" onclick="customerHistory(`+number+`)"><span class="fa fa-history"></span></button>
+                <div id="customerHistory`+number+`"></div>
             </div>
-            <div class="form-group  col-lg-2">
-             <br />
-               <div id="customerHistory`+number+`"></div>
-            </div>
+
             <div class="form-group  col-lg-1">
               <label>حذف</label><br />
               <button type="button" class="btn btn-danger" onclick="deleteOrder(`+number+`)"><span class="flaticon-delete"></span></button>
@@ -799,6 +807,7 @@ function addOrders(){
          $("#orderstabledata input[name='weight[]']").val("1");
          $('[city="city"]').val("");
          $('[store="store"]').val("");
+         $('[usd="usd"]').val("");
          $('[town="town"]').val("");
          $(".selectpicker").selectpicker('refresh');
          Toast.success('تم الاضافة');
@@ -825,6 +834,7 @@ function addOrders(){
            $("#with_dev_err"+no).text(res.error["with_dev"]);
            $("#order_note_err"+no).text(res.error["order_note"]);
            $("#order_address_err"+no).text(res.error["order_address"]);
+           $("#usd_err"+no).text(res.error["usd"]);
            $("#mainbranch_err").text(res.error["branch_from"]);
            $("#maincity_err").text(res.error["city"]);
            $("#mainstore_err").text(res.error["store"]);

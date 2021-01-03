@@ -251,6 +251,10 @@ if($orders > 0 && $msg == ""){
                  $bg = "ch";
                  $note = "استبدال";
                }
+               $usd="";
+               if($data[$i]['usd'] > 0){
+                 $usd = "<br />( $".$data[$i]['usd']." )";
+               }
                if($data[$i]['repated'] > 1){
                  $bg = "repated";
                }
@@ -273,7 +277,7 @@ if($orders > 0 && $msg == ""){
            <td width="80" align="center">'.$data[$i]['order_no'].'</td>
            <td width="120" align="center">'.phone_number_format($data[$i]['customer_phone']).'</td>
            <td width="160" align="center" >'.$data[$i]['city'].' - '.$data[$i]['town'].' - '.$data[$i]['address'].'</td>
-           <td width="80" align="center">'.number_format($data[$i]['price']).'</td>
+           <td width="80" align="center">'.number_format($data[$i]['price']).$usd.'</td>
            <td width="80" class="'.$price_bg.'" align="center">'.number_format($data[$i]['new_price']).'</td>
            <td width="80" align="center">'.number_format($data[$i]['dev_price']).'</td>
            <td align="center">'.number_format($data[$i]['client_price']).'</td>

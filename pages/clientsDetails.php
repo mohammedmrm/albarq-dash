@@ -521,9 +521,9 @@ function getInvoices(){
       "oLanguage": {
         "sLengthMenu": "عرض _MENU_ سجل",
         "sSearch": "بحث:",
-
       },
       "order": [],
+      "ordering": false,
       });
 
      console.log(res);
