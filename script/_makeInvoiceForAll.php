@@ -254,6 +254,7 @@ if($orders > 0 && $msg == ""){
                $usd="";
                if($data[$i]['usd'] > 0){
                  $usd = "<br />( $".$data[$i]['usd']." )";
+                 $note .=  "<br /> سعر الصرف (".($data[$i]['price']/$data[$i]['usd']).")";
                }
                if($data[$i]['repated'] > 1){
                  $bg = "repated";
