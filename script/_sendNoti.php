@@ -28,7 +28,7 @@
  $fcmUrl = 'https://fcm.googleapis.com/fcm/send';
  //$token= 'cPScyOX3Nrwg42amVXmMib:APA91bE1P6WUCfddxjyW07dULVN62eu3reGXyy7IJioK66QMqz4lkQaCSgdPLa2JVBFMm-NtKU0FU7nn8P43md8W8x4vgpa5T8J9tYyzgyt8noZjp3TNMtDcUIswgS9dG1HyrK0YLadk';
      $notification = [
-            'title' =>$title,
+            'title' =>$title." ".$result[0]['order_no'],
             'body' => $body,
             'icon' =>$icon,
             "vibrate"=> [300,100,400,100,400,100,400],
@@ -52,7 +52,7 @@
         try{
             $notification = [
              'body'   => $body,
-             'title'  =>$title,
+             'title'  =>$title." ".$result[0]['order_no'],
              "sound"=>'default',
              'subtitle'=> $orders[0],
              '_displayInForeground'=>true,
