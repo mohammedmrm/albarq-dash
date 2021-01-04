@@ -14,7 +14,7 @@ $error = [];
 $data = [];
 $count = [];
 $success = 0;
-$barcode = $_REQUEST['bar_code'];
+$barcode = $_REQUEST['barcode'];
 $v = new Violin;
 $v->addRuleMessages([
     'required' => 'الحقل مطلوب',
