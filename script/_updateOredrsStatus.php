@@ -8,6 +8,7 @@ require_once("dbconnection.php");
 
 $ids = $_REQUEST['ids'];
 $statues = $_REQUEST['statuses'];
+$new_price = str_replace(',','',$_REQUEST['new_price']);
 $success="0";
 function httpPost($url, $data)
 {
@@ -51,6 +52,11 @@ if(isset($_REQUEST['ids'])){
                       ]);
                }
              }
+             $success="1";
+           }
+           if($new_price[$i] >= 0 && $statues[$i] !== 9){
+             $new_pricequery = "update orders set new_price=? where id=? and invoice_id=0 and driver_invoice_id=0 and storage_id=0";
+             setData($con,$new_pricequery,[$new_price[$i],$v]);
              $success="1";
            }
            $i++;

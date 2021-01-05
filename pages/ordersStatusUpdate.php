@@ -160,10 +160,11 @@ min-height: 100px;
                                         <th>اسم و هاتف العميل</th>
 										<th width="200px;">تـــــــــــحديث الحالــــــــــــــة</th>
 										<th>الحاله</th>
+										<th>المبلغ المستلم</th>
+										<th>ادخال ا خراج مخزني</th>
 										<th>رقم هاتف المستلم</th>
 										<th>عنوان المستلم</th>
 										<th>مبلغ التوصيل</th>
-                                        <th>المبلغ المستلم</th>
                                         <th width="120px">التاريخ</th>
                                         <th>المدخل</th>
 										<th>المندوب</th>
@@ -211,7 +212,7 @@ min-height: 100px;
 </div>
 <input type="hidden" id="user_id" value="<?php echo $_SESSION['userid'];?>"/>
 <input type="hidden" id="user_branch" value="<?php echo $_SESSION['user_details']['branch_id'];?>"/>
-<input type="hidden" id="user_role" value="<?php echo $_SESSION['role'];?>"/>
+<input type="hidden"  id="user_role" value="<?php echo $_SESSION['role'];?>"/>
 
 <!--begin::Page Vendors(used by this page) -->
 <script src="assets/vendors/custom/datatables/datatables.bundle.js" type="text/javascript"></script>
@@ -326,6 +327,16 @@ $.ajax({
      }else{
        bg ="";
      }
+      btn ="";
+     if(this.order_status_id == 6 || this.order_status_id == 5 || this.order_status_id == 9){
+     if(this.storage_id == 0){
+       btn ='<button type="button" class="btn btn-icon text-danger btn-lg" onclick="setOrderStorage('+this.id+')"><span class="flaticon-download"></span></button>';
+     }else if(this.storage_id != 0){
+       btn ='<button type="button" class="btn btn-icon text-success btn-lg" onclick="setOrderOutStorage('+this.id+')"><span class="flaticon-upload"></span></button>';
+     }else{
+       btn ="";
+     }
+     }
      $("#ordersTable").append(
        '<tr class="'+bg+'">'+
             '<td>'+this.id+'<input type="hidden" value="'+this.id+'" name="ids[]">'+
@@ -338,11 +349,12 @@ $.ajax({
                 options+
               '</select>'+
             '</td>'+
-            '<td>'+this.status_name+'</td>'+
+            '<td>'+this.status_name+'<br />('+this.storage_status+')</td>'+
+            '<td><input type="text" value="'+this.new_price+'" oninput="CurrencyFormatted($(this),$(this).val())" onload="CurrencyFormatted($(this),$(this).val())"  name="new_price[]" class="form-control"></td>'+
+            '<td>'+btn+'</td>'+
             '<td>'+(this.customer_phone)+'</td>'+
             '<td>'+this.city+' - '+this.town+'</td>'+
             '<td>'+formatMoney(this.dev_price)+'</td>'+
-            '<td>'+formatMoney(this.new_price)+'</td>'+
             '<td>'+this.date+'</td>'+
             '<td>'+this.staff_name+'</td>'+
             '<td>'+this.driver_name+'</td>'+
@@ -422,6 +434,116 @@ function autoUpdate(){
         }
       });
 }
+function CurrencyFormatted(input, blur) {
+  // appends $ to value, validates decimal side
+  // and puts cursor back in right position.
+
+  // get input value
+  var input_val = input.val();
+
+  // don't validate empty input
+  if (input_val === "") { return; }
+
+  // original length
+  var original_len = input_val.length;
+
+  // initial caret position
+  var caret_pos = input.prop("selectionStart");
+
+  // check for decimal
+  if (input_val.indexOf(".") >= 0) {
+
+    // get position of first decimal
+    // this prevents multiple decimals from
+    // being entered
+    var decimal_pos = input_val.indexOf(".");
+
+    // split number by decimal point
+    var left_side = input_val.substring(0, decimal_pos);
+    var right_side = input_val.substring(decimal_pos);
+
+    // add commas to left side of number
+    left_side = formatNumber(left_side);
+
+    // validate right side
+    right_side = formatNumber(right_side);
+
+    // On blur make sure 2 numbers after decimal
+    if (blur === "blur") {
+      right_side += "00";
+    }
+
+    // Limit decimal to only 2 digits
+    right_side = right_side.substring(0, 2);
+
+    // join number by .
+    input_val =  left_side + "." + right_side;
+
+  } else {
+    // no decimal entered
+    // add commas to number
+    // remove all non-digits
+    input_val = formatNumber(input_val);
+    input_val =  input_val;
+
+    // final formatting
+    if (blur === "blur") {
+      input_val += ".00";
+    }
+  }
+
+  // send updated string to input
+  input.val(input_val);
+
+  // put caret back in the right position
+  var updated_len = input_val.length;
+  caret_pos = updated_len - original_len + caret_pos;
+  input[0].setSelectionRange(caret_pos, caret_pos);
+}
+function formatNumber(n) {
+  // format number 1000000 to 1,234,567
+  return n.replace(/[^0-9\-]+/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+}
+function setOrderOutStorage(id){
+        $.ajax({
+        url:"script/_setOrderOutStorage.php",
+        type:"POST",
+        data:{id:id},
+        success:function(res){
+         if(res.success == 1){
+           Toast.success('تم اخرج الطلب من المخزن');
+           getorders();
+         }else{
+           Toast.warning(res.msg);
+         }
+         console.log(res);
+        },
+        error:function(e){
+          console.log(e);
+        }
+      });
+}
+function setOrderStorage(id){
+        $.ajax({
+        url:"script/_setOrderStorage.php",
+        type:"POST",
+        data:{id:id},
+        success:function(res){
+         if(res.success == 1){
+           Toast.success('تم الادخال الى المخزن');
+           getorders();
+           $("#order_no").focus();
+         }else{
+           Toast.warning(res.msg);
+         }
+         console.log(res);
+        },
+        error:function(e){
+          console.log(e);
+        }
+      });
+}
+
 $( document ).ready(function(){
 
 $("#allselector").change(function() {

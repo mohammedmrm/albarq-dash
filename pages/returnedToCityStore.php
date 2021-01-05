@@ -618,7 +618,7 @@ function setOrderOutStorage(id){
         data:{id:id},
         success:function(res){
          if(res.success == 1){
-           Toast.success('تم الادخال الى المخزن');
+           Toast.success('تم اخرج الطلب من المخزن');
            getorders();
          }else{
            Toast.warning(res.msg);
