@@ -807,7 +807,7 @@ function addOrders(){
          $("#orderstabledata input[name='weight[]']").val("1");
          $('[city="city"]').val("");
          $('[store="store"]').val("");
-         $('[usd="usd"]').val("");
+         $('[usd="usd"]').val("0");
          $('[town="town"]').val("");
          $(".selectpicker").selectpicker('refresh');
          Toast.success('تم الاضافة');
