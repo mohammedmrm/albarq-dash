@@ -150,6 +150,7 @@ foreach($onumber as $k=>$val){
 }
 
 if($v->passes()) {
+ try{
  if($by == 'store'){
   $sql = 'select *,clients.id as c_id from stores inner join clients on clients.id = stores.client_id where stores.id=?';
   $res = getData($con,$sql,[$mainstore]);
@@ -391,6 +392,10 @@ if($v->passes()) {
       }
       //--- END-- this for add order tracking record
    }
+   }
+   }catch(PDOException $ex) {
+          $error=["error"=>$ex];
+          $success="0";
    }
 }else{
 $error = [
