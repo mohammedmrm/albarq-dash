@@ -742,7 +742,7 @@ function checkPhone(){
 
 function addOrders(){
  $.ajax({
-    url:"script/_addOrders.php",
+    url:"script/_addOrders-dev.php",
     type:"POST",
     data:$("#orderstabledata").serialize(),
     beforeSend:function(){
