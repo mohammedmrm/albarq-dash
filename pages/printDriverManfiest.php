@@ -97,7 +97,7 @@ function genrateManifest(){
             $.each(res.data,function(){
               $("#manifestTable").append(
               "<tr><td>"+
-              '<a href="script/downloadOrdersReport.php?start='+$('#start').val()+'&end='+$('#end').val()+'&driver='+this.id+'"  target="_blank" title="تحميل المنفيست">'+this.name+'</a>'+
+              '<a href="script/downloadOrdersReport.php?start='+$('#start').val()+'&end='+$('#end').val()+'&driver='+this.id+'&orderStatus[0]=1&orderStatus[1]=2&orderStatus[2]=3&orderStatus[3]=13&orderStatus[4]=7&orderStatus[5]=8"  target="_blank" title="تحميل المنفيست">'+this.name+'</a>'+
               "</td></tr>");
             })
          }else{
