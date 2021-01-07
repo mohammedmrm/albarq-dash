@@ -151,6 +151,7 @@ background-color: #FFFF99;
             <table class="table table-striped  table-bordered table-hover table-checkable responsive no-wrap" id="tb-orders">
 			       <thead>
 	  						<tr>
+										<th><input  id="allselector" type="checkbox"></th>
 										<th>رقم الشحنه</th>
 										<th>رقم الوصل</th>
 										<th>تاريخ الطلب</th>
@@ -294,6 +295,7 @@ function  getdriverInvoices(){
       $.each(res.data,function(){
       content = content +
                        '<tr>'+
+                          '<td><input type="checkbox" name="id[]" rowid="'+this.id+'"></td>'+
                           '<td>'+this.id+'</td>'+
                           '<td>'+this.order_no+'</td>'+
                           '<td>'+this.dat+'</td>'+
@@ -361,7 +363,7 @@ function  getdriverInvoices(){
         "sLengthMenu": "عرض_MENU_سجل",
         "sSearch": "بحث:"
       },
-      "order": [[ 1, "desc" ]],
+      "order": [[ 0, "desc" ]]
       });
     },
     error:function(e){
@@ -371,6 +373,18 @@ function  getdriverInvoices(){
   })
 }
 function makeDriverInvoice() {
+
+   $('input[name="ids\[\]"]', form).remove();
+    var form = $('#driverInvoicesForm');
+    $.each($('input[name="id\[\]"]:checked'), function(){
+             rowId = $(this).attr('rowid');
+       form.append(
+           $('<input>')
+              .attr('type', 'hidden')
+              .attr('name', 'ids[]')
+              .val(rowId)
+       );
+    });
  if(Number($("#driver").val()) > 0){
         $.ajax({
             url:"script/_makeDriverInvoice.php",
@@ -449,7 +463,7 @@ function unpayInvoice(id){
         data:{id:id},
         success:function(res){
          if(res.success == 1){
-           Toast.success('تم الدفع');
+           Toast.success('تم الغأ التحاسب');
            getdriverInvoices();
          }else{
            Toast.warning(res.msg);
@@ -465,6 +479,14 @@ function unpayInvoice(id){
 $( document ).ready(function(){
     getAllDrivers($("#driver"));
     getBraches($("#branch"));
+    $("#allselector").change(function() {
+        var ischecked= $(this).is(':checked');
+        if(!ischecked){
+          $('input[name="id\[\]"]').attr('checked', false);
+        }else{
+          $('input[name="id\[\]"]').attr('checked', true);
+        }
+    });
 });
 
 $('#start').datepicker({

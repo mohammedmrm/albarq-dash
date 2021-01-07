@@ -34,6 +34,7 @@ $data = [];
 $end = $_REQUEST['end'];
 $start = $_REQUEST['start'];
 $statues = $_REQUEST['status'];
+$ids = $_REQUEST['ids'];
 $total = [];
 $money_status = trim($_REQUEST['money_status']);
 if(!empty($end)) {
@@ -105,8 +106,25 @@ try{
   if($f != ""){
     $filter .= " and (".$f." )";
   }
- $count .= " ".$filter;
- $query .= " ".$filter." order by orders.date";
+
+   ////---select orders olny
+  $f2 = "";
+  if(count($ids) > 0){
+      $a = 0;
+      foreach($ids as $id){
+        if($a==0){
+          $f2 = " orders.id =".$id;
+        }else{
+          $f2 .= " or orders.id =".$id;
+        }
+        $a++;
+     }
+     $f2 = " and ( ".$f2." )";
+  }
+  $filter .= $f2;
+
+  $count .= " ".$filter;
+  $query .= " ".$filter." order by orders.date";
 
 
   $count1 = getData($con,$count);
@@ -305,5 +323,5 @@ $pdf->Output(dirname(__FILE__).'/../driver_invoice/'.$pdf_name, 'F');
 }else{
   $success = 2;
 }
-echo json_encode([$count,'success'=>$success,'invoice'=>$pdf_name]);
+echo json_encode([$_REQUEST,'success'=>$success,'invoice'=>$pdf_name]);
 ?>

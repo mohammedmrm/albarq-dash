@@ -522,8 +522,7 @@ function getInvoices(){
         "sLengthMenu": "عرض _MENU_ سجل",
         "sSearch": "بحث:",
       },
-      "order": [],
-      "ordering": false,
+      "order": [[ 0, "desc" ]]
       });
 
      console.log(res);
