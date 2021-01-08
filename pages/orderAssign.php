@@ -143,6 +143,10 @@ legend
                 </select>
             </div>
             <div class="col-lg-2 kt-margin-b-10-tablet-and-mobile">
+            	<label>مزامنه:</label>
+            	<input type="button" onclick="snycOrders()" class="form-control btn btn-success" value="مزامنه" />
+            </div>
+            <div class="col-lg-2 kt-margin-b-10-tablet-and-mobile">
                 	<label>عدد السجلات</label>
                     <select id="limit" name="limit" onchange="getorders()" class="form-control kt-input" data-col-index="2">
             		    <option value="10">10</option>
@@ -150,6 +154,7 @@ legend
             		    <option value="50">50</option>
             		    <option value="75">75</option>
             		    <option value="100">100</option>
+            		    <option value="250">250</option>
                      </select>
             </div>
             <div class="col-lg-2 kt-margin-b-10-tablet-and-mobile">
@@ -340,6 +345,25 @@ $.ajax({
     console.log(e);
   }
 });
+}
+function snycOrders(){
+   $.ajax({
+     url:"script/_snycOrders.php",
+     type:"POST",
+     data:$("#ordertabledata").serialize(),
+     beforeSend:function(){
+        $("#tb-orders").addClass("loading");
+     },
+     success:function(res){
+       $("#tb-orders").removeClass("loading");
+       getorders();
+       console.log(res);
+     },
+     error:function(e){
+       $("#tb-orders").removeClass("loading");
+        console.log(e);
+     }
+   });
 }
 function getTowns2(elem,city){
   console.log(city);

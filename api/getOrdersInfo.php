@@ -36,6 +36,7 @@ if(count($orders)<= 100){
      orders.price,
      new_price as received_price,
      discount,
+     remote_id as local_id,
      staff.name as driver_name,
      tracking.note as status_note ,
      staff.phone as driver_phone,
