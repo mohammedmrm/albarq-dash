@@ -161,5 +161,5 @@ try{
    $success="0";
 }
 
-echo (json_encode(array($query,$response,"updated"=>$COUNT,"success"=>$success,"data"=>$data)));
+echo (json_encode(array("r"=>$response,"updated"=>$COUNT,"success"=>$success,"data"=>$data)));
 ?>

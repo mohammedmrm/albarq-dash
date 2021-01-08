@@ -143,8 +143,8 @@ legend
                 </select>
             </div>
             <div class="col-lg-2 kt-margin-b-10-tablet-and-mobile">
-            	<label>مزامنه:</label>
-            	<input type="button" onclick="snycOrders()" class="form-control btn btn-success" value="مزامنه" />
+            	<label>مزامنه:</label><br />
+            	<input type="button" onclick="snycOrders()" class="btn btn-success" value="مزامنه" />
             </div>
             <div class="col-lg-2 kt-margin-b-10-tablet-and-mobile">
                 	<label>عدد السجلات</label>
@@ -154,7 +154,6 @@ legend
             		    <option value="50">50</option>
             		    <option value="75">75</option>
             		    <option value="100">100</option>
-            		    <option value="250">250</option>
                      </select>
             </div>
             <div class="col-lg-2 kt-margin-b-10-tablet-and-mobile">
@@ -174,7 +173,7 @@ legend
 										<th>عنوان المستلم</th>
 										<th>شركه التوصل</th>
 										<th>حاله التاكيد</th>
-										<th>مبلغ الوصل</th>
+										<th>مبلغ المستلم</th>
                                         <th>مبلغ التوصيل</th>
                                         <th>الخصم</th>
                                         <th>حالة المبلغ</th>
@@ -323,7 +322,7 @@ $.ajax({
             '<td>'+this.city+'/'+this.town+'<br />'+this.address+'</td>'+
             '<td>'+this.dev_comp_name+'</td>'+
             '<td>'+remote_confirm+'</td>'+
-            '<td>'+formatMoney(this.total_price)+'</td>'+
+            '<td>'+formatMoney(this.new_price)+'</td>'+
             '<td>'+formatMoney(this.dev_price)+'</td>'+
             '<td>'+formatMoney(this.discount)+'</td>'+
             '<td>'+this.money_status+'</td>'+
@@ -356,11 +355,13 @@ function snycOrders(){
      },
      success:function(res){
        $("#tb-orders").removeClass("loading");
+       Toast.success(" تم مزامنه وتحديث " + res.updated + " شحنه ");
        getorders();
        console.log(res);
      },
      error:function(e){
        $("#tb-orders").removeClass("loading");
+       Toast.warning(" حدث خطأ حاول مره اخرئ ");
         console.log(e);
      }
    });
