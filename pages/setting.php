@@ -53,7 +53,7 @@ include_once('config.php');
 										</div>
 									</div>
                                     <div class="form-group row">
-										<label class="col-3 col-form-label" >توصيل دبي</label>
+										<label class="col-3 col-form-label" >توصيل بغداد</label>
 										<div class="col-9">
 											<div class="input-group">
 												<input type="number" min='0'step="250" name="dev_b" id="dev_b" value="<?php echo $config['dev_b']?>" class="form-control"  value="loop">
