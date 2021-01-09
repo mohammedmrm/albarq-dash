@@ -130,7 +130,7 @@ if($v->passes()) {
              $to_branch = $getbranch[0]['branch_id'];
             }else{
                 $sql = "select * from branch_cities where city_id = ?";
-                $getbranch = getData($con,$sql,[$val['city_id']]);
+                $getbranch = getData($con,$sql,[$val['city']]);
                 if(count($getbranch) > 0){
                  $to_branch = $getbranch[0]['branch_id'];
                 }else{
