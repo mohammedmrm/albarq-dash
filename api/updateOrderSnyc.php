@@ -95,7 +95,7 @@ try{
      $to_branch = $getbranch[0]['branch_id'];
     }else{
         $sql = "select * from branch_cities where city_id = ?";
-        $getbranch = getData($con,$sql,[$val['city_id']]);
+        $getbranch = getData($con,$sql,[$city_to]);
         if(count($getbranch) > 0){
          $to_branch = $getbranch[0]['branch_id'];
         }else{
@@ -179,6 +179,6 @@ $error = [
    $error='No premission';
    $success="0";
 }
-ob_end_clean(); 
+ob_end_clean();
 echo json_encode(['success'=>$success, 'error'=>$error]);
 ?>
