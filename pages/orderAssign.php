@@ -210,6 +210,10 @@ legend
             	<label>احالة:</label>
             	<input type="button" onclick="sendOrders()" class="form-control btn btn-success" value="نفذ" />
             </div>
+            <div class="col-lg-2 kt-margin-b-10-tablet-and-mobile">
+            	<label>مزامنه:</label>
+            	<input type="button" onclick="orderSnyc()" class="form-control btn btn-warning" value="مزامنه" />
+            </div>
           </div>
           </fieldset>
           <!--
@@ -477,6 +481,22 @@ function sendOrders(){
         error:function(e){
            Toast.error("خطأ!");
           console.log(e);
+        }
+      });
+}
+function  orderSnyc(){
+      $.ajax({
+        url:"script/_snycPossibleOrder.php",
+        type:"POST",
+        data:$("#ordertabledata").serialize(),
+        success:function(res){
+          console.log(res);
+          Toast.success("تم الاحاله ");
+          getorders();
+        },
+        error:function(e){
+           Toast.error("خطأ!");
+           console.log(e);
         }
       });
 }
