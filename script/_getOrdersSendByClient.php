@@ -16,6 +16,8 @@ $store= $_REQUEST['store'];
 $status = $_REQUEST['orderStatus'];
 $start = trim($_REQUEST['start']);
 $end = trim($_REQUEST['end']);
+$rangestart = trim($_REQUEST['rangestart']);
+$rangeend = trim($_REQUEST['rangeend']);
 $limit = trim($_REQUEST['limit']);
 $page = trim($_REQUEST['p']);
 $money_status = trim($_REQUEST['money_status']);
@@ -90,6 +92,9 @@ try{
   if(validateDate($start) && validateDate($end)){
       $filter .= " and date between '".$start."' AND '".$end."'";
      }
+  if(!empty($rangestart) && !empty($rangeend)){
+      $filter .= " and order_no between '".$rangestart."' AND '".$rangeend."'";
+  }
   if($filter != ""){
     $filter = preg_replace('/^ and/', '', $filter);
     $filter = $where." ".$filter;

@@ -1,0 +1,37 @@
+<?php
+session_start();
+error_reporting(0);
+header('Content-Type: application/json');
+require_once("_access.php");
+require_once("dbconnection.php");
+require_once("_httpRequest.php");
+access([1,5,2,7,8]);
+$ids= $_REQUEST['ids'];
+$stores= $_REQUEST['stores'];
+$success = 0;
+$msg="";
+
+if(count($ids)){
+      try{
+         $sql = "update orders set confirm=1,store_id=? , client_id=? , manager_id=?, date=? where id = ? and confirm=5";
+         $i=0;
+         foreach($ids as $k=>$v){
+           $sql2 = "select * from stores where id=?";
+           $st= getData($con,$sql2,[$stores[$i]]);
+           $client = $st[0]["client_id"];
+           $data = setData($con,$sql,[$stores[$i],$client,$_SESSION['userid'],date("Y-m-d"),$v]);
+           $success="1";
+           $sql3 = "insert into tracking (order_id,order_status_id,note,staff_id) values(?,?,?,?)";
+           setData($con,$sql3,[$v,1,"تأكيد الطلب",$_SESSION['userid']]);
+           $i++;
+         }
+      } catch(PDOException $ex) {
+         $data=["error"=>$ex];
+         $success="0";
+      }
+}else{
+  $msg = "فشل تأكيد الطلبيات";
+  $success = 0;
+}
+echo json_encode([$_REQUEST,'success'=>$success,'data'=>$data,'msg'=>$msg]);
+?>
