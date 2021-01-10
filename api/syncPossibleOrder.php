@@ -39,7 +39,7 @@ if(count($orders)<= 100){
      orders.order_status_id as status,
      orders.price,
      new_price as received_price,
-     discount,
+     discount
      from orders
      where orders.client_id='".$clinetdata['id']."'  ".$f;
     $data = getData($con,$query);
