@@ -472,9 +472,10 @@ function sendOrders(){
         data:$("#ordertabledata").serialize(),
         success:function(res){
           console.log(res);
-          Toast.success("تم الاحاله "+res.response.count.added + " شحنه");
-          if(res.response.count.not > 0){
-            Toast.warning(res.response.count.not + " شحنه محاله مسبقاً");
+          if(res.response.success == 1 ){
+            Toast.success("تم مزامنه  "+res.updated + " شحنه");
+          }else{
+            Toast.success(res.response.message);
           }
           getorders();
         },
@@ -488,7 +489,7 @@ function  orderSnyc(){
       $.ajax({
         url:"script/_snycPossibleOrder.php",
         type:"POST",
-        data:$("#ordertabledata").serialize(),
+        data:$("#ordertabledata").serialize()+"&company="+$("#company").val(),
         success:function(res){
           console.log(res);
           Toast.success("تم الاحاله ");

@@ -11,7 +11,7 @@ access();
 $data=["No Data"];
 $success="0";
 $token = $_REQUEST['token'];
-$orders = $_REQUEST['bar_codes'];
+$orders = $_REQUEST['orders'];
   if(count($orders) > 0){
     if(count($orders) > 0){
         $a = 0;

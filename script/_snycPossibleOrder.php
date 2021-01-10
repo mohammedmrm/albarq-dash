@@ -47,10 +47,10 @@ function httpPost($url, $data)
 }
 try{
   $sql ="select * from companies where id=?";
-  $company = getData($con,$sql,[$company])
+  $company = getData($con,$sql,[$company]);
   $query = "select orders.id as order_id, order_no,customer_phone, to_city as city, date
             from orders ";
-  $where = "where bar_code > 0 and ";
+  $where = "where ";
   $filter = " and orders.confirm = 1";
   if($branch >= 1){
    $filter .= " and from_branch =".$branch;
@@ -140,7 +140,8 @@ try{
   $query .= ' order by orders.date DESC limit '.($page * $limit).",".$limit;
   $data = getData($con,$query);
    $COUNT = 0;
-   $response = httpPost($val['dns'].'api/syncPossibleOrder.php',['token'=>$val['token'],"orders"=>$data]);
+   $response = httpPost($company[0]['dns'].'api/syncPossibleOrder.php',['token'=>$company[0]['token'],"orders"=>$data]);
+   $r2 = $response;
    $response = json_decode($response,true);
    if($response["success"] == 1){
       foreach($response['data'] as $order){
@@ -164,5 +165,5 @@ try{
    $success="0";
 }
 
-echo (json_encode(array("r"=>$response,"updated"=>$COUNT,"success"=>$success,"data"=>$data)));
+echo (json_encode(array($_REQUEST,$query,$r2,"response"=>$response,"updated"=>$COUNT,"success"=>$success,"data"=>$data)));
 ?>
