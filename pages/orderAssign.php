@@ -494,7 +494,7 @@ function  orderSnyc(){
           if(res.response.success == 1 ){
             Toast.success("تم مزامنه  "+res.updated + " شحنه");
           }else{
-            Toast.success(res.response.message);
+            Toast.warning(res.response.message);
           }
           getorders();
         },

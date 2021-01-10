@@ -164,6 +164,8 @@ try{
    $data=["error"=>$ex];
    $success="0";
 }
-
-echo (json_encode(array($r2,"response"=>$response,"updated"=>$COUNT,"success"=>$success,"data"=>$data)));
+if(empty($company)){
+  $response['message'] = "يجب تحديد شركه التوصيل";
+}
+echo (json_encode(array("response"=>$response,"updated"=>$COUNT,"success"=>$success,"data"=>$data)));
 ?>
