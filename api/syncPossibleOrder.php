@@ -19,7 +19,7 @@ $orders = $_REQUEST['orders'];
         foreach($orders as $order){
           if($a==0){
              $f .= " (order_no = '".$order['order_no']."' and customer_phone = '".$order['customer_phone']."' and to_city ='".$order['city']."' and
-                    (DATE('".$order['date']."') < DATE_SUB(date, INTERVAL 7 DAY) or DATE('".$order['date']."') < DATE_SUB(date, INTERVAL 7 DAY))) ";
+                    (DATE('".$order['date']."') < DATE_SUB(date, INTERVAL 7 DAY) or DATE('".$order['date']."') > DATE_SUB(date, INTERVAL 7 DAY))) ";
           }else{
              $f .= " or
                    (order_no = '".$order['order_no']."' and customer_phone = '".$order['customer_phone']."' and to_city ='".$order['city']."' and
