@@ -43,11 +43,8 @@ if(count($orders)<= 100){
      new_price as received_price,
      discount
      from orders
-     where confirm = 1 and orders.client_id='".$clinetdata['id']."'  ".$f;
+     where orders.client_id='".$clinetdata['id']."'  ".$f;
     $data = getData($con,$query);
-    if(count($data)==0){
-      $data=[];
-    }
     $success="1";
   } catch(PDOException $ex) {
      $data=["error"=>$ex];
