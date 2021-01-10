@@ -37,6 +37,7 @@ if(count($orders)<= 100){
      customer_phone,
      to_city as city,
      order_no,
+     date,
      orders.order_status_id as status,
      orders.price,
      new_price as received_price,
