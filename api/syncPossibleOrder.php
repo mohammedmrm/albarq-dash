@@ -57,5 +57,5 @@ if(count($orders)<= 100){
      $message = "Max orders per request 100";
 }
 ob_end_clean();
-echo json_encode([$query,"success"=>$success,"data"=>$data,'messgae'=>$message]);
+echo json_encode(["success"=>$success,"data"=>$data,'messgae'=>$message]);
 ?>
