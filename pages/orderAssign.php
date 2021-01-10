@@ -472,10 +472,9 @@ function sendOrders(){
         data:$("#ordertabledata").serialize(),
         success:function(res){
           console.log(res);
-          if(res.response.success == 1 ){
-            Toast.success("تم مزامنه  "+res.updated + " شحنه");
-          }else{
-            Toast.success(res.response.message);
+          Toast.success("تم الاحاله "+res.response.count.added + " شحنه");
+          if(res.response.count.not > 0){
+            Toast.warning(res.response.count.not + " شحنه محاله مسبقاً");
           }
           getorders();
         },
@@ -492,7 +491,11 @@ function  orderSnyc(){
         data:$("#ordertabledata").serialize()+"&company="+$("#company").val(),
         success:function(res){
           console.log(res);
-          Toast.success("تم الاحاله ");
+          if(res.response.success == 1 ){
+            Toast.success("تم مزامنه  "+res.updated + " شحنه");
+          }else{
+            Toast.success(res.response.message);
+          }
           getorders();
         },
         error:function(e){
