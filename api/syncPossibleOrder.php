@@ -4,7 +4,7 @@ session_start();
 header('Access-Control-Allow-Origin: *');
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, X-Requested-With");
-error_reporting(0);
+//error_reporting(0);
 require_once("_apiAccess.php");
 require_once("../config.php");
 access();
@@ -57,6 +57,6 @@ if(count($orders)<= 100){
      $success="0";
      $message = "Max orders per request 100";
 }
-ob_end_clean();
+//ob_end_clean();
 echo json_encode(["success"=>$success,"data"=>$data,'messgae'=>$message]);
 ?>
