@@ -11,16 +11,17 @@ access();
 $data=["No Data"];
 $success="0";
 $token = $_REQUEST['token'];
+$f="";
 $orders = $_REQUEST['orders'];
   if(count($orders) > 0){
     if(count($orders) > 0){
         $a = 0;
         foreach($orders as $order){
           if($a==0){
-             $f = " (order_no = '".$order['date']."' and customer_phone = '".$order['customer_phone']."' and to_city ='".$order['city']."' and
+             $f .= " (order_no = '".$order['date']."' and customer_phone = '".$order['customer_phone']."' and to_city ='".$order['city']."' and
                     (DATE('".$order['date']."') < DATE_SUB(date, INTERVAL 7 DAY) or DATE('".$order['date']."') < DATE_SUB(date, INTERVAL 7 DAY))) ";
           }else{
-             $f = " or
+             $f .= " or
                    (order_no = '".$order['date']."' and customer_phone = '".$order['customer_phone']."' and to_city ='".$order['city']."' and
                    (DATE('".$order['date']."') < DATE_SUB(date, INTERVAL 7 DAY) or DATE('".$order['date']."') < DATE_SUB(date, INTERVAL 7 DAY))) ";
           }
