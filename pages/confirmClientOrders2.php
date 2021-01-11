@@ -316,9 +316,11 @@ $.ajax({
        '<tr>'+
             '<td>'+
                 '<input class="" type="checkbox" name="id[]" rowid="'+this.id+'">'+
+                '<input class="" type="hidden" name="order_no2[]" value="'+this.order_no+'">'+
+                '<input class="" type="hidden" name="customer_phone2[]" value="'+this.customer_phone+'">'+
             '</td>'+
             '<td width="100px;">'+
-                '<button type="button" class="btn btn-icon text-success" onclick="confirmOrder('+this.id+')"><span class="flaticon-like"></span></button>'+
+                '<button type="button" class="btn btn-icon text-success" onclick=\'confirmOrder('+this.id+',\"'+this.customer_phone+'\",'+this.order_no+')\'><span class="flaticon-like"></span></button>'+
                 '<button type="button" class="btn btn-link btn-icon" onclick="deleteOrderTotally('+this.id+')"><span class="flaticon-delete"></span></button>'+
             '</td>'+
             '<td>'+this.id+'</td>'+
@@ -459,14 +461,23 @@ function disable(){
 function confirmOrders(){
      $('input[name="ids\[\]"]', form).remove();
       var form = $('#ordertabledata');
-      $.each($('input[name="id\[\]"]:checked'), function(){
+      $.each($('input[name="id\[\]"]'), function(){
                rowId = $(this).attr('rowid');
+         if($(this).is(':checked')){
          form.append(
              $('<input>')
                 .attr('type', 'hidden')
                 .attr('name', 'ids[]')
                 .val(rowId)
          );
+         }else{
+         form.append(
+             $('<input>')
+                .attr('type', 'hidden')
+                .attr('name', 'ids[]')
+                .val('_')
+         );
+         }
       });
 
       $.ajax({
@@ -492,11 +503,11 @@ function confirmOrders(){
       //$('input[name="id\[\]"]', form).remove();
 }
 
-function confirmOrder(id){
+function confirmOrder(id,c_phone,o_no){
         $.ajax({
         url:"script/_confirmClientOrder2.php",
         type:"POST",
-        data:{id:id,store:$("[store_order='"+id+"']").val()},
+        data:{id:id,store:$("[store_order='"+id+"']").val(),customer_phone:c_phone,order_no:o_no},
         success:function(res){
          if(res.success == 1){
            Toast.success('تم تأكيد الطلب');

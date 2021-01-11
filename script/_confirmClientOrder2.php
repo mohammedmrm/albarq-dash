@@ -7,6 +7,8 @@ require_once("_httpRequest.php");
 access([1,5,2,7,8]);
 $id= trim($_REQUEST['id']);
 $store= trim($_REQUEST['store']);
+$order_no= trim($_REQUEST['order_no']);
+$customer_phone= trim($_REQUEST['customer_phone']);
 $success = 0;
 $msg="";
 require_once("dbconnection.php");
@@ -24,7 +26,8 @@ if($v->passes()){
          $sql = "select * from stores where id=?";
          $st= getData($con,$sql,$store);
          $client = $st[0]["client_id"];
-         $sql = "update orders set confirm=1,store_id=?,client_id=?,manager_id=?,date=? where id = ? and confirm=5";
+         $sql = "update orders set confirm=1,store_id=?,client_id=?,manager_id=?,date=? where id = ? and confirm=5
+         and ".$order_no." not in (select order_no from orders where store_id='".$store."' and customer_phone='".$customer_phone."' and order_no=".$order_no." and confirm=1)";
          $result = setData($con,$sql,[$store,$client,$_SESSION['userid'],date("Y-m-d"),$id]);
          if($result > 0){
             $success = 1;
