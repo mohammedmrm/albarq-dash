@@ -19,7 +19,7 @@ if(count($ids)){
          foreach($ids as $k=>$v){
            if($v > 0 && $stores[$i] > 0){
                $sql = "update orders set confirm=1,store_id=? , client_id=? , manager_id=?, date=? where id = ? and confirm=5
-                       and ".$nos[$i]." not in (select order_no from orders where store_id='".$stores[$i]."' and customer_phone='".$customer_phone[$i]."' and order_no=".$nos[$i]." and confirm=1) as or2";
+                       and ".$nos[$i]." not in (select order_no from orders as or2 where store_id='".$stores[$i]."' and customer_phone='".$customer_phone[$i]."' and order_no=".$nos[$i]." and confirm=1)";
                $sql2 = "select * from stores where id=?";
                $st= getData($con,$sql2,[$stores[$i]]);
                $client = $st[0]["client_id"];
