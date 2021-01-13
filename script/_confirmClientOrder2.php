@@ -23,16 +23,16 @@ $v->validate([
 
 if($v->passes()){
          try {
-         $sql = "select * from stores where id=?";
-         $st= getData($con,$sql,$store);
+         $sql1 = "select * from stores where id=?";
+         $st= getData($con,$sql1,$store);
          $client = $st[0]["client_id"];
-         $sql = "update orders set confirm=1,store_id=?,client_id=?,manager_id=?,date=? where id = ? and confirm=5
+         $sql2 = "update orders set confirm=1,store_id=?,client_id=?,manager_id=?,date=? where id = ? and confirm=5
          and ".$order_no." not in (select order_no from orders where store_id='".$store."' and customer_phone='".$customer_phone."' and order_no=".$order_no." and confirm=1) as  as or2";
-         $result = setData($con,$sql,[$store,$client,$_SESSION['userid'],date("Y-m-d"),$id]);
+         $result = setData($con,$sql2,[$store,$client,$_SESSION['userid'],date("Y-m-d"),$id]);
          if($result > 0){
             $success = 1;
-            $sql = "insert into tracking (order_id,order_status_id,note,staff_id) values(?,?,?,?)";
-            setData($con,$sql,[$id,1,"تأكيد الطلب",$_SESSION['userid']]);
+            $sql3 = "insert into tracking (order_id,order_status_id,note,staff_id) values(?,?,?,?)";
+            setData($con,$sql3,[$id,1,"تأكيد الطلب",$_SESSION['userid']]);
          }else{
             $msg = "فشل التأكيد, قد يكون مؤكد مسبقاً";
          }
@@ -44,5 +44,5 @@ if($v->passes()){
   $msg = "فشل التأكيد";
   $success = 0;
 }
-echo json_encode([$_REQUEST,$_SESSION['user_details']['branch_id'],'success'=>$success, 'msg'=>$msg,'response'=>$response]);
+echo json_encode([$_REQUEST,$sql2,'success'=>$success, 'msg'=>$msg,'response'=>$response]);
 ?>
