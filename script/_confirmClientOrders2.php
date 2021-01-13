@@ -18,12 +18,13 @@ if(count($ids)){
         $i=0;
          foreach($ids as $k=>$v){
            if($v > 0 && $stores[$i] > 0){
-               $sql = "update orders set confirm=1,store_id=? , client_id=? , manager_id=?, date=? where id = ? and confirm=5
-                       and ".$nos[$i]." not in (select order_no from orders as or2 where store_id='".$stores[$i]."' and customer_phone='".$customer_phone[$i]."' and order_no=".$nos[$i]." and confirm=1)";
-               $sql2 = "select * from stores where id=?";
-               $st= getData($con,$sql2,[$stores[$i]]);
+               $sql = "select * from stores where id=?";
+               $st= getData($con,$sql,[$stores[$i]]);
                $client = $st[0]["client_id"];
-               $data = setData($con,$sql,[$stores[$i],$client,$_SESSION['userid'],date("Y-m-d"),$v]);
+
+               $sql2 = "update orders set confirm=1,store_id=? , client_id=? , manager_id=?, date=? where id = ? and confirm=5
+                       and ".$nos[$i]." not in (select order_no from orders as or2 where store_id='".$stores[$i]."' and customer_phone='".$customer_phone[$i]."' and order_no=".$nos[$i]." and confirm=1)";
+               $data = setData($con,$sql2,[$stores[$i],$client,$_SESSION['userid'],date("Y-m-d"),$v]);
                $success="1";
                if($data == 1){
                 $sql3 = "insert into tracking (order_id,order_status_id,note,staff_id) values(?,?,?,?)";
