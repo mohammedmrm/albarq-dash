@@ -27,7 +27,7 @@ if($v->passes()){
          $st= getData($con,$sql1,$store);
          $client = $st[0]["client_id"];
          $sql2 = "update orders set confirm=1,store_id=?,client_id=?,manager_id=?,date=? where id = ? and confirm=5
-         and ".$order_no." not in (select order_no from orders as or2 where store_id='".$store."' and customer_phone='".$customer_phone."' and order_no=".$order_no." and confirm=1) as  as or2";
+         and ".$order_no." not in (select order_no from (select * from orders as or2 where store_id='".$store."' and customer_phone='".$customer_phone."' and order_no=".$order_no." and confirm=1) as or2)";
          $result = setData($con,$sql2,[$store,$client,$_SESSION['userid'],date("Y-m-d"),$id]);
          if($result > 0){
             $success = 1;

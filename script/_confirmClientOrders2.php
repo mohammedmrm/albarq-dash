@@ -23,7 +23,7 @@ if(count($ids)){
                $client = $st[0]["client_id"];
 
                $sql2 = "update orders set confirm=1,store_id=? , client_id=? , manager_id=?, date=? where id = ? and confirm=5
-                       and ".$nos[$i]." not in (select order_no from orders as or2 where store_id='".$stores[$i]."' and customer_phone='".$customer_phone[$i]."' and order_no=".$nos[$i]." and confirm=1)";
+                       and ".$nos[$i]." not in (select order_no from (select * from orders as or2 where store_id='".$stores[$i]."' and customer_phone='".$customer_phone[$i]."' and order_no=".$nos[$i]." and confirm=1) as  o2)";
                $data = setData($con,$sql2,[$stores[$i],$client,$_SESSION['userid'],date("Y-m-d"),$v]);
                $success="1";
                if($data == 1){
