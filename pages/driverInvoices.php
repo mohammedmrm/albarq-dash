@@ -235,9 +235,9 @@ background-color: #FFFF99;
 <script src="js/getAllDrivers.js" type="text/javascript"></script>
 <script src="js/getBraches.js" type="text/javascript"></script>
 <script type="text/javascript">
-$("#tb-driverdata").DataTable();
-$("#tb-orders").DataTable();
-$("#tb-invioces").DataTable();
+$("#tb-driverdata").DataTable({lengthMenu:[10,20,30,50,100,250,500]});
+$("#tb-orders").DataTable({lengthMenu:[10,20,30,50,100,250,500]});
+$("#tb-invioces").DataTable({lengthMenu:[10,20,30,50,100,250,500]});
 function getorderStatus(elem){
 $.ajax({
   url:"script/_getorderStatus.php",
@@ -363,6 +363,7 @@ function  getdriverInvoices(){
         "sLengthMenu": "عرض_MENU_سجل",
         "sSearch": "بحث:"
       },
+      lengthMenu:[10,20,30,50,100,250,500],
       "order": [[ 0, "desc" ]]
       });
     },

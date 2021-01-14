@@ -203,7 +203,6 @@ hr {
 			       <thead>
 	  						<tr>
 										<th><input  id="allselector" type="checkbox"></th>
-										<th>رقم الشحنه</th>
 										<th>رقم الوصل</th>
 										<th>تاريخ الطلب</th>
 										<th>رقم المستلم</th>
@@ -244,7 +243,6 @@ hr {
                 			       <thead>
                 	  						<tr>
         										<th><input  id="allselector2" type="checkbox"></th>
-        										<th>رقم الشحنه</th>
         										<th>رقم الوصل</th>
         										<th>تاريخ الطلب</th>
         										<th>رقم المستلم</th>
@@ -313,8 +311,8 @@ hr {
 <script src="js/getClients.js" type="text/javascript"></script>
 <script src="js/getStores.js" type="text/javascript"></script>
 <script type="text/javascript">
-$('#tb-returned').DataTable();
-$('#tb-orders-reciverd').DataTable();
+$('#tb-returned').DataTable({lengthMenu:[10,20,30,50,100,250,500]});
+$('#tb-orders-reciverd').DataTable({lengthMenu:[10,20,30,50,100,250,500]});
 $('#start').datepicker({
     format: "yyyy-mm-dd",
     showMeridian: true,
@@ -357,7 +355,6 @@ function  getStoreDetails(){
                    content = content +
                        '<tr>'+
                           '<td><input type="checkbox" name="id[]" rowid="'+this.id+'"></td>'+
-                          '<td>'+this.id+'</td>'+
                           '<td>'+this.order_no+'</td>'+
                           '<td>'+this.dat+'</td>'+
                           '<td>'+this.customer_phone+'</td>'+
@@ -401,7 +398,9 @@ function  getStoreDetails(){
       }
 
 
-     var table= $('#tb-orders-reciverd').DataTable();
+     var table= $('#tb-orders-reciverd').DataTable({
+       lengthMenu:[10,20,30,50,100,250,500]
+     });
     },
     error:function(e){
      $("#store_info").removeClass('loading');
@@ -430,7 +429,6 @@ function getStoreReturned(){
                  content = content +
                        '<tr>'+
                           '<td><input type="checkbox" name="id2[]" rowid="'+this.id+'"></td>'+
-                          '<td>'+this.id+'</td>'+
                           '<td>'+this.order_no+'</td>'+
                           '<td>'+this.dat+'</td>'+
                           '<td>'+this.customer_phone+'</td>'+
@@ -445,7 +443,9 @@ function getStoreReturned(){
                    ;
              });
       $("#returnedTable").append(content);
-      $("#tb-returned").DataTable({});
+      $("#tb-returned").DataTable({
+        lengthMenu:[10,20,30,50,100,250,500]
+      });
       $("#tb-orders").DataTable();
     },
     error:function(e){
