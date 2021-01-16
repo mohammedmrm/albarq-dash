@@ -186,11 +186,6 @@ require_once("config.php");
 				<input  type="tel" phone="phone" style="direction: ltr !important;"  data-inputmask="'mask': '9999-999-9999'" value="" class="form-control sp" noseq="1" id="customer_phone1" name="customer_phone[]"/>
 				<span id="customer_phone_err1"  class="form-text text-danger"></span>
 			</div>
-            <div class="form-group col-lg-2">
-            	<label>المبلغ بالدولار:</label>
-            	<input onfocus="this.select();" value="0" usd="usd" id="usd1" oninput="CurrencyFormatted($(this),$(this).val())" name="usd[]"   type="text" class="form-control kt-input sp" placeholder="">
-               <span id="usd_err1" class="form-text text-danger"></span>
-           </div>
             <div class="form-group  col-lg-2">
 				<label>ملاحظات</label>
 				<textarea type="text" note="note" class="form-control" id="order_note1" name="order_note[]" value="" style="margin-top: 0px; margin-bottom: 0px; height: 38px;"></textarea>
@@ -200,7 +195,12 @@ require_once("config.php");
 				<label>الوزن</label>
 				<input  type="weight" onfocus="this.select();" phone="phone" style="direction: ltr !important;"   value="1" class="form-control" noseq="1" id="weight1" name="weight[]"/>
 				<span id="weight_err1"  class="form-text text-danger"></span>
-			</div>            
+			</div>
+            <div class="form-group col-lg-2">
+            	<label>المبلغ بالدولار:</label>
+            	<input onfocus="this.select();" value="0" usd="usd" id="usd1" oninput="CurrencyFormatted($(this),$(this).val())" name="usd[]"   type="text" class="form-control kt-input sp" placeholder="">
+               <span id="usd_err1" class="form-text text-danger"></span>
+           </div>                      
             <div class="form-group  col-lg-2">
 				<label>تسليم مبلغ</label>
                 <input  type="checkbox"  onclick="moneycheck(1)" class="form-control" id="money1" name="money[]"/>
@@ -669,11 +669,6 @@ function addMore(){
 				<input  phone="phone" noseq="`+number+`" type="tel" style="direction: ltr !important;" data-inputmask="'mask': '9999-999-9999'" class="form-control sp" id="customer_phone`+number+`" name="customer_phone[]" value="" />
 				<span id="customer_phone_err`+number+`" class="form-text text-danger"></span>
 			</div>
-            <div class="form-group col-lg-2">
-            	<label>المبلغ بالدولار:</label>
-            	<input onfocus="this.select();" value="0" usd="usd" id="usd`+number+`" oninput="CurrencyFormatted($(this),$(this).val())" name="usd[]"   type="text" class="form-control kt-input sp" placeholder="">
-                <span id="usd_err`+number+`" class="form-text text-danger"></span>
-           </div>
             <div class="form-group  col-lg-2">
 				<label>ملاحظات</label>
 				<textarea  note="note" type="text" class="form-control" name="order_note[]" style="height: 38px;">`+order_note+`</textarea>
@@ -684,6 +679,11 @@ function addMore(){
 				<input  type="number" onfocus="this.select();" weight="weight" style="direction: ltr !important;"   value="1" class="form-control" noseq="`+number+`" id="weight`+number+`" name="weight[]"/>
 				<span id="weight_err`+number+`"  class="form-text text-danger"></span>
 			</div>
+            <div class="form-group col-lg-2">
+            	<label>المبلغ بالدولار:</label>
+            	<input onfocus="this.select();" value="0" usd="usd" id="usd`+number+`" oninput="CurrencyFormatted($(this),$(this).val())" name="usd[]"   type="text" class="form-control kt-input sp" placeholder="">
+                <span id="usd_err`+number+`" class="form-text text-danger"></span>
+           </div>
             <div class="form-group  col-lg-2">
 				<label>تسليم مبلغ</label>
                 <input  type="checkbox" onclick="moneycheck(`+number+`)" class="form-control" id="money`+number+`" name="money[]"/>
