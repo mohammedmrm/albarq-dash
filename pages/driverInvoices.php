@@ -152,7 +152,6 @@ background-color: #FFFF99;
 			       <thead>
 	  						<tr>
 										<th><input  id="allselector" type="checkbox"></th>
-										<th>رقم الشحنه</th>
 										<th>رقم الوصل</th>
 										<th>تاريخ الطلب</th>
 										<th>رقم المستلم</th>
@@ -296,7 +295,6 @@ function  getdriverInvoices(){
       content = content +
                        '<tr>'+
                           '<td><input type="checkbox" name="id[]" rowid="'+this.id+'"></td>'+
-                          '<td>'+this.id+'</td>'+
                           '<td>'+this.order_no+'</td>'+
                           '<td>'+this.dat+'</td>'+
                           '<td>'+this.customer_phone+'</td>'+
