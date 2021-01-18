@@ -38,21 +38,32 @@ if($v->passes()) {
   $sql = "select orders.*,date_format(orders.date,'%Y-%m-%d') as dat,  order_status.status as status_name,
           cites.name as city_name,
           towns.name as town_name,
-            if(to_city = 1,
+            (if(to_city = 1,
                  if(client_dev_price.price is null,(".$config['dev_b']." - discount),(client_dev_price.price - discount)),
                  if(client_dev_price.price is null,(".$config['dev_o']." - discount),(client_dev_price.price - discount))
-            ) as dev_price,
+               )
+                 + if(new_price > 500000 ,( (ceil(new_price/500000)-1) * ".$config['addOnOver500']." ),0)
+                 + if(weight > 1 ,( (weight-1) * ".$config['weightPrice']." ),0)
+                 + if(towns.center = 0 ,".$config['countrysidePrice'].",0)
+             )
+
+            as dev_price,
             new_price -
               (if(to_city = 1,
                   if(client_dev_price.price is null,(".$config['dev_b']." - discount),(client_dev_price.price - discount)),
                   if(client_dev_price.price is null,(".$config['dev_o']." - discount),(client_dev_price.price - discount))
                  )
+                 + if(new_price > 500000 ,( (ceil(new_price/500000)-1) * ".$config['addOnOver500']." ),0)
+                 + if(weight > 1 ,( (weight-1) * ".$config['weightPrice']." ),0)
+                 + if(towns.center = 0 ,".$config['countrysidePrice'].",0)
              ) as client_price,
-             if(orders.order_status_id=4 or order_status_id = 6 or order_status_id = 5,'".$driver_price."',0) as driver_price
+             if(orders.order_status_id=4 or order_status_id = 6 or order_status_id = 5,'".$driver_price."',0) as driver_price ,
+           if(orders.order_status_id <> 4 ,if(orders.storage_id =0,'عند المندوب',if(orders.storage_id =-1,'عند العميل',storage.name)),'عند الزبون') as storage_status
           from orders
           left join order_status on orders.order_status_id = order_status.id
           left join cites on orders.to_city = cites.id
           left join towns on orders.to_town = towns.id
+          left join storage  on  storage.id = orders.storage_id
           left JOIN client_dev_price on client_dev_price.client_id = orders.client_id AND client_dev_price.city_id = orders.to_city
           where driver_id = '".$id."' and driver_invoice_id = 0  and orders.confirm =1
           ";
@@ -133,5 +144,5 @@ if(count($res2) > 0){
            'id'=>  implode($v->errors()->get('id')),
 ];
 }
-echo json_encode(array($sql,"success"=>$success,"data"=>$res3,"invoice"=>$res2,'pay'=>$res4));
+echo json_encode(array("success"=>$success,"data"=>$res3,"invoice"=>$res2,'pay'=>$res4));
 ?>

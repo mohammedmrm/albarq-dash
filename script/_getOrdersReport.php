@@ -131,6 +131,7 @@ try{
                  )
                  + if(new_price > 500000 ,( (ceil(new_price/500000)-1) * ".$config['addOnOver500']." ),0)
                  + if(weight > 1 ,( (weight-1) * ".$config['weightPrice']." ),0)
+                 + if(towns.center = 0 ,".$config['countrysidePrice'].",0)
              ) as client_price,if(orders.order_status_id=9,0,discount) as discount,
               if(orders.order_status_id <> 4 ,if(orders.storage_id =0,'عند المندوب',if(orders.storage_id =-1,'عند العميل',storage.name)),'عند الزبون') as storage_status,
             clients.name as client_name,clients.phone as client_phone,if(orders.t_note is null,'',orders.t_note) as t_note,

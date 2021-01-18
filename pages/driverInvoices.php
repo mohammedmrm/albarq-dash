@@ -303,14 +303,15 @@ function  getdriverInvoices(){
                           '<td>'+this.new_price+'</td>'+
                           '<td>'+Number(this.dev_price).toFixed(2)+'</td>'+
                           '<td class="text-danger" >'+this.driver_price+'</td>'+
-                          '<td>'+this.status_name+'</td>'+
+                          '<td>'+this.status_name+'<br /> ('+this.storage_status+')</td>'+
                        '</tr>'
                    ;
       });
       $("#driver_orders").append(content);
       var myTable= $('#tb-orders').DataTable({
         "ordering": false,
-      "oLanguage": {
+        lengthMenu:[10,20,30,50,100,250,500],
+        "oLanguage": {
         "sLengthMenu": "عرض_MENU_سجل",
         "sSearch": "بحث:"
       },
