@@ -365,7 +365,7 @@ $.ajax({
     var myTable= $('#tb-orders').DataTable({
        "bPaginate": false,
        "bFilter": false,
-       "ordering": false
+       "ordering": true
       });
 
     },

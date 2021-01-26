@@ -11,6 +11,7 @@ access();
 $data=["No Data"];
 $success="0";
 $token = $_REQUEST['token'];
+$confirm = $_REQUEST['confirm'];
 $orders = $_REQUEST['bar_codes'];
   if(count($orders) > 0){
     if(count($orders) > 0){
@@ -25,7 +26,10 @@ $orders = $_REQUEST['bar_codes'];
        }
        $f = " and ( ".$f." )";
     }
-  require_once("../script/dbconnection.php");
+if($confirm > 0 && !empty($confirm)){
+   $f .=" and orders.confirm = ".$confirm;
+}
+require_once("../script/dbconnection.php");
 if(count($orders)<= 100){
   try{
     $query = "select
