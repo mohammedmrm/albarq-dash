@@ -19,11 +19,11 @@ $orders = $_REQUEST['orders'];
         foreach($orders as $order){
           if($a==0){
              $f .= " (order_no = '".$order['order_no']."' and customer_phone = '".$order['customer_phone']."' and to_city ='".$order['city']."' and
-                    (DATE('".$order['date']."') < DATE_SUB(date, INTERVAL 7 DAY) or DATE('".$order['date']."') > DATE_SUB(date, INTERVAL 7 DAY))) ";
+                    (DATE('".$order['date']."') < DATE_SUB(orders.date, INTERVAL 7 DAY) or DATE('".$order['date']."') > DATE_SUB(orders.date, INTERVAL 7 DAY))) ";
           }else{
              $f .= " or
                    (order_no = '".$order['order_no']."' and customer_phone = '".$order['customer_phone']."' and to_city ='".$order['city']."' and
-                   (DATE('".$order['date']."') < DATE_SUB(date, INTERVAL 7 DAY) or DATE('".$order['date']."') > DATE_SUB(date, INTERVAL 7 DAY))) ";
+                   (DATE('".$order['date']."') < DATE_SUB(orders.date, INTERVAL 7 DAY) or DATE('".$order['date']."') > DATE_SUB(orders.date, INTERVAL 7 DAY))) ";
           }
           $a++;
        }
@@ -37,11 +37,11 @@ if(count($orders)<= 100){
      customer_phone,
      to_city as city,
      order_no,
-     date,
+     orders.date,
      orders.order_status_id as status,
      orders.price,
      new_price as received_price,
-     discount,tracking.note as t_note 
+     discount,tracking.note as t_note
      from orders
      left join (
               select max(id) as last_id,order_id from tracking group by order_id
