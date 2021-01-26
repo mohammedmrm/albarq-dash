@@ -149,7 +149,7 @@ try{
        $res = setData($con,$sql,[$order['status'],$order['confirm'],$order['driver_phone'],$order['received_price'],$order['bar_code'],$order['local_id']]);
        if($res == 1){
          $tracking = "insert into tracking (order_id,order_status_id,note,staff_id) values(?,?,?,?)";
-         $addTrack = setData($con,$tracking,[$order['local_id'],$order['status'],'تم تحديث الطلب بالمزامنه ',1]);
+         $addTrack = setData($con,$tracking,[$order['local_id'],$order['status'],' '.$order['status_note'].'*' ,1]);
          $COUNT++;
        }
       }

@@ -149,12 +149,13 @@ try{
                                   order_status_id=? ,
                                   remote_confirm=? ,
                                   remote_driver_phone=?,
-                                  new_price = ?
+                                  new_price = ?,
+                                  delivery_company_id ='".$company[0]['id']."'
                                   where to_city=? and customer_phone=? and order_no=?";
        $res = setDataWithLastID($con,$sql,[$order['status'],$order['confirm'],$order['driver_phone'],$order['received_price'],$order['city'],$order['customer_phone'],$order['order_no']]);
        if($res > 1){
          $tracking = "insert into tracking (order_id,order_status_id,note,staff_id) values(?,?,?,?)";
-         $addTrack = setData($con,$tracking,[$res,$order['status'],'تم تحديث الطلب بالمزامنه !',1]);
+         $addTrack = setData($con,$tracking,[$res,$order['status'],' '.$order("t_note").' **',1]);
          $COUNT++;
        }
       }
