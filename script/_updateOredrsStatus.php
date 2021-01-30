@@ -59,6 +59,16 @@ if(isset($_REQUEST['ids'])){
              setData($con,$new_pricequery,[$new_price[$i],$v]);
              $success="1";
            }
+            $sql = "select order_status.status as status, staff.token as s_token, orders.id as id , clients.sync_dns as dns, clients.sync_token as token, orders.isfrom as isfrom, clients.token as c_token from orders inner join staff
+            on
+            staff.id = orders.manager_id
+            or
+            staff.id = orders.driver_id
+            inner join clients on clients.id = orders.client_id
+            inner join order_status on order_status.id = orders.order_status_id
+            where orders.id =  ?";
+            sendNotification([$res[0]['s_token'],$res[0]['c_token']],[$order_id],'??? ???',$res[0]["status"],"../orderDetails.php?o=".$order_id);
+
            $i++;
          }
       } catch(PDOException $ex) {
