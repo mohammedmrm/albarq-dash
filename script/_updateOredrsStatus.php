@@ -5,6 +5,7 @@ header('Content-Type: application/json');
 require_once("_access.php");
 access([1,2,5,7,8]);
 require_once("dbconnection.php");
+require_once("_sendNoti.php");
 
 $ids = $_REQUEST['ids'];
 $statues = $_REQUEST['statuses'];
