@@ -318,8 +318,8 @@ function formatMoney(amount, decimalCount = 0, decimal = ".", thousands = ",") {
       projectId: "alnahr-3a32e",
       storageBucket: "alnahr-3a32e.appspot.com",
       messagingSenderId: "410160983978",
-      appId: "1:410160983978:web:22a64081a20724ec9185d3",
-      measurementId: "G-QYSFSMTB8R"
+      appId: "1:410160983978:web:c1e99a061096352b9185d3",
+      measurementId: "G-R2RKL414Z4"
     };
     // Initialize Firebase
     if (firebase.messaging.isSupported()) {

@@ -38,7 +38,7 @@ if(isset($_REQUEST['ids'])){
                  setData($con,$price,[0,$v]);
                }
                ///---sync
-               $sql = "select isfrom ,clients.sync_token as token,clients.sync_dns as dns from orders
+               $sql = "select orders.note as note,isfrom ,clients.sync_token as token,clients.sync_dns as dns from orders
                        inner join clients on clients.id = orders.client_id
                        where orders.id=?";
                $order = getData($con,$sql,[$v]);
