@@ -67,6 +67,7 @@ if(isset($_REQUEST['ids'])){
             inner join clients on clients.id = orders.client_id
             inner join order_status on order_status.id = orders.order_status_id
             where orders.id =  ?";
+            $res =getData($con,$sql,[$v]);
             sendNotification([$res[0]['s_token'],$res[0]['c_token']],[$order_id],'??? ???',$res[0]["status"],"../orderDetails.php?o=".$order_id);
 
            $i++;
