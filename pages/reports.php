@@ -227,7 +227,7 @@ legend
             </div>
           </div>
           <div class="row kt-margin-b-20">
-            <div class="col-lg-1 kt-margin-b-10-tablet-and-mobile">
+            <div class="col-lg-2 kt-margin-b-10-tablet-and-mobile">
             	<label>رقم الوصل:</label>
             	<input id="order_no" name="order_no" value="<?php if(!empty($_GET['order_no'])){ echo $_GET['order_no'];} ?>" onkeyup="" type="text" class="form-control kt-input" placeholder="" data-col-index="0">
             </div>
@@ -245,9 +245,9 @@ legend
   				<input  type="text" class="form-control kt-input" name="end"  id="end" placeholder="الى" data-col-index="5">
           	</div>
             </div>
-            <div class="col-lg-2 kt-margin-b-10-tablet-and-mobile">
+            <div class="col-lg-1 kt-margin-b-10-tablet-and-mobile">
             	<label>المندوب:</label>
-                <select id="driver" name="driver"  data-actions-box="true" data-live-search="true" class="form-control kt-input" data-col-index="2">
+                <select id="driver" name="driver"  data-actions-box="true" data-live-search="true" class="form-control kt-input" data-col-index="3">
             	</select>
             </div>
             <div class="col-lg-2 kt-margin-b-10-tablet-and-mobile">
@@ -885,7 +885,14 @@ $.ajax({
      const diffTime = Math.abs(d2 - d1);
      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
      if(diffDays >= 30 && this.invoice_id <= 0){
-        date = '<div class="fc-draggable-handle kt-badge kt-badge--lg kt-badge--danger kt-badge--inline kt-margin-b-15" data-color="fc-event-danger">'+date+'</div>';
+        date = '<div class="fc-draggable-handle kt-badge kt-badge--lg kt-badge--danger kt-badge--inline " data-color="fc-event-danger">'+date+'</div>';
+     }
+     if(this.order_status_id == 4){
+        status = '<div class="fc-draggable-handle kt-badge kt-badge--lg kt-badge--success kt-badge--inline " data-color="fc-event-success">'+this.status_name+'</div>';
+     }else if(this.order_status_id == 9){
+        status = '<div class="fc-draggable-handle kt-badge kt-badge--lg kt-badge--danger kt-badge--inline " data-color="fc-event-danger">'+this.status_name+'</div>';
+     }else{
+        status = this.status_name;
      }
      callcenter ="";
      if(this.callcenter_id == 0){
@@ -897,7 +904,7 @@ $.ajax({
             '<td>'+this.store_name+'<br />'+(this.client_phone)+'</td>'+
             '<td>'+this.city+'/'+this.town+''+
             '<br />'+(this.customer_phone)+'</td>'+
-            '<td>'+this.status_name+'<br /> ('+this.storage_status+')</td>'+
+            '<td>'+status+'<br /> ('+this.storage_status+')</td>'+
             '<td>'+date+'</td>'+
             '<td>'+formatMoney(this.price)+usd+'</td>'+
             '<td>'+formatMoney(this.new_price)+'</td>'+
