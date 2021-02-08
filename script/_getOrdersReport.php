@@ -19,6 +19,7 @@ $driver_invoice= $_REQUEST['driver_invoice'];
 $status = $_REQUEST['orderStatus'];
 $storageStatus = $_REQUEST['storageStatus'];
 $callcenter = $_REQUEST['callcenter'];
+$inserter = $_REQUEST['inserter'];
 $driver = $_REQUEST['driver'];
 $repated = $_REQUEST['repated'];
 $confirm = $_REQUEST['confirm'];
@@ -174,6 +175,9 @@ try{
    }
   if($branch >= 1){
    $filter .= " and from_branch =".$branch;
+  }
+  if($inserter >= 1){
+   $filter .= " and orders.manager_id =".$inserter;
   }
   if($to_branch >= 1){
    $filter .= " and to_branch =".$to_branch;

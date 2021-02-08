@@ -190,8 +190,8 @@ legend
           <fieldset><legend>فلتر</legend>
           <div class="row kt-margin-b-20">
             <div class="col-lg-2 kt-margin-b-10-tablet-and-mobile">
-            	<label>فرع الاستلام:</label>
-            	<select onchange="getclient();getAllDrivers($('#driver'),$('#branch').val())" class="form-control kt-input" id="branch" name="branch" data-col-index="6">
+            	<label>المدخل:</label>
+            	<select onchange=""  data-live-search="true" class="form-control kt-input" id="inserter" name="inserter" data-col-index="6">
             	</select>
             </div>
             <div class="col-lg-2 kt-margin-b-10-tablet-and-mobile">
@@ -722,6 +722,7 @@ legend
 <script src="js/getorderStatusMulti.js" type="text/javascript"></script>
 <script src="js/getCities.js" type="text/javascript"></script>
 <script src="js/getTowns.js" type="text/javascript"></script>
+<script src="js/getInserter.js" type="text/javascript"></script>
 <script src="js/getManagers.js" type="text/javascript"></script>
 <script src="js/getAllDrivers.js" type="text/javascript"></script>
 <script type="text/javascript">
@@ -737,6 +738,7 @@ getStores($("#store"));
 getStores($("#e_store_id"));
 getClients($("#e_client_id"),0);
 getAllDrivers($("#driver"),$("#branch").val());
+getInserter($("#inserter"));
 $('#tb-orders').DataTable({
       "oLanguage": {
         "sLengthMenu": "عرض_MENU_سجل",
