@@ -734,11 +734,7 @@ if (event.which === 13 || event.keyCode === 13 ) {
 }
 });
 var myTable;
-getStores($("#store"));
-getStores($("#e_store_id"));
-getClients($("#e_client_id"),0);
-getAllDrivers($("#driver"),$("#branch").val());
-getInserter($("#inserter"));
+
 $('#tb-orders').DataTable({
       "oLanguage": {
         "sLengthMenu": "عرض_MENU_سجل",
@@ -1252,13 +1248,18 @@ $('#e_date').datepicker({
     autoclose: true,
     pickerPosition: 'bottom-left',
 });
-
+getorders();
 getBraches($("#branch"));
 getBraches($("#to_branch"));
 getorderStatus($("#orderStatus"));
 getorderStatus($("#status_action"));
 getCities($("#city"));
-getorders();
+getStores($("#store"));
+getStores($("#e_store_id"));
+getClients($("#e_client_id"),0);
+getAllDrivers($("#driver"),$("#branch").val());
+getInserter($("#inserter"));
+
 //-- set branch equles to user branch
 $('#branch').selectpicker('val', $("#user_branch").val());
 //-- set clients equles to user branch's clients

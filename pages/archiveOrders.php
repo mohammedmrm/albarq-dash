@@ -282,15 +282,6 @@ legend
             		<option value="4">الطلبيات الغير المؤكدة</option>
                 </select>
             </div>
-<!--            <div class="col-lg-2 kt-margin-b-10-tablet-and-mobile">
-            	<label>حالة المخزن</label>
-                <select id="storageStatus" name="storageStatus"  class="selectpicker form-control kt-input" data-col-index="2">
-            		<option value="all">الكل</option>
-            		<option value="1">بدون كشف </option>
-            		<option value="2">لديها كشف  ولم يتم التحاسب</option>
-            		<option value="3">لديها كشف وتم التحاسب</option>
-                </select>
-            </div>-->
             <div class="col-lg-2 kt-margin-b-10-tablet-and-mobile">
             	<label>حالة الاستعلامات</label>
                 <select id="callcenter" name="callcenter"  class="selectpicker form-control kt-input" data-col-index="2">
@@ -298,14 +289,6 @@ legend
             		<option value="1">تم الاستعلام</option>
             		<option value="2">لم يتم الاستعلام</option>
                 </select>
-            </div>
-<!--            <div class="col-lg-1 kt-margin-b-10-tablet-and-mobile">
-                	<label class="">.</label><br />
-                    <input  id="invoicebtn" name="invoicebtn" type="button" value="كشف" onclick="makeInvoice()" class="btn btn-danger" placeholder="" data-col-index="1">
-            </div>-->
-            <div class="col-lg-2 kt-margin-b-10-tablet-and-mobile">
-                	<label class="">.</label><br />
-                    <input id="download" name="download" type="button" value="تحميل التقرير" data-toggle="modal" data-target="#reportOptionsModal" class="btn btn-success" placeholder="" data-col-index="1">
             </div>
             <div class="col-lg-2 kt-margin-b-10-tablet-and-mobile">
                 	<label class="">.</label><br />
@@ -354,20 +337,18 @@ legend
 		<table class="table table-striped  table-bordered  nowrap" style="white-space: nowrap; width: 100%;"  id="tb-orders">
 			       <thead>
 	  						<tr>
+										<th><input  id="allselector" type="checkbox"><span></span></th>
 										<th>رقم الوصل</th>
+                                        <th>تعديل</th>
 										<th>اسم وهاتف العميل</th>
 										<th>عنوان وهاتف المستلم</th>
 										<th>الحاله</th>
 										<th>تاريخ الادخال</th>
 										<th>مبلغ الوصل</th>
 										<th>المبلغ المستلم</th>
-										<th>تعديل</th>
-										<th>المدخل</th>
+                                        <th>المدخل</th>
 										<th>مبلغ التوصيل</th>
 										<th>المبلغ الصافي للعميل</th>
-										<th>المندوب</th>
-										<th>اسم موضف التبليغات</th>
-										<th>من فرع الى فرع</th>
 
 		  					</tr>
       	            </thead>
@@ -394,316 +375,6 @@ legend
 </div>
 <!-- end:: Content -->
 </div>
-<div class="modal fade" id="editOrderModal" role="dialog">
-    <div class="modal-dialog">
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal"></button>
-          <h4 class="modal-title">تعديل الطلب</h4>
-        </div>
-        <div class="modal-body">
-		<!--begin::Portlet-->
-		<div class="kt-portlet">
-
-			<!--begin::Form-->
-			<form class="kt-form" id="editOrderForm">
-				<div class="kt-portlet__body">
-                    <div class="form-group">
-						<label>رقم الطلب:</label>
-						<input type="name" id="e_order_no" name="e_order_no" class="form-control"  placeholder="">
-						<span class="form-text  text-danger" id="e_order_no_err"></span>
-					</div>
-                    <div class="form-group">
-						<label>السعر المستلم:</label>
-						<input type="name" id="e_iprice" name="e_iprice" class="form-control"  placeholder="">
-						<span class="form-text  text-danger" id="e_iprice_err"></span>
-					</div>
-                    <div class="form-group">
-						<label>مبلغ الوصل:</label>
-						<input type="name" id="e_price" name="e_price" class="form-control"  placeholder="">
-						<span class="form-text  text-danger" id="e_price_err"></span>
-					</div>
-<!--                  <div class="form-group">
-  						<label>نوع الطلب:</label>
-  						<select data-show-subtext="true" data-live-search="true" type="text" class="selectpicker form-control" name="e_order_type" id="e_order_type" >
-                          <option value="">----</option>
-                          <option value="multi">عامة</option>
-                          <option value="ملابس">ملابس</option>
-                          <option value="الكترونيات">الكترونيات</option>
-                          <option value="وثائق">وثائق</option>
-                          <option value="اثاث">اثاث</option>
-                         </select>
-                          <span class="form-text text-danger" id="e_order_type_err"></span>
-  				</div>-->
-                  <div class="form-group">
-  						<label>الوزن:</label>
-  						<input type="number" value="1" id="e_weight" name="e_weight" class="form-control"  placeholder="">
-  						<span class="form-text text-danger" id="e_weight_err"></span>
-  				  </div>
-                  <div class="form-group">
-  						<label>العدد:</label>
-  						<input type="number" value="1" id="e_qty" name="e_qty" class="form-control"  placeholder="">
-  						<span class="form-text text-danger" id="e_qty_err"></span>
-  				  </div>
-                  <div class="form-group">
-  						<label>التاريخ:</label>
-  						<input type="text" id="e_date" name="e_date" class="form-control" data-col-index="5">
-  						<span class="form-text text-danger" id="e_date_err"></span>
-  				  </div>
-                  <div class="form-group">
-  						<label>الفرع:</label>
-  						<select onchange="updateClient()" data-show-subtext="true" data-live-search="true" type="text" class="selectpicker form-control dropdown-primary" name="e_branch" id="e_branch"  value="">
-                          </select>
-                          <span class="form-text text-danger" id="e_branch_err"></span>
-  				</div>
-                  <div class="form-group">
-  						<label>العميل:</label>
-  						<select onchange="getStores($('#e_store_id'),$(this).val())" data-show-subtext="true" data-live-search="true" type="text" class="selectpicker form-control dropdown-primary" name="e_client" id="e_client_id"  value="">
-                        </select>
-                        <span class="form-text text-danger" id="e_client_err"></span>
-  			     </div>
-                 <div class="form-group">
-  						<label>اسم السوق او الصفحه:</label>
-  						<select data-show-subtext="true" data-live-search="true" type="text" class="selectpicker form-control dropdown-primary" name="e_store" id="e_store_id"  value="">
-                          </select>
-                          <span class="form-text text-danger" id="e_store_err"></span>
-  				  </div>
-                  <div class="form-group">
-  						<label>اسم المستلم:</label>
-  						<input type="text" id="e_customer_name" name="e_customer_name" class="form-control"  placeholder="">
-  						<span class="form-text text-danger" id="e_customer_name_err"></span>
-  				</div>
-                  <div class="form-group">
-  						<label>اسم المستلم:</label>
-  						<input type="text" id="e_customer_phone" name="e_customer_phone" class="form-control"  placeholder="">
-  						<span class="form-text text-danger" id="e_customer_phone_err"></span>
-  				</div>
-                  <div class="form-group">
-  						<label>المحافظة:</label>
-  						<select onchange="updateTown()" data-show-subtext="true" data-live-search="true" type="text" class="selectpicker form-control dropdown-primary" name="e_city" id="e_city"  value="">
-                          </select>
-                          <span class="form-text text-danger" id="e_city_err"></span>
-  				</div>
-                  <div class="form-group">
-  						<label>المدينة(القضاء او الحي):</label>
-  						<select data-show-subtext="true" data-live-search="true" type="text" class="selectpicker form-control dropdown-primary" name="e_town" id="e_town"  value="">
-                          </select>
-                          <span class="form-text text-danger" id="e_town_err"></span>
-  				</div>
-                  <div class="form-group">
-  						<label>الفرع المرسل له:</label>
-  						<select data-show-subtext="true" data-live-search="true" type="text" class="selectpicker form-control dropdown-primary" name="e_branch_to" id="e_branch_to"  value="">
-                          </select>
-                          <span class="form-text text-danger" id="e_branch_to_err"></span>
-  				</div>
-                  <div class="form-group">
-      				<label>ملاحظات</label>
-      				<textarea type="text" class="form-control" id="e_order_note" name="e_order_note" value=""></textarea>
-      				<span id="e_order_note_err" class="form-text text-danger"></span>
-      			</div>
-                </div>
-	            <div class="kt-portlet__foot kt-portlet__foot--solid">
-					<div class="kt-form__actions kt-form__actions--right">
-						<button type="button" onclick="updateOrder()" class="btn btn-brand">حفظ التغيرات</button>
-						<button type="reset" data-dismiss="modal" class="btn btn-secondary">الغاء</button>
-					</div>
-				</div>
-                <input type="hidden" name="e_Orderid" id="editOrderid"/>
-			</form>
-			<!--end::Form-->
-		</div>
-		<!--end::Portlet-->
-        </div>
-      </div>
-
-    </div>
-  </div>
-<div class="modal fade" id="trackOrderModal" role="dialog">
-    <div class="modal-dialog">
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">حالة الطلب</h4>
-        </div>
-        <div class="modal-body">
-		<!--begin::Portlet-->
-<div class="kt-portlet kt-portlet--height-fluid">
-            <div class="kt-portlet__head">
-                <div class="kt-portlet__head-label">
-                    <h3 class="kt-portlet__head-title">تتبع الطلبية</h3>
-                </div>
-            </div>
-            <div class="kt-portlet__body">
-                <div class="kt-scroll ps ps--active-y" data-scroll="true" data-mobile-height="764" style="">
-                    <!--Begin::Timeline -->
-                    <div class="kt-timeline" id="orderTimeline">
-                    </div>
-                    <!--End::Timeline 1 -->
-                <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; height: 946px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 300px;"></div></div></div>
-            </div>
-        </div>
-        <!--end::Portlet-->
-        </div>
-      </div>
-
-    </div>
-  </div>
-<div class="modal fade" id="storageTrackOrderModal" role="dialog">
-    <div class="modal-dialog">
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">تتبع الادخال والاخراج المخزني</h4>
-        </div>
-        <div class="modal-body">
-		<!--begin::Portlet-->
-         <div class="kt-portlet kt-portlet--height-fluid">
-            <div class="kt-portlet__head">
-                <div class="kt-portlet__head-label">
-                    <h3 class="kt-portlet__head-title">تتبع الطلبية</h3>
-                </div>
-            </div>
-            <div class="kt-portlet__body">
-                <div class="kt-scroll ps ps--active-y" data-scroll="true" data-mobile-height="764" style="">
-                    <!--Begin::Timeline -->
-                    <div class="kt-timeline" id="orderStorageTimeline">
-                    </div>
-                    <!--End::Timeline 1 -->
-                <div class="ps__rail-x" style="left: 0px; bottom: 0px;"><div class="ps__thumb-x" tabindex="0" style="left: 0px; width: 0px;"></div></div><div class="ps__rail-y" style="top: 0px; height: 946px; right: 0px;"><div class="ps__thumb-y" tabindex="0" style="top: 0px; height: 300px;"></div></div></div>
-            </div>
-        </div>
-        <!--end::Portlet-->
-        </div>
-      </div>
-
-    </div>
-  </div>
-<div class="modal fade" id="receiptOrderModal" role="dialog">
-    <div class="modal-dialog modal-lg">
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">حالة الطلب</h4>
-        </div>
-        <div class="modal-body">
-		<!--begin::Portlet-->
-          <iframe id='receiptIframe' src="" onload="frameLoaded()" width="100%" height="600px"></iframe>
-        <!--end::Portlet-->
-        </div>
-      </div>
-
-    </div>
-  </div>
-<div class="modal fade" id="chatOrderModal" role="dialog">
-    <div class="modal-dialog ">
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal"></button>
-          <h4 class="modal-title">المحادثات</h4>
-        </div>
-        <div class="modal-body">
-		<!--begin::Portlet-->
-        <div class="row">
-            <div class="col-12 chatbody" id="chatbody">
-
-            </div>
-        </div>
-        <div class="row"><hr /></div>
-        <div class="row">
-          <div class="col-12">
-             <div class="input-group">
-                   <button onclick="sendMessage()" class="btn btn-info btn-sm" id="btn-chat">ارسال</button>
-                   <textarea id="message" type="text" class="form-control input-sm" placeholder=""></textarea>
-             </div>
-             <input type="hidden"  id="chat_order_id"/>
-             <input type="hidden" value="0" id="last_msg"/>
-          </div>
-        </div>
-        <!--end::Portlet-->
-        </div>
-      </div>
-
-    </div>
-  </div>
-<div class="modal fade" id="reportOptionsModal" role="dialog">
-    <div class="modal-dialog">
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">&times;</button>
-          <h4 class="modal-title">تحميل تقرير</h4>
-        </div>
-        <div class="modal-body">
-    <!--Begin:: App Content-->
-    <div class="kt-grid__item kt-grid__item--fluid kt-app__content">
-        <div class="kt-portlet">
-            <form class="kt-form kt-form--label-right" id="addStaffForm">
-                <div class="kt-portlet__body">
-                    <div class="kt-section kt-section--first">
-                        <div class="kt-section__body">
-                            <div class="form-group row">
-                                <div class="col-lg-6 kt-margin-b-10-tablet-and-mobile">
-                                	<label>نوع التقرير:</label>
-                                    <select data-live-search="true" class="selectpicker form-control" id="reportType" name="reportType">
-                                       <option value="1">تقرير تسليمات للمندوب</option>
-                                       <option value="2">تقرير المحافظه المرسل لها</option>
-                                       <option value="3">تقرير الفرع المرسل له</option>
-                                    </select>
-                                </div>
-                                <div class="col-lg-6 kt-margin-b-10-tablet-and-mobile">
-                                	<label>حجم الخط</label>
-                                    <input type="number" step="1" min="5" max="100" id="fontSize" name="fontSize" value="12" class="form-control"/>
-
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <div class="col-lg-6 kt-margin-b-10-tablet-and-mobile">
-                                	<label>اتجاه الورقه:</label>
-                                    <select data-live-search="true" class="selectpicker form-control" id="pageDir" name="pageDir">
-                                       <option value="L">افقي </option>
-                                       <option value="P">عامودي</option>
-                                    </select>
-                                    <span class="form-text text-danger" id="staff_id_err"></span>
-                                </div>
-                                <div class="col-lg-6 kt-margin-b-10-tablet-and-mobile">
-                                	<label>المسافه بين النص وحدود الخلية</label>
-                                    <input type="number" step="1" min="0" max="30" id="space" name="space" value="10" class="form-control"/>
-                                    <span class="form-text text-danger" id="staff_id_err"></span>
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                            </div>
-                            <span class="form-text text-danger" id="staff_password_err"></span>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="kt-portlet__foot">
-                    <div class="kt-form__actions">
-                        <div class="row">
-                            <div class="col-lg-3 col-xl-3">
-                            </div>
-                            <div class="col-lg-9 col-xl-9">
-                                <button type="button" onclick="downloadReport()" class="btn btn-success">تحميل التقرير</button>&nbsp;
-                                <button type="reset" data-dismiss="modal" class="btn btn-secondary">الغأ</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-    <!--End:: App Content-->
-        </div>
-      </div>
-
-    </div>
-  </div>
 <input type="hidden" id="user_id" value="<?php echo $_SESSION['userid'];?>"/>
 <input type="hidden" id="user_branch" value="<?php echo $_SESSION['user_details']['branch_id'];?>"/>
 <input type="hidden" id="user_role" value="<?php echo $_SESSION['role'];?>"/>
@@ -881,14 +552,7 @@ $.ajax({
      }else{
        usd ="";
      }
-     date = this.date;
-     d1 = new Date(date);
-     d2 = new Date();
-     const diffTime = Math.abs(d2 - d1);
-     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-     if(diffDays >= 30 && this.invoice_id <= 0){
-        date = '<div class="fc-draggable-handle kt-badge kt-badge--lg kt-badge--danger kt-badge--inline " data-color="fc-event-danger">'+date+'</div>';
-     }
+
      if(this.order_status_id == 4){
         status = '<div class="fc-draggable-handle kt-badge kt-badge--lg kt-badge--success kt-badge--inline " data-color="fc-event-success">'+this.status_name+'</div>';
      }else if(this.order_status_id == 9){
@@ -896,37 +560,24 @@ $.ajax({
      }else{
         status = this.status_name;
      }
-     callcenter ="";
-     if(this.callcenter_id == 0){
-       callcenter = '<button type="button" class="btn btn-clean text-success" onclick="callCenter('+this.id+')"><span class="fa fa-check"></span></button>';
-     }
+
      $("#ordersTable").append(
-       '<tr class="'+bg+'">'+
-            '<td>'+this.order_no+icon+'</td>'+
+       '<tr class="">'+
+            '<td class=""><input type="checkbox" name="id[]" rowid="'+this.id+'"><span></span></td>'+
+            '<td>'+this.order_no+'</td>'+
+            '<td>'+
+                '<button type="button" class="btn btn-clean" onclick="editOrder('+this.id+')" data-toggle="modal" data-target="#editOrderModal"><span class="flaticon-edit"></sapn></button>'+
+            '</td>'+
             '<td>'+this.store_name+'<br />'+(this.client_phone)+'</td>'+
             '<td>'+this.city+'/'+this.town+''+
             '<br />'+(this.customer_phone)+'</td>'+
             '<td>'+status+'<br /> ('+this.storage_status+')</td>'+
-            '<td>'+date+'</td>'+
+            '<td>'+this.date+'</td>'+
             '<td>'+formatMoney(this.price)+usd+'</td>'+
             '<td>'+formatMoney(this.new_price)+'</td>'+
-            '<td>'+
-                '<button type="button" class="btn btn-clean" onclick="editOrder('+this.id+')" data-toggle="modal" data-target="#editOrderModal"><span class="flaticon-edit"></sapn></button>'+
-                '<button type="button" class="btn btn-clean" onclick="deleteOrder('+this.id+')" data-toggle="modal" data-target="#deleteOrderModal"><span class="flaticon-delete"></sapn></button>'+
-                '<button type="button" class="btn btn-clean" onclick="OrderTracking('+this.id+')" data-toggle="modal" data-target="#trackOrderModal"><span class="flaticon-information"></span></button>'+
-                '<button type="button" class="btn btn-clean" onclick="OrderStorageTracking('+this.id+')" data-toggle="modal" data-target="#storageTrackOrderModal"><span class="flaticon-interface-3"></span></button>'+
-                '<button type="button" class="btn btn-clean" onclick="OrderReceipt('+this.id+')" data-toggle="modal" data-target="#receiptOrderModal"><span class="fa fa-barcode"></span></button>'+
-                '<button type="button" class="btn btn-clean" onclick="OrderChat('+this.id+');setMsgSeen('+this.id+')" data-toggle="modal" data-target="#chatOrderModal">'+
-                   '<span class="kt-header__topbar-icon"> <i class="flaticon-chat"></i> <span class="kt-badge  kt-badge--notify kt-badge--sm '+notibg+'">'+nuseen_msg+'</span> </span>'+
-                '</button>'+ callcenter+
-                '<br />'+money+
-            '</td>'+
             '<td>'+this.staff_name+'</td>'+
             '<td>'+formatMoney(this.dev_price)+'</td>'+
             '<td>'+formatMoney(this.client_price)+'</td>'+
-            '<td>'+this.driver_name+'</td>'+
-            '<td>'+this.callcenter_name+'</td>'+
-            '<td> من :'+this.branch_name+' الى :'+this.to_branch_name+'</td>'+
         '</tr>');
      });
 
@@ -978,6 +629,14 @@ function deleteOrder(id){
       });
   }
 }
+$("#allselector").change(function() {
+    var ischecked= $(this).is(':checked');
+    if(!ischecked){
+      $('input[name="id\[\]"]').attr('checked', false);;
+    }else{
+      $('input[name="id\[\]"]').attr('checked', true);;
+    }
+});
 function OrderChat(id,last){
   if(id != $("#chat_order_id").val()){
     chat = 1;
