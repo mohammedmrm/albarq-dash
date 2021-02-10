@@ -182,13 +182,13 @@ foreach($res as $val){
  }
 }
   //--delete old notifications
-  $delete = "delete FROM notification WHERE date < DATE_SUB(NOW(), INTERVAL 3 MONTH)";
+  $delete = "delete FROM notification WHERE date < DATE_SUB(NOW(), INTERVAL 2 MONTH)";
   setData($con,$delete);
   //--delete old tracking
-  $delete = "delete FROM tracking WHERE date < DATE_SUB(NOW(), INTERVAL 3 MONTH)";
+  $delete = "delete FROM tracking WHERE date < DATE_SUB(NOW(), INTERVAL 2 MONTH)";
   setData($con,$delete);
   //---delete old messages
-  $delete = "delete FROM message WHERE date < DATE_SUB(NOW(), INTERVAL 3 MONTH)";
+  $delete = "delete FROM message WHERE date < DATE_SUB(NOW(), INTERVAL 2 MONTH)";
   setData($con,$delete);
   //---delete old storage_tracking
   $delete = "delete FROM storage_tracking WHERE date < DATE_SUB(NOW(), INTERVAL 6 MONTH)";
