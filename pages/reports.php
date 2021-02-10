@@ -1249,17 +1249,16 @@ $('#e_date').datepicker({
     pickerPosition: 'bottom-left',
 });
 getorders();
-getBraches($("#branch"));
+//getBraches($("#branch"));
 getBraches($("#to_branch"));
 getorderStatus($("#orderStatus"));
 getorderStatus($("#status_action"));
 getCities($("#city"));
 getStores($("#store"));
-getStores($("#e_store_id"));
-getClients($("#e_client_id"),0);
 getAllDrivers($("#driver"),$("#branch").val());
 getInserter($("#inserter"));
-
+getClients($("#e_client_id"),0); 
+getStores($("#e_store_id"));
 //-- set branch equles to user branch
 $('#branch').selectpicker('val', $("#user_branch").val());
 //-- set clients equles to user branch's clients
