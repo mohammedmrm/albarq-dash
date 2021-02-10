@@ -77,7 +77,7 @@ try{
             clients.name as client_name,clients.phone as client_phone,if(orders.t_note is null,'',orders.t_note) as t_note,
             stores.name as store_name,callcenter.name as callcenter_name,
             cites.name as city,towns.name as town,branches.name as branch_name,to_branch.name as to_branch_name,
-            order_status.status as status_name,staff.name as staff_name,b.rep as repated , if(driver.name is null,'غير معروف',driver.name) as driver_name,if(driver.phone is null,'0',driver.phone)  as driver_phone,
+            order_status.status as status_name,a.nuseen_msg,staff.name as staff_name,b.rep as repated , if(driver.name is null,'غير معروف',driver.name) as driver_name,if(driver.phone is null,'0',driver.phone)  as driver_phone,
             orders.invoice_id as invoice_id,invoice.path as invoice_path,invoice.invoice_status as invoice_status,
             orders.driver_invoice_id as driver_invoice_id,driver_invoice.path as driver_invoice_path,driver_invoice.invoice_status as driver_invoice_status
             from orders left join
@@ -132,6 +132,12 @@ try{
           left JOIN client_dev_price on client_dev_price.client_id = orders.client_id AND client_dev_price.city_id = orders.to_city
           left join invoice on invoice.id = orders.invoice_id
           left join (
+             select count(*) as nuseen_msg, max(order_id) as order_id from message
+             where is_client = 0 and admin_seen = 0
+             group by message.order_id
+            ) a on a.order_id = orders.id
+
+          left join (
              select order_no,count(*) as rep from orders where confirm = 1 or  confirm = 4
               GROUP BY order_no
               HAVING COUNT(orders.id) > 1
@@ -166,7 +172,7 @@ try{
              ) as client_price,if(orders.order_status_id=9,0,discount) as discount,
               if(orders.order_status_id <> 4 ,if(orders.storage_id =0,'عند المندوب',if(orders.storage_id =-1,'عند العميل',storage.name)),'عند الزبون') as storage_status,
             clients.name as client_name,clients.phone as client_phone,if(orders.t_note is null,'',orders.t_note) as t_note,
-            stores.name as store_name,callcenter.name as callcenter_name,
+            stores.name as store_name,a.nuseen_msg,callcenter.name as callcenter_name,
             cites.name as city,towns.name as town,branches.name as branch_name,to_branch.name as to_branch_name,
             order_status.status as status_name,staff.name as staff_name, if(driver.name is null,'غير معروف',driver.name) as driver_name,if(driver.phone is null,'0',driver.phone)  as driver_phone,
             orders.invoice_id as invoice_id,invoice.path as invoice_path,invoice.invoice_status as invoice_status,
@@ -186,7 +192,12 @@ try{
             left join invoice on invoice.id = orders.invoice_id
             left join driver_invoice on driver_invoice.id = orders.driver_invoice_id
             left JOIN client_dev_price on client_dev_price.client_id = orders.client_id AND client_dev_price.city_id = orders.to_city
-           ";
+            left join (
+             select count(*) as nuseen_msg, max(order_id) as order_id from message
+             where is_client = 0 and admin_seen = 0
+             group by message.order_id
+            ) a on a.order_id = orders.id
+            ";
  $sqlt = "select
           sum(new_price) as income,
 
