@@ -96,6 +96,12 @@ try{
             left join driver_invoice on driver_invoice.id = orders.driver_invoice_id
             left JOIN client_dev_price on client_dev_price.client_id = orders.client_id AND client_dev_price.city_id = orders.to_city
             left join (
+             select count(*) as nuseen_msg, max(order_id) as order_id from message
+             where is_client = 0 and admin_seen = 0
+             group by message.order_id
+            ) a on a.order_id = orders.id
+
+            left join (
              select order_no,count(*) as rep from orders  where confirm = 1 or  confirm = 4
               GROUP BY order_no
               HAVING COUNT(orders.id) > 1
@@ -131,11 +137,6 @@ try{
 
           left JOIN client_dev_price on client_dev_price.client_id = orders.client_id AND client_dev_price.city_id = orders.to_city
           left join invoice on invoice.id = orders.invoice_id
-          left join (
-             select count(*) as nuseen_msg, max(order_id) as order_id from message
-             where is_client = 0 and admin_seen = 0
-             group by message.order_id
-            ) a on a.order_id = orders.id
 
           left join (
              select order_no,count(*) as rep from orders where confirm = 1 or  confirm = 4
