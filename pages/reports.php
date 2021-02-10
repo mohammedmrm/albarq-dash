@@ -1213,7 +1213,6 @@ function getclient(){
  }else{
      getClients($("#client"),$("#branch").val());
  }
- getorders();
 }
 $( document ).ready(function(){
 
@@ -1257,7 +1256,7 @@ getCities($("#city"));
 getStores($("#store"));
 getAllDrivers($("#driver"),$("#branch").val());
 getInserter($("#inserter"));
-getClients($("#e_client_id"),0); 
+getClients($("#e_client_id"),0);
 getStores($("#e_store_id"));
 //-- set branch equles to user branch
 $('#branch').selectpicker('val', $("#user_branch").val());
