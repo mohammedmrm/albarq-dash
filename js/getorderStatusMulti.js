@@ -1,4 +1,4 @@
-function getorderStatus(elem,add = 0){
+function getorderStatus(elem, add = 0) {
   res = {
     success: "1",
     data: [
@@ -56,29 +56,31 @@ function getorderStatus(elem,add = 0){
       },
     ],
   };
-  if(add){
-     elem.append(
-       '<option style="" value="">-- اختر الحالة --</option>'
-     );
-   }
-   $.each(res.data,function(){
-     bg ="";
-     if(this.id == 4){
-       bg ="#9CDE7C";
-     }else if(this.id == 5){
-       bg ="#FFFFAC";
-     }else if(this.id == 9){
-       bg ="#F2A69B";
-     }else if(this.id == 4){
-       bg ="";
-     }else if(this.id == 4){
-       bg ="";
-     }
-     elem.append(
-       '<option style="background-color:'+bg+'" value="'+this.id+'">'+this.status +'</option>'
-     );
-    });
-    elem.selectpicker('refresh');
-
-});
+  if (add) {
+    elem.append('<option style="" value="">-- اختر الحالة --</option>');
+  }
+  $.each(res.data, function () {
+    bg = "";
+    if (this.id == 4) {
+      bg = "#9CDE7C";
+    } else if (this.id == 5) {
+      bg = "#FFFFAC";
+    } else if (this.id == 9) {
+      bg = "#F2A69B";
+    } else if (this.id == 4) {
+      bg = "";
+    } else if (this.id == 4) {
+      bg = "";
+    }
+    elem.append(
+      '<option style="background-color:' +
+        bg +
+        '" value="' +
+        this.id +
+        '">' +
+        this.status +
+        "</option>"
+    );
+  });
+  elem.selectpicker("refresh");
 }
