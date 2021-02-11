@@ -20,11 +20,12 @@ try{
              left join clients on clients.id = stores.client_id
              left join (
                  select SUM(IF (invoice_id = 0,1,0)) as orders,
+                        SUM(IF (invoice_id = 0 and (order_status_id = 4 or order_status_id = 6 or order_status_id = 5),new_price,0)) as price,
                         min(date) as old_date,
                         max(store_id) as store_id
                  from orders where orders.confirm=1
                  group by orders.store_id
-             ) a on a.store_id = stores.id ".$branch." order by  old_date ASC,orders DESC
+             ) a on a.store_id = stores.id ".$branch." order by  a.price DESC,orders DESC
              ";
     $data = getData($con,$query);
 
@@ -35,13 +36,14 @@ try{
              left join clients on clients.id = stores.client_id
              left join (
                  select SUM(IF (invoice_id = 0,new_price,0)) as total_price,
+                        SUM(IF (invoice_id = 0 and (order_status_id = 4 or order_status_id = 6 or order_status_id = 5),new_price,0)) as price,
                         min(date) as old_date,
                         max(store_id) as store_id
                  from orders where orders.confirm=1
                  group by orders.store_id
              ) a on a.store_id = stores.id
              ";
-   $query .= " where stores.client_id=? ".$branch." order by total_price DESC";
+   $query .= " where stores.client_id=? ".$branch." order by a.price DESC";
    $data = getData($con,$query,[$client]);
   }
   $success="1";
