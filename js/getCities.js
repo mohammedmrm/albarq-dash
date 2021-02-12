@@ -1,173 +1,23 @@
 function getCities(elem) {
-  res = {
-    success: "1",
-    data: [
-      {
-        id: "1",
-        city_id: "1",
-        days: "3",
-        active: "1",
-        p_days: "3",
-        r_days: "7",
-        name: "\u0628\u063a\u062f\u0627\u062f",
-      },
-      {
-        id: "2",
-        city_id: "2",
-        days: "3",
-        active: "1",
-        p_days: "3",
-        r_days: "7",
-        name: "\u0627\u0644\u0628\u0635\u0631\u0629",
-      },
-      {
-        id: "3",
-        city_id: "3",
-        days: "3",
-        active: "1",
-        p_days: "3",
-        r_days: "7",
-        name: "\u0646\u064a\u0646\u0648\u0649",
-      },
-      {
-        id: "4",
-        city_id: "4",
-        days: "7",
-        active: "1",
-        p_days: "3",
-        r_days: "7",
-        name: "\u0623\u0631\u0628\u064a\u0644",
-      },
-      {
-        id: "5",
-        city_id: "5",
-        days: "3",
-        active: "1",
-        p_days: "3",
-        r_days: "7",
-        name: "\u0627\u0644\u0646\u062c\u0641",
-      },
-      {
-        id: "6",
-        city_id: "6",
-        days: "3",
-        active: "1",
-        p_days: "3",
-        r_days: "7",
-        name: "\u0630\u064a \u0642\u0627\u0631",
-      },
-      {
-        id: "7",
-        city_id: "7",
-        days: "3",
-        active: "1",
-        p_days: "3",
-        r_days: "7",
-        name: "\u0643\u0631\u0643\u0648\u0643",
-      },
-      {
-        id: "8",
-        city_id: "8",
-        days: "5",
-        active: "1",
-        p_days: "3",
-        r_days: "7",
-        name: "\u0627\u0644\u0627\u0646\u0628\u0627\u0631",
-      },
-      {
-        id: "9",
-        city_id: "9",
-        days: "3",
-        active: "1",
-        p_days: "3",
-        r_days: "7",
-        name: "\u062f\u064a\u0627\u0644\u0649",
-      },
-      {
-        id: "10",
-        city_id: "10",
-        days: "3",
-        active: "1",
-        p_days: "3",
-        r_days: "7",
-        name: "\u0627\u0644\u0645\u062b\u0646\u0649",
-      },
-      {
-        id: "11",
-        city_id: "11",
-        days: "3",
-        active: "1",
-        p_days: "3",
-        r_days: "7",
-        name: "\u0627\u0644\u0642\u0627\u062f\u0633\u064a\u0629",
-      },
-      {
-        id: "12",
-        city_id: "12",
-        days: "3",
-        active: "1",
-        p_days: "3",
-        r_days: "7",
-        name: "\u0645\u064a\u0633\u0627\u0646",
-      },
-      {
-        id: "13",
-        city_id: "13",
-        days: "3",
-        active: "1",
-        p_days: "3",
-        r_days: "7",
-        name: "\u0648\u0627\u0633\u0637",
-      },
-      {
-        id: "14",
-        city_id: "14",
-        days: "3",
-        active: "1",
-        p_days: "3",
-        r_days: "7",
-        name: "\u0635\u0644\u0627\u062d \u0627\u0644\u062f\u064a\u0646",
-      },
-      {
-        id: "15",
-        city_id: "15",
-        days: "7",
-        active: "1",
-        p_days: "3",
-        r_days: "7",
-        name: "\u062f\u0647\u0648\u0643",
-      },
-      {
-        id: "16",
-        city_id: "16",
-        days: "7",
-        active: "1",
-        p_days: "3",
-        r_days: "7",
-        name: "\u0627\u0644\u0633\u0644\u064a\u0645\u0627\u0646\u064a\u0629",
-      },
-      {
-        id: "17",
-        city_id: "17",
-        days: "3",
-        active: "1",
-        p_days: "3",
-        r_days: "7",
-        name: "\u0628\u0627\u0628\u0644",
-      },
-      {
-        id: "18",
-        city_id: "18",
-        days: "3",
-        active: "1",
-        p_days: "3",
-        r_days: "7",
-        name: "\u0643\u0631\u0628\u0644\u0627\u0621",
-      },
-    ],
-  };
-  $.each(res.data, function () {
-    elem.append("<option value='" + this.id + "'>" + this.name + "</option>");
+  $.ajax({
+    url: "script/_getCites.php",
+    type: "POST",
+    success: function (res) {
+      elem.html("");
+      elem.append('<option value="">... اختر ...</option>');
+      $.each(res.data, function () {
+        elem.append(
+          "<option value='" + this.id + "'>" + this.name + "</option>"
+        );
+      });
+      elem.selectpicker("refresh");
+      console.log(res);
+    },
+    error: function (e) {
+      elem.append(
+        "<option value='' class='bg-danger'>خطأ اتصل بمصمم النظام</option>"
+      );
+      console.log(e);
+    },
   });
-  elem.selectpicker("refresh");
 }
