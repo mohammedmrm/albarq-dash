@@ -195,6 +195,11 @@ legend
             	</select>
             </div>
             <div class="col-lg-2 kt-margin-b-10-tablet-and-mobile">
+            	<label>مغير الحاله:</label>
+            	<select onchange=""  data-live-search="true" class="form-control kt-input" id="statusChanger" name="statusChanger" data-col-index="6">
+            	</select>
+            </div>
+            <div class="col-lg-2 kt-margin-b-10-tablet-and-mobile">
             	<label>فرع الارسال:</label>
             	<select onchange="" class="form-control kt-input" id="to_branch" name="to_branch" data-col-index="6">
             	</select>
@@ -1256,6 +1261,7 @@ getCities($("#city"));
 getStores($("#store"));
 getAllDrivers($("#driver"),$("#branch").val());
 getInserter($("#inserter"));
+getInserter($("#statusChanger"));
 getClients($("#e_client_id"),0);
 getStores($("#e_store_id"));
 //-- set branch equles to user branch
