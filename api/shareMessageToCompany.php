@@ -6,7 +6,7 @@ header("Content-Type: application/json; charset=UTF-8");
 require_once("_apiAccess.php");
 access();
 require_once("../script/dbconnection.php");
-require_once("../script/_sendNoti.php"); 
+require_once("../script/_sendNoti.php");
 require_once("../config.php");
 
 use Violin\Violin;
@@ -46,8 +46,22 @@ if($v->passes()) {
                 inner join clients on clients.id = orders.client_id
                 where orders.id = ?";
         $res =getData($con,$sql,[$id]);
-        sendNotification([$res[0]['s_token'],$res[1]['s_token'],$res[0]['c_token']],[$order_id],'رساله جديد - '.$res[0]['order_no'],$message,"../orderDetails.php?o=".$order_id);
-
+        sendNotification([$res[0]['s_token'],$res[1]['s_token'],$res[0]['c_token']],[$id],'رساله جديد - '.$res[0]['order_no'],$message,"../orderDetails.php?o=".$order_id);
+       $sql = "select
+               companies.token as token,
+               companies.dns as dns, orders.id as id,
+               orders.bar_code as bar_code
+               from orders
+               left join companies on orders.delivery_company_id = companies.id
+               where orders.id=?";
+       $order = getData($con,$sql,[$id]);
+       $response = httpPost($order[0]['dns'].'/api/shareMessageToCompany.php',
+            [
+             'token'=>$order[0]['token'],
+             'message'=>$message,
+             'remote_id'=>$order[0]['id'],
+             'id'=>$order[0]['bar_code'],
+        ]);
       }
     }
   }catch(PDOException $ex) {

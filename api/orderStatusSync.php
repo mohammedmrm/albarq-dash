@@ -104,7 +104,7 @@ if($v->passes()  ) {
                 $success = 1;
                 $sql = 'insert into tracking (order_status_id,note,items_no,order_id,staff_id) values(?,?,?,?,?)';
                 $result = setData($con,$sql,[$status,$note,$item_no,$order_id,-1]);
-                $sql = "select staff.token as s_token, clients.token as c_token from orders inner join staff
+                $sql = "select staff.token as s_token, orders.id as id , clients.sync_dns as dns, clients.sync_token as token, orders.isfrom as isfrom, clients.token as c_token from orders inner join staff
                         on
                         staff.id = orders.manager_id
                         or
@@ -112,6 +112,16 @@ if($v->passes()  ) {
                         inner join clients on clients.id = orders.client_id
                         where orders.id =  ?";
                 $res =getData($con,$sql,[$order_id]);
+                if($res[0]['isfrom'] == 2){
+                   $response = httpPost($res[0]['dns'].'/api/orderStatusSync.php',
+                    [
+                     'token'=>$res[0]['token'],
+                     'status'=>$status,
+                     'note'=> $note,
+                     'price'=>$new_price,
+                     'id'=>$order_id,
+                    ]);
+                }
                 sendNotification([$res[0]['s_token'],$res[0]['c_token']],[$order_id],'طلب رقم ',$note,"../orderDetails.php?o=".$order_id);
               }
           }else{

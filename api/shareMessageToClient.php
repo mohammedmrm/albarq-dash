@@ -6,7 +6,7 @@ header("Content-Type: application/json; charset=UTF-8");
 require_once("_apiAccess2.php");
 access();
 require_once("../script/dbconnection.php");
-require_once("../script/_sendNoti.php"); 
+require_once("../script/_sendNoti.php");
 require_once("../config.php");
 
 use Violin\Violin;
@@ -47,7 +47,26 @@ if($v->passes()) {
                 where orders.id = ?";
         $res =getData($con,$sql,[$id]);
         sendNotification([$res[0]['s_token'],$res[1]['s_token'],$res[0]['c_token']],[$order_id],'رساله جديد - '.$res[0]['order_no'],$message,"../orderDetails.php?o=".$order_id);
-
+       //--- snyc
+           $sql = "select
+                   isfrom ,
+                   clients.sync_token as token,
+                   clients.sync_dns as dns,
+                   orders.id as id,
+                   orders.remote_id as remote_id
+                   from orders
+                   inner join clients on clients.id = orders.client_id
+                   where orders.id=?";
+           $order = getData($con,$sql,[$id]);
+           if($order[0]['isfrom'] == 2 && $order[0]['remote_id'] > 1){
+             $response = httpPost($order[0]['dns'].'/api/shareMessageToClient.php',
+                  [
+                   'token'=>$order[0]['token'],
+                   'message'=>$message,
+                   'barcode'=>$order[0]['id'],
+                   'id'=>$order[0]['remote_id'],
+              ]);
+           }
       }
     }
   }catch(PDOException $ex) {

@@ -54,6 +54,22 @@ if($v->passes()) {
   $result = setData($con,$sql);
   if($result > 0){
     $success = 1;
+     ///---sync
+     $sql = "select isfrom ,clients.sync_token as token,clients.sync_dns as dns,staff.phone as driver_phone,
+             remote_id from orders
+             left join clients on clients.id = orders.client_id
+             left join staff on staff.id = orders.driver_id
+             where orders.id=?";
+     $order = getData($con,$sql,[$id]);
+     if($order[0]['isfrom'] == 2){
+       $response = httpPost($order[0]['dns'].'/api/updateOrderDriver.php',
+            [
+             'token'=>$order[0]['token'],
+             'driver_phone'=>$order[0]['driver_phone'],
+             'id'=>$order[0]['remote_id'],
+             'barcode'=>$v,
+            ]);
+     }
   }
   }catch(PDOException $ex) {
    $error=["error"=>$ex];
