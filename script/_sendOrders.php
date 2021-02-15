@@ -38,6 +38,7 @@ $sql = "select orders.*,clients.phone as c_phone,to_city as city_id, to_town as 
 $result =getData($con,$sql);
 if(count($res) == 1){
     $response = httpPost($res[0]['dns'].'/api/addOrdersByClient.php',['token'=>$res[0]['token'],'store'=>$store,'orders'=>$result]);
+    $re = $response;
     $response = json_decode($response, true);
     foreach($response['data'] as $k=>$val){
         if(isset($val['barcode'])){
@@ -59,5 +60,5 @@ function httpPost($url, $data)
     curl_close($curl);
     return $response;
 }
-echo json_encode([$_REQUEST,"msg"=>$msg,"response"=>$response]);
+echo json_encode([$_REQUEST,$re,"msg"=>$msg,"response"=>$response]);
 ?>
