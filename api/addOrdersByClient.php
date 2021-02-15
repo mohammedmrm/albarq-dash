@@ -190,6 +190,6 @@ $error = [
            'order_address'=>implode($v->errors()->get('order_address'))
            ];
 }
-ob_end_clean();
+//ob_end_clean();
 echo json_encode(['success'=>$success,'check'=>$check,'error'=>$error,"count"=>$count,'data'=>$data]);
 ?>
