@@ -7,6 +7,7 @@ require_once("_apiAccess.php");
 access();
 require_once("../script/dbconnection.php");
 require_once("../script/_sendNoti.php");
+require_once("../script/_httpRequest.php");
 require_once("../config.php");
 
 use Violin\Violin;
