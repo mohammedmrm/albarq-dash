@@ -47,21 +47,21 @@ if($v->passes()) {
                 where orders.id = ?";
         $res =getData($con,$sql,[$id]);
         sendNotification([$res[0]['s_token'],$res[1]['s_token'],$res[0]['c_token']],[$id],'رساله جديد - '.$res[0]['order_no'],$message,"../orderDetails.php?o=".$order_id);
-       $sql = "select
-               companies.token as token,
-               companies.dns as dns, orders.id as id,
-               orders.bar_code as bar_code
-               from orders
-               left join companies on orders.delivery_company_id = companies.id
-               where orders.id=?";
-       $order = getData($con,$sql,[$id]);
-       $response = httpPost($order[0]['dns'].'/api/shareMessageToCompany.php',
-            [
-             'token'=>$order[0]['token'],
-             'message'=>$message,
-             'remote_id'=>$order[0]['id'],
-             'id'=>$order[0]['bar_code'],
-        ]);
+         $sql = "select
+                 companies.token as token,
+                 companies.dns as dns, orders.id as id,
+                 orders.bar_code as bar_code
+                 from orders
+                 left join companies on orders.delivery_company_id = companies.id
+                 where orders.id=?";
+         $order = getData($con,$sql,[$id]);
+         $response = httpPost($order[0]['dns'].'/api/shareMessageToCompany.php',
+              [
+               'token'=>$order[0]['token'],
+               'message'=>$message,
+               'remote_id'=>$order[0]['id'],
+               'id'=>$order[0]['bar_code'],
+          ]);
       }
     }
   }catch(PDOException $ex) {
@@ -75,5 +75,5 @@ $error = [
            'message'=>implode($v->errors()->get('message')),
            ];
 }
-echo json_encode([$_REQUEST,'success'=>$success, 'error'=>$error]);
+echo json_encode([$order,$_REQUEST,'success'=>$success, 'error'=>$error]);
 ?>
