@@ -88,6 +88,7 @@ foreach($Orders as $k=>$val){
 if($v->passes()) {
    $not=0;
    $add=0;
+   try {
    foreach($Orders as $k=>$val){
             $sql = "select * from orders where store_id=? and remote_id=? and price=?";
             $check = getData($con,$sql,[$store,$val["id"],$val['price']]);
@@ -166,6 +167,10 @@ if($v->passes()) {
            }
       //--- END-- this for add order tracking record
    }
+   }catch(){
+    $error=["error"=>$ex];
+    $success="0";
+   }
     $count['added']=$add;
     $count['not']=$not;
 }else{
@@ -185,6 +190,6 @@ $error = [
            'order_address'=>implode($v->errors()->get('order_address'))
            ];
 }
-//ob_end_clean();
+ob_end_clean();
 echo json_encode(['success'=>$success,'check'=>$check,'error'=>$error,"count"=>$count,'data'=>$data]);
 ?>
