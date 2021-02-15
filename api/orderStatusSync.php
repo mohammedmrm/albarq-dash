@@ -5,6 +5,7 @@ header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 require_once("../script/dbconnection.php");
 require_once("../script/_sendNoti.php");
+require_once("../script/_httpRequest.php");
 require_once("../config.php");
 require_once("_apiAccess2.php");
 access();

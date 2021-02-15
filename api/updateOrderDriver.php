@@ -6,6 +6,7 @@ header("Content-Type: application/json; charset=UTF-8");
 require_once("_apiAccess2.php");
 access();
 require_once("../script/dbconnection.php");
+require_once("../script/_httpRequest.php");
 require_once("../config.php");
 
 use Violin\Violin;
