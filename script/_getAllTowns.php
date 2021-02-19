@@ -13,7 +13,7 @@ if(empty($city)){
            from towns inner join cites on cites.id = towns.city_id
            left join driver_towns on driver_towns.town_id = towns.id
            left join staff on staff.id = driver_towns.driver_id
-           ";
+           order by city_id";
 }else{
  $query = "select
            towns.name as town,cites.name as city, towns.id as id,
