@@ -75,7 +75,7 @@
           		</div>
           		<div class="kt-portlet__head-toolbar ">
           			<div class="kt-portlet__head-toolbar-wrapper text-white">
-                    تم التحاسب مع المندوب
+                    بدون خصم اجره المندوب
           			</div>
           		</div>
           	</div>
