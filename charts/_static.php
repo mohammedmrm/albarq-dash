@@ -24,7 +24,7 @@ $sql = "SELECT
           where orders.confirm = 1 and date between '".$start."' and '".$end."'";
 
 $prices= "SELECT
-          sum( if((order_status_id=4 or order_status_id=6 or order_status_id=5) and driver_invoice_id = 0,
+          sum( if((order_status_id=4 or order_status_id=6 or order_status_id=5) and (driver_invoice_id = 0 or driver_invoice_id is null),
                    orders.new_price,0)
              ) as withdriver,
           sum(
@@ -67,7 +67,7 @@ $sql = "SELECT
           where orders.confirm = 1 and (date between '".$start."' and '".$end."') and from_branch = '".$_SESSION['user_details']['branch_id']."'
           ";
 $prices =  "SELECT
-          sum( if((order_status_id=4 or order_status_id=6 or order_status_id=5) and driver_invoice_id = 0,
+          sum( if((order_status_id=4 or order_status_id=6 or order_status_id=5) and (driver_invoice_id = 0 or driver_invoice_id is null),
                    orders.new_price,0)
              ) as withdriver,
           sum(
@@ -112,5 +112,5 @@ $total[0]['withcompany']= $price[0]['withcompany'];
 $total[0]['dev_price']= $devprice[0]['dev_price'];
 
 
-echo json_encode(['orders'=>$total]);
+echo json_encode(['orders'=>$total,$prices]);
 ?>

@@ -635,7 +635,7 @@ $.ajax({
     console.log("static",res);
     $("#s_total").removeClass("loading");
     $("#s_total").text(res.orders[0]['total']);
-    $("#s_withdriver").text(formatMoney(Number(res.orders[0]['withdrive'])));
+    $("#s_withdriver").text(formatMoney(Number(res.orders[0]['withdriver'])));
     $("#s_withcompany").text(formatMoney(Number(res.orders[0]['withcompany'])));
     $("#s_dev_price").text(formatMoney(Number(res.orders[0]['dev_price'])));
   },
