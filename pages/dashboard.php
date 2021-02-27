@@ -1,3 +1,94 @@
+
+<div class="row">
+	<div class="col-lg-3 col-xl-3 order-lg-1 order-xl-1">
+    		<!--begin::Portlet-->
+          <div class="kt-portlet kt-portlet--height-fluid bg-success">
+          	<div class="kt-portlet__head kt-portlet__head--noborder">
+          		<div class="kt-portlet__head-label">
+          			<h3 class="kt-portlet__head-title text-white">عدد طلبيات اليوم</h3>
+          		</div>
+          		<div class="kt-portlet__head-toolbar">
+          			<div class="kt-portlet__head-toolbar-wrapper">
+          			</div>
+          		</div>
+          	</div>
+          	<div class="kt-portlet__body kt-portlet__body--fluid">
+          		<div class="kt-widget-19">
+          			<div class="kt-widget-19__title">
+                         <h1 id="s_total" class="text-white"></h1>
+          			</div>
+          		</div>
+          	</div>
+          </div>
+          <!--end::Portlet-->
+</div>
+	<div class="col-lg-3 col-xl-3 order-lg-1 order-xl-1">
+    		<!--begin::Portlet-->
+          <div class="kt-portlet kt-portlet--height-fluid bg-warning">
+          	<div class="kt-portlet__head kt-portlet__head--noborder">
+          		<div class="kt-portlet__head-label">
+          			<h3 class="kt-portlet__head-title text-white">في ذمة المندوبين</h3>
+          		</div>
+          		<div class="kt-portlet__head-toolbar">
+          			<div class="kt-portlet__head-toolbar-wrapper">
+          			</div>
+          		</div>
+          	</div>
+          	<div class="kt-portlet__body kt-portlet__body--fluid">
+          		<div class="kt-widget-19">
+          			<div class="kt-widget-19__title">
+                     <h1 id="s_withdriver" class="text-white"></h1>
+          			</div>
+          		</div>
+          	</div>
+          </div>
+          <!--end::Portlet-->
+</div>
+	<div class="col-lg-3 col-xl-3 order-lg-1 order-xl-1">
+    		<!--begin::Portlet-->
+          <div class="kt-portlet kt-portlet--height-fluid bg-danger">
+          	<div class="kt-portlet__head kt-portlet__head--noborder">
+          		<div class="kt-portlet__head-label">
+          			<h3 class="kt-portlet__head-title text-white">في ذمة الشركه</h3>
+          		</div>
+          		<div class="kt-portlet__head-toolbar">
+          			<div class="kt-portlet__head-toolbar-wrapper">
+          			</div>
+          		</div>
+          	</div>
+          	<div class="kt-portlet__body kt-portlet__body--fluid ">
+          		<div class="kt-widget-19">
+          			<div class="kt-widget-19__title">
+                     <h1 id="s_withcompany" class="text-white"></h1>
+          			</div>
+          		</div>
+          	</div>
+          </div>
+          <!--end::Portlet-->
+</div>
+	<div class="col-lg-3 col-xl-3 order-lg-1 order-xl-1 ">
+    		<!--begin::Portlet-->
+          <div class="kt-portlet kt-portlet--height-fluid bg-info">
+          	<div class="kt-portlet__head kt-portlet__head--noborder">
+          		<div class="kt-portlet__head-label">
+          			<h3 class="kt-portlet__head-title text-white">الارباح الاخر اسبوع بدون خصم اجره المندوب</h3>
+          		</div>
+          		<div class="kt-portlet__head-toolbar">
+          			<div class="kt-portlet__head-toolbar-wrapper">
+          			</div>
+          		</div>
+          	</div>
+          	<div class="kt-portlet__body kt-portlet__body--fluid">
+          		<div class="kt-widget-19">
+          			<div class="kt-widget-19__title">
+                     <h1 id="s_dev_price" class="text-white"></h1>
+          			</div>
+          		</div>
+          	</div>
+          </div>
+          <!--end::Portlet-->
+</div>
+</div>
 <div class="row">
 
 <hr />
@@ -532,6 +623,28 @@ $.ajax({
   }
   });
 }
+function static(){
+$.ajax({
+  url:"charts/_static.php",
+  type:"POST",
+  data:{start: $("#start").val(),end:$("#end").val()},
+  beforeSend:function(){
+    $("#s_total").addClass("loading");
+  },
+  success:function(res){
+    console.log("static",res);
+    $("#s_total").removeClass("loading");
+    $("#s_total").text(res.orders[0]['total']);
+    $("#s_withdriver").text(formatMoney(Number(res.orders[0]['withdrive'])));
+    $("#s_withcompany").text(formatMoney(Number(res.orders[0]['withcompany'])));
+    $("#s_dev_price").text(formatMoney(Number(res.orders[0]['dev_price'])));
+  },
+  error:function(e){
+    console.log(e);
+    $("#s_total").removeClass("loading");
+  }
+  });
+}
 function empyleeRecords(){
 $.ajax({
   url:"charts/_getEmpyleeRecords.php",
@@ -574,6 +687,7 @@ getEraningsLast10Clients();
 getOrdersCount();
 getLast10Orders();
 empyleeRecords();
+static();
 function updateDash() {
  earnings();
  getLast10Orders();
