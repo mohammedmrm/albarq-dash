@@ -629,7 +629,7 @@ $.ajax({
   type:"POST",
   data:{start: $("#start").val(),end:$("#end").val()},
   beforeSend:function(){
-    $("#s_total").addClass("loading");
+    //$("#s_total").addClass("loading");
   },
   success:function(res){
     console.log("static",res);
