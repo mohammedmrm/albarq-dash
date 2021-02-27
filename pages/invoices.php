@@ -135,6 +135,11 @@ background-color: #FFFF99;
             		<option value="">Select</option>
             	</select>
             </div>
+            <div class="col-lg-2 kt-margin-b-10-tablet-and-mobile">
+            	<label>المحاسب:</label>
+            	<select onchange="getInvoices()"  data-live-search="true" class="form-control kt-input" id="inserter" name="inserter" data-col-index="6">
+            	</select>
+            </div>
             <div class="col-lg-3 kt-margin-b-10-tablet-and-mobile">
             <label>الفترة الزمنية (تاريخ الكشف):</label>
             <div class="input-daterange input-group" id="kt_datepicker">
@@ -206,6 +211,7 @@ background-color: #FFFF99;
 <script src="assets/js/demo1/pages/components/datatables/extensions/responsive.js" type="text/javascript"></script>
 <script src="js/getClients.js" type="text/javascript"></script>
 <script src="js/getBraches.js" type="text/javascript"></script>
+<script src="js/getInserter.js" type="text/javascript"></script>
 <script type="text/javascript">
 function getAllClient(ele){
    $.ajax({
@@ -398,6 +404,8 @@ $( document ).ready(function(){
  getBraches($("#branch"));
  getStoresByClient($("#store"));
  getInvoices();
+ getInserter($("#inserter"));
+
 });
 
 $('#start').datepicker({

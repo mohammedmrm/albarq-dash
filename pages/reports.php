@@ -1261,7 +1261,7 @@ getCities($("#city"));
 getStores($("#store"));
 getAllDrivers($("#driver"),$("#branch").val());
 getInserter($("#inserter"));
-getInserter($("#statusChanger"));
+//getInserter($("#statusChanger"));
 getClients($("#e_client_id"),0);
 getStores($("#e_store_id"));
 //-- set branch equles to user branch

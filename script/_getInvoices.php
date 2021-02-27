@@ -9,6 +9,7 @@ $store = $_REQUEST['store'];
 $start = $_REQUEST['start'];
 $end = $_REQUEST['end'];
 $branch= $_REQUEST['branch'];
+$inserter= $_REQUEST['inserter'];
 $branch_price = !$_REQUEST['branch_price'] ? 0 :$_REQUEST['branch_price'] ;
 if(empty($start)) {
     $start = '1000-10-10';
@@ -47,7 +48,9 @@ try{
     if($store >= 1){
        $filter .= " and invoice.store_id =".$store;
     }
-
+    if($inserter >= 1){
+       $filter .= " and invoice.staff_id =".$inserter;
+    }
     $query .=  $filter;
     $query .=  " order by invoice.date DESC limit 100";
 ///--------------prices ------------
