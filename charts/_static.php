@@ -112,5 +112,5 @@ $total[0]['withcompany']= $price[0]['withcompany'];
 $total[0]['dev_price']= $devprice[0]['dev_price'];
 
 
-echo json_encode(['orders'=>$total,$prices]);
+echo json_encode(['orders'=>$total]);
 ?>
