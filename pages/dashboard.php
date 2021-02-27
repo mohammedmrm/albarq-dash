@@ -681,13 +681,13 @@ $.ajax({
   }
 });
 }
+static();
 totalIcome();
 ceranings();
 getEraningsLast10Clients();
 getOrdersCount();
 getLast10Orders();
 empyleeRecords();
-static();
 function updateDash() {
  earnings();
  getLast10Orders();
