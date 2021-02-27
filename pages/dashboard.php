@@ -71,10 +71,11 @@
           <div class="kt-portlet kt-portlet--height-fluid bg-info">
           	<div class="kt-portlet__head kt-portlet__head--noborder">
           		<div class="kt-portlet__head-label">
-          			<h3 class="kt-portlet__head-title text-white">الارباح الاخر اسبوع بدون خصم اجره المندوب</h3>
+          			<h3 class="kt-portlet__head-title text-white">الارباح لاخر اسبوع</h3>
           		</div>
-          		<div class="kt-portlet__head-toolbar">
-          			<div class="kt-portlet__head-toolbar-wrapper">
+          		<div class="kt-portlet__head-toolbar ">
+          			<div class="kt-portlet__head-toolbar-wrapper text-white">
+                    تم التحاسب مع المندوب
           			</div>
           		</div>
           	</div>
