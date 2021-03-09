@@ -4,7 +4,7 @@ session_start();
 header('Content-Type: application/json');
 require_once("../script/_access.php");
 require_once("../config.php");
-access([1,2,5,3]);
+access([1,2]);
 require_once("../script/dbconnection.php");
 $start = trim($_REQUEST['start']);
 $end = trim($_REQUEST['end']);
