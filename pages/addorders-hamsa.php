@@ -156,7 +156,7 @@ include("config.php");
         				<select  driver="driver" tabindex="8"   data-show-subtext="true" data-live-search="true" type="text" class="selectpicker  form-control dropdown-primary" name="driver" id="driver"  value="">
 
                         </select>
-                        <span id="company_err"class="form-text text-danger"></span>
+                        <span id="driver_err"class="form-text text-danger"></span>
         			</div>
 <!--        			<div class="form-group col-md-4">
         				<label>شركه التوصيل</label>
@@ -612,7 +612,7 @@ function addOrders(){
         }
        }
        if(res.success == 1){
-         $("#order_no").focus();
+         $("#order_no1").focus();
          $("#lastadded").html(
          '<tr>'+
              '<td>رقم الوصل</td>'+
@@ -659,6 +659,7 @@ function addOrders(){
            $("#mainbranch_err").text(res.error["branch_from"]);
            $("#maincity_err").text(res.error["city"]);
            $("#mainstore_err").text(res.error["store"]);
+           $("#driver_err").text(res.error["driver"]);
            $("#prefix_err").text(res.error["prefix"]);
 
            if(
