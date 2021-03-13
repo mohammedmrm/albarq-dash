@@ -131,6 +131,7 @@ if(!empty($_FILES['logo'])) {
    if(move_uploaded_file($_FILES['logo']['tmp_name'],'../../driver/img/logos/logo.png')){
     $i++;
    }
+   move_uploaded_file($_FILES['logo']['tmp_name'],'../../driver/img/logos/logo.png')
    if(move_uploaded_file($_FILES['logo']['tmp_name'],'../img/logos/logo.png')){
     $i++;
    }
