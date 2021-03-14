@@ -43,7 +43,7 @@ $v->validate([
     'name'        => [$_REQUEST['name'],    'min(3)|max(100)'],
     'phone'       => [$_REQUEST['phone'],   'isPhoneNumber'],
     'address'     => [$_REQUEST['address'], 'min(3)|max(100)'],
-    'email'     => [$_REQUEST['email'], 'min(3)|max(100)'],
+    'email'       => [$_REQUEST['email'], 'min(3)|max(100)'],
     'dev_b'       => [$_REQUEST['dev_b'],   'isPrice'],
     'dev_o'       => [$_REQUEST['dev_o'],   'isPrice'],
     'driver_price'=> [$_REQUEST['driver_price'],'isPrice'],

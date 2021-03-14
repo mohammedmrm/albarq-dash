@@ -158,7 +158,7 @@ try{
    $data=["error"=>$ex];
    $success="0";
 }
-if($success == '1'){
+/*if($success == '1'){
   foreach($data as $k=>$v){
     if($v['with_dev'] == 1){
       $data[$k]['with_dev'] = "نعم";
@@ -171,6 +171,6 @@ if($success == '1'){
       $data[$k]['money_status'] = "غير مدفوع";
     }
   }
-}
+}*/
 echo (json_encode(array($query,"success"=>$success,"data"=>$data,'pages'=>$pages,'page'=>$page+1,'orders'=>$ps[0]['count'])));
 ?>
