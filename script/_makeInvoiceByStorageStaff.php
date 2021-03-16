@@ -147,8 +147,8 @@ if($orders > 0){
         $content = "";
         $success = 0;
         $pdf_name = date('Y-m-d')."_".uniqid().".pdf";
-        $sql = "insert into invoice (path,store_id,orders_status,staff_id) values(?,?,?,?)";
-        $res = setData($con,$sql,[$pdf_name,$store,$status,$_SESSION['userid']]);
+        $sql = "insert into invoice (invoice_status,path,store_id,orders_status,staff_id) values(?,?,?,?,?)";
+        $res = setData($con,$sql,[1,$pdf_name,$store,$status,$_SESSION['userid']]);
     if($res > 0){
       $success = 1;
       $sql = "select *,date_format(date,'%Y-%m-%d') as date from invoice where path=? and store_id =? order by date DESC limit 1";
@@ -200,7 +200,7 @@ if($orders > 0){
                  $res = setData($con,$sql,[$invoice,$v['id']]);
                  $data[$i]['client_price'] = 0;
               }else{
-                $sql = "update orders set invoice_id =? where id=?";
+                $sql = "update orders set invoice_id =? , money_status = 1 , storage_id=-1 where id=?";
                 $res = setData($con,$sql,[$invoice,$v['id']]);
               }
         $hcontent .=
