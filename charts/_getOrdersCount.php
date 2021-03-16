@@ -185,13 +185,13 @@ foreach($res as $val){
   $delete = "delete FROM notification WHERE date < DATE_SUB(NOW(), INTERVAL 1 MONTH)";
   setData($con,$delete);
   //--delete old tracking
-  $delete = "delete FROM tracking WHERE date < DATE_SUB(NOW(), INTERVAL 1 MONTH)";
+  $delete = "delete FROM tracking WHERE date < DATE_SUB(NOW(), INTERVAL 4 MONTH)";
   setData($con,$delete);
   //---delete old messages
   $delete = "delete FROM message WHERE date < DATE_SUB(NOW(), INTERVAL 2 MONTH)";
   setData($con,$delete);
   //---delete old storage_tracking
-  $delete = "delete FROM storage_tracking WHERE date < DATE_SUB(NOW(), INTERVAL 3 MONTH)";
+  $delete = "delete FROM storage_tracking WHERE date < DATE_SUB(NOW(), INTERVAL 4 MONTH)";
   setData($con,$delete);
 
 echo json_encode(['data'=>$result,$idss,"response"=>json_decode(substr($response, 3))]);
