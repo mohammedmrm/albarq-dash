@@ -1,6 +1,6 @@
 <?php
 session_start();
-//error_reporting(0);
+error_reporting(0);
 header('Content-Type: application/json');
 require_once("_access.php");
 require_once("_httpRequest.php"); 
@@ -16,7 +16,7 @@ $v = new Violin;
 $v->validate([
     'order_id'    => [$id,'required|int']
     ]);
-
+try{
 if($v->passes()){
          if($_SESSION['role'] == 1 || $_SESSION['role'] == 5){
             $sql = "update orders set confirm=3 where id = ?";
@@ -55,6 +55,9 @@ if($v->passes()){
 }else{
   $msg = "فشل الحذف";
   $success = 0;
+}
+} catch(PDOException $ex) {
+   $msg=["error"=>$ex];
 }
 echo json_encode(['success'=>$success, 'msg'=>$msg]);
 ?>
