@@ -201,6 +201,7 @@ background-color: #FFFF99;
         						<th>التاريخ</th>
         						<th>الملف</th>
         						<th>حالة الكشف</th>
+        						<th>التاكيد</th>
         						<th>تعديل</th>
 		  					</tr>
       	            </thead>
@@ -324,6 +325,11 @@ function getInvoices(){
      }else{
        bg = "";
      }
+     if(this.confirm == 1){
+       confirm = "مؤكد";
+     }else{
+       confirm = "غير مؤكد";
+     }
       $("#invoicesTable").append(
        '<tr class="'+bg+'">'+
             '<td>'+this.id+'</td>'+
@@ -336,6 +342,7 @@ function getInvoices(){
             '<td>'+this.in_date+'</td>'+
             '<td><a href="invoice/'+this.path+'" target="_blank">تحميل ملف الكشف</a></td>'+
             '<td>'+invoice_status+'</td>'+
+            '<td>'+confirm+'</td>'+
             '<td>'+
                 btn+
                 '<button type="button" class="btn btn-clean btn-link" onclick="deleteInvoice('+this.id+')" data-toggle="modal" data-target="#deleteOrderModal"><span class="flaticon-delete"></sapn></button>'+
