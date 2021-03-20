@@ -20,7 +20,8 @@ $v->validate([
 if($v->passes()){
          $sql ="select * from invoice where id=?";
          $re=getData($con,$sql,[$id]);
-         if($re['0']['invoice_status'] != 1){
+         if(($re['0']['confirm'] != 1) || ($_SESSION['role'] == 1)){
+            if($re['0']['invoice_status'] != 1){
              $sql = "delete from invoice where id = ?";
              $result = setData($con,$sql,[$id]);
              if($result > 0){
@@ -43,8 +44,11 @@ if($v->passes()){
              }else{
                 $msg = "فشل  حذف كشف";
              }
+           }else{
+             $msg="لايمكن حذف كشف تم التحاسب عليه";
+           }
          }else{
-           $msg="لايمكن حذف كشف تم التحاسب عليه";
+           $msg="تم تاكيد الكشف من مدير الشركه لايمكن الحذف";
          }
 }else{
   $msg = "فشل الحذف";

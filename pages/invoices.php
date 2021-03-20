@@ -70,7 +70,15 @@ background-color: #FFFF99;
   color: #FFFFFF;
   padding: 15px;
 }
-
+#total-section {
+  background-color: #242939;
+  border-radius: 5px;
+  box-shadow: 0px 0px 0px #444444;
+  margin-top:5px;
+}
+#total-section label {
+  font-size: 18px;
+}
 @page {
   size: landscape;
   margin: 5mm 5mm 5mm 5mm;
@@ -159,8 +167,27 @@ background-color: #FFFF99;
            <div class="kt-separator kt-separator--border-dashed kt-separator--space-md"></div>
           </div>
           </fieldset>
+
 		<!--begin: Datatable -->
         <div class="" id="section-to-print">
+         <?php if($_SESSION['role'] == 1){ ?>
+          <div class="col-md-12" id="">
+          <div class="row kt-margin-b-20 text-white" id="total-section">
+                <div class="col-sm-3">
+                    <label class="fa-x">المبلغ الكلي:&nbsp;</label><label id="total"> 0.0</label>
+                 </div>
+                 <div class="col-sm-3">
+                    <label class="fa-x">مبلغ التوصيل:&nbsp;</label><label id="dev_price"> 0.0 </label>
+                 </div>
+                <div class="col-sm-3">
+                    <label class="fa-x">عدد الكشوفات:&nbsp;</label><label id="invoices"> 0 </label>
+                </div>
+                <div class="col-sm-3">
+                   <button type="button" class="btn btn-danger"  onclick="confirmInvoices()">تأكيد الكشوفات</button>
+                </div>
+          </div>
+          </div>
+          <?php } ?>
 		<table class="table  table-bordered  responsive no-wrap" id="tb-invioces">
 			       <thead>
 	  						<tr>
@@ -269,6 +296,9 @@ function getInvoices(){
      },
      success:function(res){
      console.log(res);
+      $("#invoices").text(res.total[0].invoices);
+      $("#total").text(res.total[0].total);
+      $("#dev_price").text(res.total[0].dev_price);
      $.each(res.data,function(){
       btn ="";
      if(this.invoice_status == 1){
@@ -355,7 +385,24 @@ function deleteInvoice(id){
         }
       });
   }
-
+}
+function confirmInvoices(){
+ $.ajax({
+        url:"script/_confirmInvoices.php",
+        type:"POST",
+        data:$("#invoicesForm").serialize(),
+        success:function(res){
+         if(res.success == 1){
+           Toast.success('تم التاكيد');
+         }else{
+           Toast.warning(res.msg);
+         }
+         console.log(res)
+        } ,
+        error:function(e){
+          console.log(e);
+        }
+      });
 }
 function payInvoice(id){
   if(confirm("هل انت متاكد من التحاسب على الكشف")){

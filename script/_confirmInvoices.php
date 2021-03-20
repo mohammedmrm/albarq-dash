@@ -22,12 +22,11 @@ if(empty($end)) {
 
 require_once("dbconnection.php");
 try{
-  $query = "select invoice.*,date_format(invoice.date,'%Y-%m-%d') as in_date,clients.name as client_name,clients.phone as client_phone
-           ,stores.name as store_name,staff.name as staff_name
-           from invoice
+  $query = "update invoice
            inner join stores on stores.id = invoice.store_id
            inner join clients on stores.client_id = clients.id
            left join staff on staff.id = invoice.staff_id
+           set confirm=1
            ";
 
     function validateDate($date, $format = 'Y-m-d')
@@ -52,45 +51,12 @@ try{
        $filter .= " and invoice.staff_id =".$inserter;
     }
     $query .=  $filter;
-    $query .=  " order by invoice.date DESC limit 100";
-///--------------prices ------------
-    $sql = 'select
-            sum(invoice.dev_price) as dev_price,
-            sum(total) as total,
-            count(*) as invoices
-            from invoice
-            inner join stores on stores.id = invoice.store_id
-            inner join clients on clients.id= stores.client_id
-            where invoice.date between "'.$start.'" and "'.$end.'"
-            ';
-          if($client >= 1){
-             $sql .= " and stores.client_id =".$client;
-          }
-          if($branch >= 1){
-             $sql .= " and clients.branch_id =".$branch;
-          }
-          if($client >= 1){
-             $sql .= " and stores.client_id =".$client;
-          }
-          if($store >= 1){
-             $sql .= " and invoice.store_id =".$store;
-          }
-          if($inserter >= 1){
-             $sql .= " and invoice.staff_id =".$inserter;
-          }
-$total[0] =[
- 'invoices'=>0,
- 'dev_price'=>0,
- 'total'=>0,
-];
-if($_SESSION['role'] == 1){
- $total=getData($con,$sql);
-}
-    $data = getData($con,$query);
+    $query .=  " limit 100";
+    $data = setData($con,$query);
     $success="1";
 } catch(PDOException $ex) {
    $data=["error"=>$ex];
    $success="0";
 }
-echo (json_encode(array($query,"success"=>$success,"data"=>$data,"total"=>$total)));
+echo (json_encode(array($query,"success"=>$success,"data"=>$data)));
 ?>

@@ -4,8 +4,8 @@ error_reporting(0);
 header('Content-Type: application/json');
 require_once("_access.php");
 require_once("_httpRequest.php");
-access([1,2,3,5,7,8]);
-$id= $_REQUEST['id'];
+access([1,5,2,7,8]);
+$id= trim($_REQUEST['id']);
 $success = 0;
 $msg="";
 require_once("dbconnection.php");
@@ -16,18 +16,14 @@ $v = new Violin;
 $v->validate([
     'order_id'    => [$id,'required|int']
     ]);
-try{
+
 if($v->passes()){
-         if($_SESSION['role'] == 1 || $_SESSION['role'] == 5){
-            $sql = "update orders set confirm=3 where id = ?";
-         }else{
-            $sql = "update orders set confirm=3 where id = ? and from_branch = '".$_SESSION['user_details']['branch_id']."'";
-         }
-         $result = setData($con,$sql,[$id]);
+         $sql = "update orders set confirm=1,manager_id=?,date=? where id = ? and confirm=7";
+         $result = setData($con,$sql,[$_SESSION['userid'],date("Y-m-d"),$id]);
          if($result > 0){
             $success = 1;
-            $sql = "delete from tracking where order_id = ?";
-            $result = setData($con,$sql,[$id]);
+            $sql = "insert into tracking (order_id,order_status_id,note,staff_id) values(?,?,?,?)";
+            setData($con,$sql,[$id,1,"اسناد الطلب",$_SESSION['userid']]);
            //--- snyc
            $sql = "select
                    isfrom ,
@@ -44,20 +40,17 @@ if($v->passes()){
              $response = httpPost($order[0]['dns'].'/api/updateOrderConfirm.php',
                   [
                    'token'=>$order[0]['token'],
-                   'confirm'=>3,
+                   'confirm'=>1,
                    'barcode'=>$order[0]['id'],
                    'id'=>$order[0]['remote_id'],
               ]);
            }
          }else{
-            $msg = "فشل الحذف";
+            $msg = "فشل التأكيد, قد يكون مؤكد مسبقاً";
          }
 }else{
-  $msg = "فشل الحذف";
+  $msg = "فشل التأكيد";
   $success = 0;
 }
-} catch(PDOException $ex) {
-   $msg=["error"=>$ex];
-}
-echo json_encode(['success'=>$success, 'msg'=>$msg]);
+echo json_encode([$sql,$_SESSION['user_details']['branch_id'],'success'=>$success, 'msg'=>$msg,'response'=>$response]);
 ?>
