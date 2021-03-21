@@ -129,17 +129,17 @@ background-color: #FFFF99;
           <div class="row kt-margin-b-20">
             <div class="col-lg-2 kt-margin-b-10-tablet-and-mobile">
             	<label>المحاسب:</label>
-            	<select onchange="getInvoices();getDInvoices();"  data-live-search="true" class="form-control kt-input" id="inserter" name="inserter" data-col-index="6">
+            	<select onchange="getInvoices();getDInvoices();getAccountingInfo();"  data-live-search="true" class="form-control kt-input" id="inserter" name="inserter" data-col-index="6">
             	</select>
             </div>
             <div class="col-lg-3 kt-margin-b-10-tablet-and-mobile">
             <label>الفترة الزمنية (تاريخ الكشف):</label>
             <div class="input-daterange input-group" id="kt_datepicker">
-  				<input value="<?php echo date('Y-m-d', strtotime('-7 days'));?>" onchange="getInvoices()" type="text" class="form-control kt-input" name="start" id="start" placeholder="من" data-col-index="5">
+  				<input value="<?php echo date('Y-m-d', strtotime('-7 days'));?>" onchange="getInvoices();getDInvoices();getAccountingInfo();" type="text" class="form-control kt-input" name="start" id="start" placeholder="من" data-col-index="5">
   				<div class="input-group-append">
   					<span class="input-group-text"><i class="la la-ellipsis-h"></i></span>
   				</div>
-  				<input onchange="getInvoices()" type="text" class="form-control kt-input" name="end"  id="end" placeholder="الى" data-col-index="5">
+  				<input onchange="getInvoices();getDInvoices();getAccountingInfo();" type="text" class="form-control kt-input" name="end"  id="end" placeholder="الى" data-col-index="5">
           	</div>
             </div>
             <div class="col-lg-1 kt-margin-b-10-tablet-and-mobile">
@@ -412,7 +412,6 @@ function getAccountingInfo(){
         type:"POST",
         data:$("#invoicesForm").serialize(),
         success:function(res){
-
             $("#c_invoices").text(res.total.c_invoices);
             $("#d_invoices").text(res.total.d_invoices);
             $("#paid").text(formatMoney(res.total.paid));

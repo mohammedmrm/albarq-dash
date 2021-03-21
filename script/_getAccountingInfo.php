@@ -35,9 +35,6 @@ try{
            if($inserter >= 1){
              $sql .= " and invoice.staff_id =".$inserter;
             }
-          $sql .= " limit 100";
-
-
 ///--------------prices ------------
     $sql2 = 'select
             sum(driver_invoice.driver_price) as driver_price,
@@ -53,11 +50,15 @@ try{
              $sql .= " and driver_invoice.staff_id =".$inserter;
           }
 
-          $sql2 .= " limit 100";
 
 
   $total1=getData($con,$sql);
   $total2=getData($con,$sql2);
+  $total['paid'] = 0;
+  $total['received'] = 0;
+  $total['with_accounter'] = 0;
+  $total['c_invoices'] = 0;
+  $total['d_invoices'] = 0;
 
   $total['paid'] = $total1[0]['paid'];
   $total['received'] = $total2[0]['received'];
