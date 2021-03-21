@@ -79,7 +79,7 @@ try{
           if($inserter >= 1){
              $sql .= " and invoice.staff_id =".$inserter;
           }
-          $sql. = " limit 100";
+          $sql .= " limit 100";
 $total[0] =[
  'invoices'=>0,
  'dev_price'=>0,

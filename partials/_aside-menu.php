@@ -61,6 +61,14 @@ $se = $_SESSION['role'];
                             </a>
                         </li>
                         <?php } ?>
+                      <?php  if($se == 1 || $se == 2 || $se == 3 || $se == 5 || $se == 6 || $se == 7 || $se == 8 || $se == 9  || $se=99){?>
+                        <li class="kt-menu__item " aria-haspopup="true" >
+                            <a href="?page=pages/ordersStatusUpdate.php" class="kt-menu__link ">
+                                <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
+                                <span class="kt-menu__link-text">تحديث حالة الطلبيات</span>
+                            </a>
+                        </li>
+                      <?php } ?>
                     </ul>
                 </div>
             </li>
@@ -88,43 +96,11 @@ $se = $_SESSION['role'];
                             </a>
                         </li>
                         <?php } ?>
-                        <?php  if($se == 1 || $se == 2 || $se == 3 || $se == 5 || $se == 6 || $se == 7 || $se == 8 || $se == 9  || $se=99){?>
-                        <li class="kt-menu__item " aria-haspopup="true" >
-                            <a href="?page=pages/ordersStatusUpdate.php" class="kt-menu__link ">
-                                <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
-                                <span class="kt-menu__link-text">تحديث حالة الطلبيات</span>
-                            </a>
-                        </li>
-                        <?php } ?>
-                        <?php  if($se==1 || $se==2 ||  $se==5 || $se=99){?>
-                        <li class="kt-menu__item " aria-haspopup="true" >
-                            <a href="?page=pages/invoices.php" class="kt-menu__link ">
-                                <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
-                                <span class="kt-menu__link-text">كشوفات العملاء</span>
-                            </a>
-                        </li>
-                        <?php } ?>
-                        <?php  if($se==1 || $se==2 || $se==5 || $se=99){?>
-                        <li class="kt-menu__item " aria-haspopup="true" >
-                            <a href="?page=pages/driverInvoices.php" class="kt-menu__link ">
-                                <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
-                                <span class="kt-menu__link-text">كشوفات السواق</span>
-                            </a>
-                        </li>
-                        <?php } ?>
                         <?php  if($se==1 || $se==2 || $se==3 || $se==7 || $se==5 || $se=99){?>
                         <li class="kt-menu__item " aria-haspopup="true" >
                             <a href="?page=pages/printDriverManfiest.php" class="kt-menu__link ">
                                 <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
                                 <span class="kt-menu__link-text">طباعة منفيست المندوبين</span>
-                            </a>
-                        </li>
-                        <?php } ?>
-                        <?php  if($se==1 || $se==2 || $se==5 || $se=99){?>
-                        <li class="kt-menu__item " aria-haspopup="true" >
-                            <a href="?page=pages/earnings.php" class="kt-menu__link ">
-                                <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
-                                <span class="kt-menu__link-text">تقرير الارباح</span>
                             </a>
                         </li>
                         <?php } ?>
@@ -188,6 +164,78 @@ $se = $_SESSION['role'];
                 </div>
             </li>
             <li class="kt-menu__item kt-menu__item--submenu kt-menu__item--open kt-menu__item--here" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
+                <a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon flaticon2-graphic"></i>
+                  <span class="kt-menu__link-text">الحسابات</span>
+                  <span class="kt-menu__link-badge"><span class="kt-badge kt-badge--danger kt-badge--inline">جديد</span></span>
+                <i class="kt-menu__ver-arrow la la-angle-right"></i></a>
+                <div class="kt-menu__submenu ">
+                    <span class="kt-menu__arrow"></span>
+                    <ul class="kt-menu__subnav">
+                        <?php  if($se==1 || $se==2 ||  $se==5 || $se=99){?>
+                        <li class="kt-menu__item " aria-haspopup="true" >
+                            <a href="?page=pages/invoices.php" class="kt-menu__link ">
+                                <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
+                                <span class="kt-menu__link-text">كشوفات العملاء</span>
+                                <span class="kt-menu__link-badge"><span class="kt-badge kt-badge--success kt-badge--inline">تحدث</span></span>
+                            </a>
+                        </li>
+                        <?php } ?>
+                        <?php  if($se==1 || $se==2 || $se==5 || $se=99){?>
+                        <li class="kt-menu__item " aria-haspopup="true" >
+                            <a href="?page=pages/driverInvoiceSearch.php" class="kt-menu__link ">
+                                <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
+                                <span class="kt-menu__link-text">كشوفات المندوبين</span>
+                                <span class="kt-menu__link-badge"><span class="kt-badge kt-badge--danger kt-badge--inline">جديد</span></span>
+                            </a>
+                        </li>
+                        <?php } ?>
+                        <?php  if($se==1 || $se==2 || $se==5 || $se=99){?>
+                        <li class="kt-menu__item " aria-haspopup="true" >
+                            <a href="?page=pages/clientsDetails.php" class="kt-menu__link ">
+                                <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
+                                <span class="kt-menu__link-text">انشاء كشف عميل</span>
+                            </a>
+                        </li>
+                        <?php } ?>
+                        <?php  if($se==1 || $se==2 || $se==5 || $se=99){?>
+                        <li class="kt-menu__item " aria-haspopup="true" >
+                            <a href="?page=pages/loan.php" class="kt-menu__link ">
+                                <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
+                                <span class="kt-menu__link-text">سلف العملاء</span>
+                                <span class="kt-menu__link-badge"><span class="kt-badge kt-badge--success kt-badge--inline">تحدث</span></span>
+                            </a>
+                        </li>
+                        <?php } ?>
+                        <?php  if($se==1 || $se==2 || $se==5 || $se=99){?>
+                        <li class="kt-menu__item " aria-haspopup="true" >
+                            <a href="?page=pages/driverInvoices.php" class="kt-menu__link ">
+                                <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
+                                <span class="kt-menu__link-text">انشاء كشف مندوب</span>
+                                <span class="kt-menu__link-badge"><span class="kt-badge kt-badge--success kt-badge--inline">تحدث</span></span>
+                            </a>
+                        </li>
+                        <?php } ?>
+                        <?php  if($se==1 || $se=99){?>
+                        <li class="kt-menu__item " aria-haspopup="true" >
+                            <a href="?page=pages/accounter.php" class="kt-menu__link ">
+                                <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
+                                <span class="kt-menu__link-text">المحاسبين مراقبه</span>
+                                <span class="kt-menu__link-badge"><span class="kt-badge kt-badge--danger kt-badge--inline">جديد</span></span>
+                            </a>
+                        </li>
+                        <?php } ?>
+                        <?php  if($se==1 || $se==2 || $se==5 || $se=99){?>
+                        <li class="kt-menu__item " aria-haspopup="true" >
+                            <a href="?page=pages/earnings.php" class="kt-menu__link ">
+                                <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
+                                <span class="kt-menu__link-text">تقرير الارباح</span>
+                            </a>
+                        </li>
+                        <?php } ?>
+                    </ul>
+                </div>
+            </li>
+            <li class="kt-menu__item kt-menu__item--submenu kt-menu__item--open kt-menu__item--here" aria-haspopup="true" data-ktmenu-submenu-toggle="hover">
                 <a href="javascript:;" class="kt-menu__link kt-menu__toggle"><i class="kt-menu__link-icon flaticon2-settings"></i><span class="kt-menu__link-text">العملاء</span><i class="kt-menu__ver-arrow la la-angle-right"></i></a>
                 <div class="kt-menu__submenu ">
                     <span class="kt-menu__arrow"></span>
@@ -203,24 +251,12 @@ $se = $_SESSION['role'];
                             </a>
                         </li>
                         <li class="kt-menu__item " aria-haspopup="true" >
-                            <a href="?page=pages/clientsDetails.php" class="kt-menu__link ">
-                                <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
-                                <span class="kt-menu__link-text">تفاصيل العملاء</span>
-                            </a>
-                        </li>
-                        <li class="kt-menu__item " aria-haspopup="true" >
                             <a href="?page=pages/stores.php" class="kt-menu__link ">
                                 <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
                                 <span class="kt-menu__link-text">الاسواق (الصفحات)</span>
                             </a>
                         </li>
-                        <li class="kt-menu__item " aria-haspopup="true" >
-                            <a href="?page=pages/loan.php" class="kt-menu__link ">
-                                <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
-                                <span class="kt-menu__link-text">سلف العملاء</span>
-                            </a>
-                        </li>
-                        <li class="kt-menu__item " aria-haspopup="true" >
+<!--                        <li class="kt-menu__item " aria-haspopup="true" >
                             <a href="?page=pages/receipt.php" class="kt-menu__link ">
                                 <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
                                 <span class="kt-menu__link-text">طلبات الوصولات</span>
@@ -231,7 +267,7 @@ $se = $_SESSION['role'];
                                 <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
                                 <span class="kt-menu__link-text">طباعه وصولات للشركات</span>
                             </a>
-                        </li>
+                        </li>-->
                         <?php } ?>
                      </ul>
                 </div>

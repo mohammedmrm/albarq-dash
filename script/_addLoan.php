@@ -16,6 +16,7 @@ $success = 0;
 $error = [];
 $client    = $_REQUEST['loan_client'];
 $price    = $_REQUEST['loan_price'];
+$loan_type   = $_REQUEST['loan_type'];
 $note    = $_REQUEST['loan_note'];
 
 $v->addRuleMessage('isPrice', 'المبلغ غير صحيح');
@@ -37,13 +38,20 @@ $v->addRuleMessages([
 $v->validate([
     'client'  => [$client, 'required|max(3)|int'],
     'price'   => [$price, 'required|isPrice'],
-    'note'    => [$note, 'min(1)|max(1)']
+    'note'    => [$note, 'min(1)|max(1)']  ,
+    'loan_type'    => [$loan_type, 'int']
 ]);
 
 if($v->passes()) {
-  $sql = 'insert into loans (client_id,price,note) values
-                             (?,?,?)';
-  $result = setData($con,$sql,[$client,$price,$note]);
+  if($loan_type == 1){
+    $sql = 'insert into loans (client_id,price,note) values
+                               (?,?,?)';
+    $result = setData($con,$sql,[$client,$price,$note]);
+  }else if($loan_type == -1){
+    $sql = 'insert into loans (client_id,price,note,type) values
+                               (?,?,?,?)';
+    $result = setData($con,$sql,[$client,$price,$note,0]);
+  }
   if($result > 0){
     $success = 1;
   }

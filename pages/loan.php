@@ -38,7 +38,7 @@ if(file_exists("script/_access.php")){
     <form id="loanFillterForm">
     <div class="col-lg-2 kt-margin-b-10-tablet-and-mobile">
     	<label>العميل:</label>
-    	<select onchange="getloans()" id="client" name="client" class="form-control kt-input" id="branch" name="branch" data-col-index="6">
+    	<select onchange="getloans()" id="client" name="client" data-live-search="true" data-size="5" class="form-control kt-input" id="branch" name="branch" data-col-index="6">
     	</select>
     </div>
     <div class="col-lg-3 kt-margin-b-10-tablet-and-mobile">
@@ -61,7 +61,6 @@ if(file_exists("script/_access.php")){
 								<th>المبلغ</th>
 								<th>التاريخ</th>
 								<th>سحب او سلفه</th>
-								<th>تعديل</th>
                             </tr>
       	            </thead>
                             <tbody id="loansTable">
@@ -73,7 +72,6 @@ if(file_exists("script/_access.php")){
 								<th>المبلغ</th>
 								<th>التاريخ</th>
 								<th>سحب او سلفه</th>
-								<th>تعديل</th>
 
 					</tr>
 	           </tfoot>
@@ -110,15 +108,11 @@ $.ajax({
      }
      $("#loansTable").append(
        '<tr class="">'+
-            '<td class=" fa-2x '+bg+'">'+this.l_id+'</td>'+
-            '<td class=" fa-2x '+bg+'">'+this.name+'</td>'+
-            '<td class=" fa-2x '+bg+'">'+formatMoney(this.price)+'</td>'+
-            '<td class=" fa-2x '+bg+'">'+this.date+'</td>'+
-            '<td class=" fa-2x '+bg+'">'+type+'</td>'+
-            '<td class=" fa-2x '+bg+'">'+
-                '<button class="btn btn-clean btn-link '+bg+'" onclick="editLoan('+this.price+','+this.client_id+',\''+this.note+'\','+this.l_id+')" data-toggle="modal" data-target="#editloansModal"><span class="flaticon-edit"></sapn></button>'+
-                '<button class="btn btn-clean btn-link '+bg+'" onclick="deleteLoan('+this.l_id+')" data-toggle="modal" data-target="#deleteloansModal"><span class="flaticon-delete"></sapn></button>'+
-            '</td>'+
+            '<td class=" fa-x '+bg+'">'+this.l_id+'</td>'+
+            '<td class=" fa-x '+bg+'">'+this.name+'</td>'+
+            '<td class=" fa-x '+bg+'">'+formatMoney(this.price)+'</td>'+
+            '<td class=" fa-x '+bg+'">'+this.date+'</td>'+
+            '<td class=" fa-x '+bg+'">'+type+'</td>'+
        '</tr>');
      });
      var myTable= $('#tb-loans').DataTable({
@@ -167,10 +161,18 @@ getloans();
 					</div>
                     <div class="form-group">
 						<label>المبلغ</label>
-						<input type="name" name="loan_price" class="form-control"  placeholder="الميلغ">
+						<input type="name" id="loan_price" name="loan_price" class="form-control"  placeholder="الميلغ">
 						<span class="form-text  text-danger" id="loan_price_err"></span>
 					</div>
 	            </div>
+    			<div class="form-group">
+    				<label>سحب او ايداع</label>
+    				<select data-show-subtext="true" class="selectpicker form-control " name="loan_type" id="loan_type"  value="">
+                            <option value="1">سلفه الئ العميل</option>
+                            <option value="-1">سحب من سلف العميل</option>
+                    </select>
+                    <span class="form-text text-danger" id="eloan_type_err"></span>
+    			</div>
 	            <div class="kt-portlet__foot kt-portlet__foot--solid">
 					<div class="kt-form__actions kt-form__actions--right">
 						<button type="button" onclick="addLoan()" class="btn btn-brand">اضافة</button>
@@ -250,6 +252,10 @@ function addLoan(){
          $("#kt_form input").val("");
          Toast.success('تم الاضافة');
          getloans($("#loansesTable"));
+         $("#loan_type").val(1);
+         $("#loan_price").val("");
+         $("#loan_client").val("");
+         $(".selectpicker").selectpicker("refresh");
        }else{
            $("#loan_client_err").text(res.error["client_err"]);
            $("#loan_price_err").text(res.error["price_err"]);

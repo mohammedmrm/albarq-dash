@@ -180,27 +180,6 @@ min-height: 100px;
 			</ul>
         <input type="hidden" id="p" name="p" value="<?php if(!empty($_GET['p'])){ echo $_GET['p'];}else{ echo 1;}?>"/>
 		</nav>
-          <?php if($_SESSION['role'] == 1){?>
-          <fieldset><legend>تحديث تلقائي</legend>
-          <div class="row kt-margin-b-20" id="autoUpdateDiv">
-            <div class="col-lg-2 kt-margin-b-10-tablet-and-mobile">
-            	<label>الطلبيات التي مضى عليها</label>
-            	<input id="days" name="days" value="7"  type="number" min="1" step="1" class="form-control" placeholder="" data-col-index="0">
-                <label>يوم</label>
-            </div>
-            <div class="col-lg-2 kt-margin-b-10-tablet-and-mobile">
-            	<label>المحافظة:</label>
-            	<select id="auto_city" onchange="" data-size="5"  class="form-control selectpicker" data-live-search="ture" data-col-index="2">
-            		<option value="">Select</option>
-                </select>
-            </div>
-            <div class="col-lg-2 kt-margin-b-10-tablet-and-mobile">
-            	<label>.</label><br />
-            	<input onclick="autoUpdate()"  value="تحديث الى واصل"  type="button"  class="btn btn-info" placeholder="" >
-            </div>
-          </div>
-          </fieldset>
-          <?php } ?>
         </div>
         </div>
         </form>
