@@ -129,7 +129,7 @@ background-color: #FFFF99;
           <div class="row kt-margin-b-20">
             <div class="col-lg-2 kt-margin-b-10-tablet-and-mobile">
             	<label>المحاسب:</label>
-            	<select onchange="getInvoices()"  data-live-search="true" class="form-control kt-input" id="inserter" name="inserter" data-col-index="6">
+            	<select onchange="getInvoices();getDInvoices();"  data-live-search="true" class="form-control kt-input" id="inserter" name="inserter" data-col-index="6">
             	</select>
             </div>
             <div class="col-lg-3 kt-margin-b-10-tablet-and-mobile">
@@ -340,8 +340,10 @@ function getDInvoices(){
      beforeSend:function(){
        $("#tb-Dinvioces").DataTable().destroy();
        $("#DinvoicesTable").html("");
+       $("#invoicesForm").addClass("loading");
      },
      success:function(res){
+     $("#invoicesForm").removeClass("loading");
      console.log(res);
      $.each(res.data,function(){
       btn ="";
@@ -400,6 +402,7 @@ function getDInvoices(){
      },
      error:function(e){
         console.log(e);
+        $("#invoicesForm").removeClass("loading");
      }
    });
 }
@@ -469,6 +472,7 @@ function confirmDInvoices(){
         success:function(res){
          if(res.success == 1){
            Toast.success('تم التاكيد');
+           getAccountingInfo();
          }else{
            Toast.warning(res.msg);
          }
@@ -523,6 +527,7 @@ function unpayInvoice(id){
 }
 $( document ).ready(function(){
  getInvoices();
+ getDInvoices();
  getInserter($("#inserter"));
  getAccountingInfo();
 });

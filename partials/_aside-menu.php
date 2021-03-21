@@ -219,7 +219,7 @@ $se = $_SESSION['role'];
                         <li class="kt-menu__item " aria-haspopup="true" >
                             <a href="?page=pages/accounter.php" class="kt-menu__link ">
                                 <i class="kt-menu__link-bullet kt-menu__link-bullet--dot"><span></span></i>
-                                <span class="kt-menu__link-text">المحاسبين مراقبه</span>
+                                <span class="kt-menu__link-text">مراقبه المحاسبين</span>
                                 <span class="kt-menu__link-badge"><span class="kt-badge kt-badge--danger kt-badge--inline">جديد</span></span>
                             </a>
                         </li>
