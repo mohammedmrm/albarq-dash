@@ -399,7 +399,7 @@ function  getStoreDetails(){
 
 
      var table= $('#tb-orders-reciverd').DataTable({
-       lengthMenu:[10,20,30,50,100,250,500]
+       lengthMenu:[10,20,30,50,100,250,500,1000]
      });
     },
     error:function(e){
@@ -444,7 +444,7 @@ function getStoreReturned(){
              });
       $("#returnedTable").append(content);
       $("#tb-returned").DataTable({
-        lengthMenu:[10,20,30,50,100,250,500]
+        lengthMenu:[10,20,30,50,100,250,500,1000]
       });
       $("#tb-orders").DataTable();
     },
