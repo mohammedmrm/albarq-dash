@@ -128,19 +128,8 @@ background-color: #FFFF99;
           <fieldset><legend>بحث عن كشف</legend>
           <div class="row kt-margin-b-20">
             <div class="col-lg-2 kt-margin-b-10-tablet-and-mobile">
-            	<label>الفرع:</label>
-            	<select  onchange='getInvoices();' data-live-search="true" class="form-control kt-input" id="branch" name="branch" data-col-index="6">
-            	</select>
-            </div>
-            <div class="col-lg-2 kt-margin-b-10-tablet-and-mobile">
-            	<label>العميل:</label>
-            	<select  onchange='getStoresByClient($("#store"));getInvoices();' data-live-search="true" class="form-control kt-input" id="client" name="client" data-col-index="6">
-            	</select>
-            </div>
-            <div class="col-lg-2 kt-margin-b-10-tablet-and-mobile">
-            	<label>الصفحه:</label>
-            	<select onchange="getInvoices()" data-show-subtext="true" data-live-search="true"  class="selectpicker form-control kt-input" id="store" name="store" data-col-index="7">
-            		<option value="">Select</option>
+            	<label>المندوب:</label>
+            	<select  onchange='getInvoices();' data-live-search="true" class="form-control kt-input" id="driver" name="driver" data-col-index="6">
             	</select>
             </div>
             <div class="col-lg-2 kt-margin-b-10-tablet-and-mobile">
@@ -180,7 +169,7 @@ background-color: #FFFF99;
                     <label class="">مبلغ التوصيل:&nbsp;</label><label id="dev_price"> 0.0 </label>
                  </div>-->
                  <div class="col-sm-3">
-                    <label class="">مسدد للعملاء:&nbsp;</label><label id="with_accounter"> 0.0 </label>
+                    <label class="">في ذمه المحاسب:&nbsp;</label><label id="with_accounter"> 0.0 </label>
                  </div>
                 <div class="col-sm-2">
                     <label class="">عدد الكشوفات:&nbsp;</label><label id="invoices"> 0 </label>
@@ -193,20 +182,18 @@ background-color: #FFFF99;
           <?php } ?>
 		<table class="table  table-bordered  responsive no-wrap" id="tb-invioces">
 			       <thead>
-	  						<tr>
-        						<th>رقم الفاتوره</th>
-        						<th>اسم الصفحه</th>
-        						<th>اسم العميل</th>
-        						<th>رقم هاتف العميل</th>
-        						<th>المحاسب</th>
-        						<th>المبلغ الكلي</th>
-        						<th>مبلغ التوصيل</th>
-        						<th>التاريخ</th>
-        						<th>الملف</th>
-        						<th>حالة الكشف</th>
-        						<th>التاكيد</th>
-        						<th>تعديل</th>
-		  					</tr>
+     						<tr>
+          						<th>رقم الفاتوره</th>
+          						<th>اسم المندوب</th>
+          						<th>رقم هاتف المندوب</th>
+          						<th>المحاسب</th>
+          						<th>المبلغ الكلي</th>
+          						<th>اجره المندوب</th>
+          						<th>التاريخ</th>
+          						<th>الملف</th>
+          						<th>حالة الكشف</th>
+          						<th>تعديل</th>
+      				    	</tr>
       	            </thead>
                     <tbody id="invoicesTable">
                     </tbody>
@@ -240,58 +227,12 @@ background-color: #FFFF99;
 
             <!--begin::Page Scripts(used by this page) -->
 <script src="assets/js/demo1/pages/components/datatables/extensions/responsive.js" type="text/javascript"></script>
-<script src="js/getClients.js" type="text/javascript"></script>
-<script src="js/getBraches.js" type="text/javascript"></script>
+<script src="js/getAllDrivers.js" type="text/javascript"></script>
 <script src="js/getInserter.js" type="text/javascript"></script>
 <script type="text/javascript">
-function getAllClient(ele){
-   $.ajax({
-     url:"script/_getClientsAll.php",
-     type:"POST",
-     success:function(res){
-       ele.html("");
-       ele.append(
-           '<option value="">... اختر ...</option>'
-       );
-       $.each(res.data,function(){
-         ele.append("<option value='"+this.id+"'>"+this.name+"-"+this.phone+"</option>");
-       });
-       console.log(res);
-       ele.selectpicker('refresh');
-     },
-     error:function(e){
-        ele.append("<option value='' class='bg-danger'>خطأ اتصل بمصمم النظام</option>");
-        console.log(e);
-     }
-   });
-}
-
-
-function getStoresByClient(ele){
-   $.ajax({
-     url:"script/_getStores.php",
-     type:"POST",
-     data:{client:$("#client").val()},
-     success:function(res){
-       ele.html("");
-       ele.append(
-           '<option value="">... اختر ...</option>'
-       );
-       $.each(res.data,function(){
-         ele.append("<option value='"+this.id+"'>"+this.name+"-"+this.client_name+"-"+this.client_phone+"</option>");
-       });
-       console.log(res);
-       ele.selectpicker('refresh');
-     },
-     error:function(e){
-        ele.append("<option value='' class='bg-danger'>خطأ اتصل بمصمم النظام</option>");
-        console.log(e);
-     }
-   });
-}
 function getInvoices(){
    $.ajax({
-     url:"script/_getInvoices.php",
+     url:"script/_getDInvoices.php",
      type:"POST",
      data:$("#invoicesForm").serialize(),
      beforeSend:function(){
@@ -302,7 +243,7 @@ function getInvoices(){
      console.log(res);
       $("#invoices").text(res.total[0].invoices);
       $("#total").text(formatMoney(res.total[0].total));
-      $("#dev_price").text(formatMoney(res.total[0].dev_price));
+      $("#driver_price").text(formatMoney(res.total[0].driver_price));
       $("#with_accounter").text(formatMoney(res.total[0].with_accounter));
      $.each(res.data,function(){
       btn ="";
@@ -335,33 +276,22 @@ function getInvoices(){
        confirm = "غير مؤكد";
      }
       $("#invoicesTable").append(
-       '<tr class="'+bg+'">'+
+       '<tr class="">'+
             '<td>'+this.id+'</td>'+
-            '<td>'+this.store_name+'</td>'+
-            '<td>'+this.client_name+'</td>'+
-            '<td>'+this.client_phone+'</td>'+
+            '<td>'+this.driver_name+'</td>'+
+            '<td>'+this.driver_phone+'</td>'+
             '<td>'+this.staff_name+'</td>'+
             '<td>'+this.total+'</td>'+
-            '<td>'+this.dev_price+'</td>'+
+            '<td>'+this.driver_price+'</td>'+
             '<td>'+this.in_date+'</td>'+
-            '<td><a href="invoice/'+this.path+'" target="_blank">تحميل ملف الكشف</a></td>'+
+            '<td><a href="driver_invoice/'+this.path+'" target="_blank">تحميل ملف الفاتوره</a></td>'+
             '<td>'+invoice_status+'</td>'+
-            '<td>'+confirm+'</td>'+
             '<td>'+
                 btn+
                 '<button type="button" class="btn btn-clean btn-link" onclick="deleteInvoice('+this.id+')" data-toggle="modal" data-target="#deleteOrderModal"><span class="flaticon-delete"></sapn></button>'+
             '</td>'+
         '</tr>');
      });
-/*      $.each(res.total,function(){
-         $("#income").text(formatMoney(this.income));
-         $("#orders").text(this.orders);
-         $("#orders_with_dev").text(this.orders_with_dev);
-         $("#earnings").text(formatMoney(this.earnings));
-         $("#real_earnings").text(formatMoney(this.real_earnings));
-         $("#branch_earnings").text(formatMoney(this.branch_earnings));
-         $("#client_price").text(formatMoney(this.client_price));
-      });*/
      var myTable= $('#tb-invioces').DataTable({
       "oLanguage": {
         "sLengthMenu": "عرض_MENU_سجل",
@@ -375,31 +305,9 @@ function getInvoices(){
      }
    });
 }
-
-function deleteInvoice(id){
-  if(confirm("هل انت متاكد من الحذف")){
-      $.ajax({
-        url:"script/_deleteInvoice.php",
-        type:"POST",
-        data:{id:id},
-        success:function(res){
-         if(res.success == 1){
-           Toast.success('تم الحذف');
-           getInvoices();
-         }else{
-           Toast.warning(res.msg);
-         }
-         console.log(res)
-        } ,
-        error:function(e){
-          console.log(e);
-        }
-      });
-  }
-}
 function confirmInvoices(){
  $.ajax({
-        url:"script/_confirmInvoices.php",
+        url:"script/_confirmDInvoices.php",
         type:"POST",
         data:$("#invoicesForm").serialize(),
         success:function(res){
@@ -415,16 +323,39 @@ function confirmInvoices(){
         }
       });
 }
+
+function deleteInvoice(id){
+  if(confirm("هل انت متاكد من الحذف")){
+      $.ajax({
+        url:"script/_deleteDriverInvoice.php",
+        type:"POST",
+        data:{id:id},
+        success:function(res){
+         if(res.success == 1){
+           Toast.success('تم الحذف');
+           getdriverInvoices();
+         }else{
+           Toast.warning(res.msg);
+         }
+         console.log(res)
+        } ,
+        error:function(e){
+          console.log(e);
+        }
+      });
+  }
+
+}
 function payInvoice(id){
   if(confirm("هل انت متاكد من التحاسب على الكشف")){
       $.ajax({
-        url:"script/_payInvoice.php",
+        url:"script/_payDriverInvoice.php",
         type:"POST",
         data:{id:id},
         success:function(res){
          if(res.success == 1){
            Toast.success('تم التحاسب');
-           getInvoices();
+           getdriverInvoices();
          }else{
            Toast.warning(res.msg);
          }
@@ -439,13 +370,13 @@ function payInvoice(id){
 function unpayInvoice(id){
   if(confirm("هل انت متاكد من الغأ دفع الكشف")){
       $.ajax({
-        url:"script/_unpayInvoice.php",
+        url:"script/_unpayDriverInvoice.php",
         type:"POST",
         data:{id:id},
         success:function(res){
          if(res.success == 1){
            Toast.success('تم الغأ التحاسب');
-           getInvoices();
+           getdriverInvoices();
          }else{
            Toast.warning(res.msg);
          }
@@ -458,9 +389,7 @@ function unpayInvoice(id){
   }
 }
 $( document ).ready(function(){
- getAllClient($("#client"));
- getBraches($("#branch"));
- getStoresByClient($("#store"));
+ getAllDrivers($("#driver"));
  getInvoices();
  getInserter($("#inserter"));
 

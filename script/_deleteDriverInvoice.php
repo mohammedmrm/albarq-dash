@@ -20,19 +20,23 @@ $v->validate([
 if($v->passes()){
          $sql ="select * from driver_invoice where id=?";
          $re=getData($con,$sql,[$id]);
-         if($re['0']['invoice_status'] != 1){
-             $sql = "delete from driver_invoice where id = ?";
-             $result = setData($con,$sql,[$id]);
-             if($result > 0){
-                 $success = 1;
-                 $sql = "update orders set driver_invoice_id = 0 where driver_invoice_id=?";
-                 $result = setData($con,$sql,[$id]);
-                 unlink('../driver_invoice/'.$re[0]['path']);
-             }else{
-                $msg = "فشل  حذف كشف";
-             }
+         if(($re['0']['confirm'] != 1) || ($_SESSION['role'] == 1)){
+           if($re['0']['invoice_status'] != 1){
+               $sql = "delete from driver_invoice where id = ?";
+               $result = setData($con,$sql,[$id]);
+               if($result > 0){
+                   $success = 1;
+                   $sql = "update orders set driver_invoice_id = 0 where driver_invoice_id=?";
+                   $result = setData($con,$sql,[$id]);
+                   unlink('../driver_invoice/'.$re[0]['path']);
+               }else{
+                  $msg = "فشل  حذف كشف";
+               }
+           }else{
+             $msg="لايمكن حذف كشف تم التحاسب عليه";
+           }
          }else{
-           $msg="لايمكن حذف كشف تم التحاسب عليه";
+           $msg="تم تاكيد الكشف من مدير الشركه لايمكن الحذف";
          }
 }else{
   $msg = "فشل الحذف";
