@@ -43,7 +43,6 @@ try{
        $filter .= " and driver_invoice.staff_id =".$inserter;
     }
     $query .=  $filter;
-    $query .=  " limit 100";
     $data = setData($con,$query);
     $success="1";
 } catch(PDOException $ex) {

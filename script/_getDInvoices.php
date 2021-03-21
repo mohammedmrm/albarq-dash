@@ -44,7 +44,7 @@ try{
        $filter .= " and driver_invoice.staff_id =".$inserter;
     }
     $query .=  $filter;
-    $query .=  " order by driver_invoice.date DESC limit 100";
+    $query .=  " order by driver_invoice.date DESC";
 ///--------------prices ------------
     $sql = 'select
             sum(driver_invoice.driver_price) as driver_price,
@@ -64,7 +64,6 @@ try{
              $sql .= " and driver_invoice.staff_id =".$inserter;
           }
 
-          $sql .= " limit 100";
 $total[0] =[
  'invoices'=>0,
  'driver_price'=>0,

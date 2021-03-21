@@ -52,7 +52,7 @@ try{
        $filter .= " and invoice.staff_id =".$inserter;
     }
     $query .=  $filter;
-    $query .=  " order by invoice.date DESC limit 100";
+    $query .=  " order by invoice.date DESC";
 ///--------------prices ------------
     $sql = 'select
             sum(invoice.dev_price) as dev_price,
@@ -79,7 +79,6 @@ try{
           if($inserter >= 1){
              $sql .= " and invoice.staff_id =".$inserter;
           }
-          $sql .= " limit 100";
 $total[0] =[
  'invoices'=>0,
  'dev_price'=>0,
