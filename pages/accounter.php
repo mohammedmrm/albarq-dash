@@ -412,12 +412,13 @@ function getAccountingInfo(){
         type:"POST",
         data:$("#invoicesForm").serialize(),
         success:function(res){
+          console.log(res) ;
             $("#c_invoices").text(res.total.c_invoices);
             $("#d_invoices").text(res.total.d_invoices);
             $("#paid").text(formatMoney(res.total.paid));
             $("#received").text(formatMoney(res.total.received));
             $("#with_accounter").text(formatMoney(res.total.with_accounter));
-         console.log(res)
+
         } ,
         error:function(e){
           console.log(e);

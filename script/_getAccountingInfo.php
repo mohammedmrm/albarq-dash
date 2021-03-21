@@ -4,13 +4,9 @@ header('Content-Type: application/json');
 error_reporting(0);
 require_once("_access.php");
 access([1,2,5,8]);
-$client = $_REQUEST['client'];
-$store = $_REQUEST['store'];
 $start = $_REQUEST['start'];
 $end = $_REQUEST['end'];
-$branch= $_REQUEST['branch'];
 $inserter= $_REQUEST['inserter'];
-$branch_price = !$_REQUEST['branch_price'] ? 0 :$_REQUEST['branch_price'] ;
 if(empty($start)) {
     $start = '1000-10-10';
 }
@@ -47,7 +43,7 @@ try{
             where driver_invoice.date between "'.$start.'" and "'.$end.'"
             ';
           if($inserter >= 1){
-             $sql .= " and driver_invoice.staff_id =".$inserter;
+             $sql2 .= " and driver_invoice.staff_id =".$inserter;
           }
 
 
