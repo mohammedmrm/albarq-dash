@@ -189,7 +189,6 @@ background-color: #FFFF99;
         						<th>الملف</th>
         						<th>حالة الكشف</th>
         						<th>التاكيد</th>
-        						<th>تعديل</th>
 		  					</tr>
       	            </thead>
                     <tbody id="invoicesTable">
@@ -212,7 +211,6 @@ background-color: #FFFF99;
       						<th>التاريخ</th>
       						<th>الملف</th>
       						<th>حالة الكشف</th>
-      						<th>تعديل</th>
   					</tr>
     	    </thead>
             <tbody id="DinvoicesTable">
@@ -304,10 +302,6 @@ function getInvoices(){
             '<td><a href="invoice/'+this.path+'" target="_blank">تحميل ملف الكشف</a></td>'+
             '<td>'+invoice_status+'</td>'+
             '<td>'+confirm+'</td>'+
-            '<td>'+
-                btn+
-                '<button type="button" class="btn btn-clean btn-link" onclick="deleteInvoice('+this.id+')" data-toggle="modal" data-target="#deleteOrderModal"><span class="flaticon-delete"></sapn></button>'+
-            '</td>'+
         '</tr>');
      });
 /*      $.each(res.total,function(){
@@ -386,10 +380,6 @@ function getDInvoices(){
             '<td>'+this.in_date+'</td>'+
             '<td><a href="driver_invoice/'+this.path+'" target="_blank">تحميل ملف الفاتوره</a></td>'+
             '<td>'+invoice_status+'</td>'+
-            '<td>'+
-                btn+
-                '<button type="button" class="btn btn-clean btn-link" onclick="deleteInvoice('+this.id+')" data-toggle="modal" data-target="#deleteOrderModal"><span class="flaticon-delete"></sapn></button>'+
-            '</td>'+
         '</tr>');
      });
      var myTable= $('#tb-Dinvioces').DataTable({
@@ -424,27 +414,6 @@ function getAccountingInfo(){
           console.log(e);
         }
       });
-}
-function deleteInvoice(id){
-  if(confirm("هل انت متاكد من الحذف")){
-      $.ajax({
-        url:"script/_deleteInvoice.php",
-        type:"POST",
-        data:{id:id},
-        success:function(res){
-         if(res.success == 1){
-           Toast.success('تم الحذف');
-           getInvoices();
-         }else{
-           Toast.warning(res.msg);
-         }
-         console.log(res)
-        } ,
-        error:function(e){
-          console.log(e);
-        }
-      });
-  }
 }
 function confirmInvoices(){
  $.ajax({
@@ -482,48 +451,6 @@ function confirmDInvoices(){
           console.log(e);
         }
       });
-}
-function payInvoice(id){
-  if(confirm("هل انت متاكد من التحاسب على الكشف")){
-      $.ajax({
-        url:"script/_payInvoice.php",
-        type:"POST",
-        data:{id:id},
-        success:function(res){
-         if(res.success == 1){
-           Toast.success('تم التحاسب');
-           getInvoices();
-         }else{
-           Toast.warning(res.msg);
-         }
-         console.log(res)
-        } ,
-        error:function(e){
-          console.log(e);
-        }
-      });
-  }
-}
-function unpayInvoice(id){
-  if(confirm("هل انت متاكد من الغأ دفع الكشف")){
-      $.ajax({
-        url:"script/_unpayInvoice.php",
-        type:"POST",
-        data:{id:id},
-        success:function(res){
-         if(res.success == 1){
-           Toast.success('تم الغأ التحاسب');
-           getInvoices();
-         }else{
-           Toast.warning(res.msg);
-         }
-         console.log(res)
-        } ,
-        error:function(e){
-          console.log(e);
-        }
-      });
-  }
 }
 $( document ).ready(function(){
  getInvoices();

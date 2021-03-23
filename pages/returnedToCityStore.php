@@ -132,8 +132,11 @@ legend
             		<option value="1">طلبات بدون كشف</option>
             		<option value="2">طلبات بكشف</option>
                     <option value="">الكل</option>
-
                 </select>
+            </div>
+            <div class="col-lg-2 kt-margin-b-10-tablet-and-mobile">
+            	<label>اسم او هاتف المستلم:</label>
+            	<input name="customer"  type="text" class="form-control kt-input" placeholder="" data-col-index="1">
             </div>
             <div class="col-lg-2 kt-margin-b-10-tablet-and-mobile">
             	<label>.</label><br />
