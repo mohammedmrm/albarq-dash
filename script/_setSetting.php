@@ -51,6 +51,7 @@ $v->validate([
     'countrysidePrice'=> [$_REQUEST['countrysidePrice'],'isPrice'],
 ]);
 $i=0;
+try{
 if(empty(implode($v->errors()->get('dev_b')))) {
     $sql = "update setting set value = ? where control=?";
     setData($con,$sql,[$_REQUEST['dev_b'],'dev_b']);
@@ -142,6 +143,9 @@ if(!empty($_REQUEST['d_ad2'])) {
     setData($con,$sql,[$_REQUEST['d_ad2'],'d_ad2']);
     $i++;
 }
-
+}catch(PDOException $ex) {
+   $error=["error"=>$ex];
+   $success="0";
+}
 echo json_encode([!empty($_FILES['logo']),'update'=>$i,'success'=>1, 'error'=>$error]);
 ?>
