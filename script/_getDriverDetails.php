@@ -36,7 +36,7 @@ function validateDate($date, $format = 'Y-m-d H:i:s'){
 }
 if($v->passes()) {
   $sql = "select orders.*,date_format(orders.date,'%Y-%m-%d') as dat,  order_status.status as status_name,
-          cites.name as city_name,
+          cites.name as city_name,stores.name as store_name,
           towns.name as town_name,
             (if(to_city = 1,
                  if(client_dev_price.price is null,(".$config['dev_b']." - discount),(client_dev_price.price - discount)),
@@ -63,6 +63,7 @@ if($v->passes()) {
           left join order_status on orders.order_status_id = order_status.id
           left join cites on orders.to_city = cites.id
           left join towns on orders.to_town = towns.id
+          left join stores on orders.store_id = stores.id
           left join storage  on  storage.id = orders.storage_id
           left JOIN client_dev_price on client_dev_price.client_id = orders.client_id AND client_dev_price.city_id = orders.to_city
           where driver_id = '".$id."' and driver_invoice_id = 0  and orders.confirm =1

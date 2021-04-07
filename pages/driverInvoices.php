@@ -153,7 +153,7 @@ background-color: #FFFF99;
 	  						<tr>
 										<th><input  id="allselector" type="checkbox"></th>
 										<th>رقم الوصل</th>
-										<th>تاريخ الطلب</th>
+										<th>اسم الصفحه</th>
 										<th>رقم المستلم</th>
 										<th>العنوان</th>
 										<th>مبلغ الوصل</th>
@@ -161,6 +161,7 @@ background-color: #FFFF99;
 										<th>سعر التوصيل</th>
 										<th>مبلغ المندوب</th>
                                         <th>حالة الطلب</th>
+                                        <th>تاريخ الطلب</th>
 
                             </tr>
                    </thead>
@@ -296,7 +297,7 @@ function  getdriverInvoices(){
                        '<tr>'+
                           '<td><input type="checkbox" name="id[]" rowid="'+this.id+'"></td>'+
                           '<td>'+this.order_no+'</td>'+
-                          '<td>'+this.dat+'</td>'+
+                          '<td>'+this.store_name+'</td>'+
                           '<td>'+this.customer_phone+'</td>'+
                           '<td>'+this.city_name+'-'+this.town_name+'-'+this.address+'</td>'+
                           '<td>'+this.price+'</td>'+
@@ -304,6 +305,7 @@ function  getdriverInvoices(){
                           '<td>'+Number(this.dev_price).toFixed(2)+'</td>'+
                           '<td class="text-danger" >'+this.driver_price+'</td>'+
                           '<td>'+this.status_name+'<br /> ('+this.storage_status+')</td>'+
+                          '<td>'+this.dat+'</td>'+
                        '</tr>'
                    ;
       });
