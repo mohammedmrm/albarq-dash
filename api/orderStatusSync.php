@@ -87,7 +87,7 @@ if($v->passes()  ) {
           if(count($order) == 1){
               $order_id = $order[0]['id'];
 
-              $sql = 'update orders set order_status_id="'.$status.'"';
+              $sql = 'update orders set order_status_id="'.$status.'", storage_id=0 ';
               $up = "";
               if(!empty($city) && $city > 0){
                 $up .= ' , to_city='.$city;
