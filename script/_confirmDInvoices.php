@@ -22,6 +22,18 @@ if(empty($end)) {
 
 require_once("dbconnection.php");
 try{
+
+ $sql = 'select
+            sum(driver_invoice.driver_price) as driver_price,
+            sum(total) as total,
+            sum(if(driver_invoice.confirm = 1,0,(total-driver_invoice.driver_price))) as received,
+            count(*) as invoices
+            from driver_invoice
+            left join staff driver on driver.id = driver_invoice.staff_id
+            left join staff on staff.id = driver_invoice.staff_id
+            where driver_invoice.date between "'.$start.'" and "'.$end.'"
+            and driver_invoice.staff_id ='.$inserter;
+  $total = getData($con,$sql); 
   $query = "update driver_invoice
            left join staff driver on driver.id = driver_invoice.driver_id
            left join staff on staff.id = driver_invoice.staff_id
@@ -44,6 +56,10 @@ try{
     }
     $query .=  $filter;
     $data = setData($con,$query);
+    if($data > 0){
+      $sql = "insert into accounter_history (staff_id,driver_invoices,received) values (?,?,?)";
+      setData($con,$sql,[$inserter,$total[0]['invoices'],$total[0]['received']]);
+    }
     $success="1";
 } catch(PDOException $ex) {
    $data=["error"=>$ex];

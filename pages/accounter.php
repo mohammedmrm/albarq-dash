@@ -172,6 +172,9 @@ background-color: #FFFF99;
                 <div class="col-sm-2">
                    <button type="button" class="btn btn-danger"  onclick="confirmInvoices();confirmDInvoices();">تصفير ذمه المحاسب</button>
                 </div>
+                <div class="col-sm-1">
+                   <button onclick="getAccounterHistory()" type="button" class="btn btn-icon text-white" data-toggle="modal" data-target="#accounterHistory"><span class="fa-2x fa fa-history"></span></button>
+                </div>
           </div>
           </div>
           <?php } ?>
@@ -235,7 +238,57 @@ background-color: #FFFF99;
 </div>
 <!-- end:: Content -->
 </div>
+<div class="modal fade" id="accounterHistory" role="dialog">
+    <div class="modal-dialog modal-xl">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"></button>
+          <h4 class="modal-title">تاريخ المحاسب</h4>
+        </div>
+        <div class="modal-body">
+		<!--begin::Portlet-->
+    <form id="historyForm" class="kt-form kt-form--fit kt-margin-b-20">
+          <fieldset>
+          <div class="row kt-margin-b-20">
+            <div class="col-lg-3 kt-margin-b-10-tablet-and-mobile">
+            	<label>المحاسب:</label>
+            	<select onchange="getAccounterHistory()"  data-live-search="true" class="form-control kt-input" id="h_inserter" name="h_inserter" data-col-index="6">
+            	</select>
+            </div>
+            <div class="col-lg-4 kt-margin-b-10-tablet-and-mobile">
+            <label>الفترة الزمنية (تاريخ الكشف):</label>
+            <div class="input-daterange input-group" id="kt_datepicker">
+  				<input value="<?php echo date('Y-m-d', strtotime('-7 days'));?>" onchange="getAccounterHistory()" type="text" class="form-control kt-input" name="h_start" id="h_start" placeholder="من" data-col-index="5">
+  				<div class="input-group-append">
+  					<span class="input-group-text"><i class="la la-ellipsis-h"></i></span>
+  				</div>
+  				<input onchange="getAccounterHistory()" type="text" class="form-control kt-input" name="h_end"  id="h_end" placeholder="الى" data-col-index="5">
+          	</div>
+            </div>
+          </div>
+          </fieldset>
 
+    	<table class="table  table-bordered  responsive no-wrap" id="tb-history">
+	       <thead>
+ 						<tr>
+                            <th>اسم المحاسب</th>
+      						<th>عدد الفاواتير</th>
+                            <th>التاريخ</th>
+      						<th>المبلغ</th>
+      						<th>النوع</th>
+  					</tr>
+    	    </thead>
+            <tbody id="history">
+            </tbody>
+        </table>
+          </form>
+        <!--end::Portlet-->
+        </div>
+      </div>
+
+    </div>
+  </div>
             <!--begin::Page Vendors(used by this page) -->
 <script src="assets/vendors/custom/datatables/datatables.bundle.js" type="text/javascript"></script>
                         <!--end::Page Vendors -->
@@ -452,10 +505,50 @@ function confirmDInvoices(){
         }
       });
 }
+function getAccounterHistory(){
+ $.ajax({
+        url:"script/_getAccounterHistory.php",
+        type:"POST",
+        data:$("#historyForm").serialize(),
+        success:function(res){
+          console.log(res);
+          $("#history").html("");
+         if(res.success == 1){
+           $.each(res.data,function(){
+             if(this.invoices == 0){
+               bg="success";
+               invoices = this.driver_invoices;
+               price= this.received;
+               type = "استلام ملبغ من المندوبين";
+             }else{
+               bg="danger";
+               invoices = this.invoices;
+               price= this.paid;
+               type="دفع مبلغ للعملاء"
+             }
+             $("#history").append(
+             '<tr class="'+bg+'">'+
+                '<td>'+this.name+'</td>'+
+                '<td>'+invoices+'</td>'+
+                '<td>'+this.date+'</td>'+
+                '<td>'+formatMoney(price)+'</td>'+
+                '<td>'+type+'</td>'+
+             '</tr>'
+             );
+           });
+         }
+
+        } ,
+        error:function(e){
+          console.log(e);
+        }
+      });
+}
 $( document ).ready(function(){
  getInvoices();
  getDInvoices();
  getInserter($("#inserter"));
+ getInserter($("#h_inserter"));
  getAccountingInfo();
 });
 
@@ -468,6 +561,22 @@ $('#start').datepicker({
     defaultDate:'now'
 });
 $('#end').datepicker({
+    format: "yyyy-mm-dd",
+    showMeridian: true,
+    todayHighlight: true,
+    autoclose: true,
+    pickerPosition: 'bottom-left',
+    defaultDate:'now'
+});
+$('#h_start').datepicker({
+    format: "yyyy-mm-dd",
+    showMeridian: true,
+    todayHighlight: true,
+    autoclose: true,
+    pickerPosition: 'bottom-left',
+    defaultDate:'now'
+});
+$('#h_end').datepicker({
     format: "yyyy-mm-dd",
     showMeridian: true,
     todayHighlight: true,

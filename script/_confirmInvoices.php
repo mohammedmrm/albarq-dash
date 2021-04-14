@@ -22,6 +22,17 @@ if(empty($end)) {
 
 require_once("dbconnection.php");
 try{
+    $sql = 'select
+            sum(invoice.dev_price) as dev_price,
+            sum(total) as total,
+            sum(if(invoice.confirm = 1,0,(total-invoice.dev_price))) as paid,
+            count(*) as invoices
+            from invoice
+            inner join stores on stores.id = invoice.store_id
+            inner join clients on clients.id= stores.client_id
+            where invoice.date between "'.$start.'" and "'.$end.'"
+            and invoice.staff_id ='.$inserter;
+  $total = getData($con,$sql);
   $query = "update invoice
            inner join stores on stores.id = invoice.store_id
            inner join clients on stores.client_id = clients.id
@@ -52,6 +63,10 @@ try{
     }
     $query .=  $filter;
     $data = setData($con,$query);
+    if($data > 0){
+      $sql = "insert into accounter_history (staff_id,invoices,paid) values (?,?,?)";
+      setData($con,$sql,[$inserter,$total[0]['invoices'],$total[0]['paid']]);
+    }
     $success="1";
 } catch(PDOException $ex) {
    $data=["error"=>$ex];
