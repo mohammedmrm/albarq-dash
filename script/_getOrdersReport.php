@@ -231,7 +231,7 @@ try{
           left join invoice on invoice.id = orders.invoice_id
         ";
 }
-  if($_SESSION['role'] == 1 || $_SESSION['role'] == 5 || $_SESSION['role'] == 9){
+  if($_SESSION['role'] == 1 || $_SESSION['role'] == 5 || $_SESSION['role'] == 2 || $_SESSION['role'] == 9){
      $where = "where";
   }else{
      $where = "where (from_branch = '".$_SESSION['user_details']['branch_id']."' or to_branch = '".$_SESSION['user_details']['branch_id']."') and ";
