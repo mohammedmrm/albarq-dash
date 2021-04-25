@@ -105,7 +105,6 @@ $v->validate([
 $sql ="select * from orders where id = ?";
 $res = setData($con,$sql,[$id]);
 if($_SESSION['user_details']['role_id'] == 1 ||
-   $_SESSION['user_details']['role_id'] == 5 ||
   ($_SESSION['user_details']['role_id'] == 2 && $res[0]['from_branch'] == $_SESSION['user_details']['branch_id']) ||
    $_SESSION['userid'] == $res[0]['manager_id']){
   $premission = 1;
@@ -114,7 +113,7 @@ if($_SESSION['user_details']['role_id'] == 1 ||
 }
 
 
-if($v->passes() && $date_err =="" && $premission) {
+if($v->passes() && $date_err =="" && $premission == 1) {
 
   $sql = 'update orders set order_no="'.$number.'"';
   $up = "";
@@ -167,7 +166,7 @@ if($result > 0){
   $success = 1;
 }
 }else{
-$error = [
+    $error = [
            'manger'=> implode($v->errors()->get('manger')),
            'id'=> implode($v->errors()->get('id')),
            'order_no'=>implode($v->errors()->get('order_no')),
@@ -190,5 +189,5 @@ $error = [
            'premission'=>$premission
            ];
 }
-echo json_encode([$sql,'success'=>$success, 'error'=>$error,$_POST]);
+echo json_encode(['success'=>$success, 'error'=>$error,$_POST]);
 ?>
