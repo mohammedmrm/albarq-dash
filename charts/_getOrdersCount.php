@@ -151,7 +151,7 @@ foreach($res as $val){
               UPDATE
               orders
               left join (
-                         select max(id) as last_id,order_id,max(date) as date from tracking group by order_id
+                         select max(id) as last_id,order_id,max(date) as date from tracking group by order_id  limit 100
                        ) a on a.order_id = orders.id
               SET order_status_id = 4 , new_price = price
               WHERE (orders.order_status_id = 9 ) and driver_id > 0 and invoice_id = 0 and driver_invoice_id = 0 and storage_id=0 and confirm=1 and to_city = '".$val['city_id']."' and
