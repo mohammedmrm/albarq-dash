@@ -119,8 +119,8 @@ foreach($res as $val){
               WHERE (orders.order_status_id = 7 ) and driver_id > 0 and invoice_id = 0 and driver_invoice_id = 0 and confirm=1 and to_city = '".$val['city_id']."' and
               DATE(a.date) < DATE_SUB(CURDATE(), INTERVAL ".$val['p_days']." DAY) AND ( SELECT @uids := CONCAT_WS(',', id, @uids)) limit 200;
               SELECT @uids as ids;";
-   $ids = getAllUpdatedIds($mysqlicon,$auto);
-   $idss = explode (",", $ids[0][0]);
+   $idsp = getAllUpdatedIds($mysqlicon,$auto);
+   $idss = explode (",", $idsp[0][0]);
    $tracking = "insert into tracking (order_id,order_status_id,note,staff_id) values(?,?,?,?)";
    foreach($idss as $id){
        $sql = "select isfrom ,clients.sync_token as token,clients.sync_dns as dns from orders
@@ -194,5 +194,5 @@ foreach($res as $val){
   $delete = "delete FROM storage_tracking WHERE date < DATE_SUB(NOW(), INTERVAL 4 MONTH)";
   setData($con,$delete);
 
-echo json_encode(['data'=>$result,$idss,"response"=>json_decode(substr($response, 3))]);
+echo json_encode(['data'=>$result,$idsp,$idss,"response"=>json_decode(substr($response, 3))]);
 ?>
