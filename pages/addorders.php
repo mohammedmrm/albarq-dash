@@ -174,7 +174,7 @@ require_once("config.php");
 				<select   town="town" data-lang="ar" data-language="ar" data-show-subtext="true" data-live-search="true" type="text" class="selectpicker  form-control dropdown-primary" name="town[]" id="town1"  value="">
 
                 </select>
-                <span id="town_err" class="form-text text-danger"></span>
+                <span id="town_err1" class="form-text text-danger"></span>
 			</div>
             <div class="form-group col-lg-2">
 				<label>تفاصيل اكثر عن العنوان</label>

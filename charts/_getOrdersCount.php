@@ -111,36 +111,32 @@ foreach($res as $val){
    if($val['active'] == 1){
    $auto = "SET @uids := '';
               UPDATE
-              orders
-              left join (
-                         select max(id) as last_id,order_id,max(date) as date from tracking group by order_id
-                       ) a on a.order_id = orders.id
-              SET order_status_id = 4
-              WHERE (orders.order_status_id = 7 ) and driver_id > 0 and invoice_id = 0 and driver_invoice_id = 0 and confirm=1 and to_city = '".$val['city_id']."' and
-              DATE(a.date) < DATE_SUB(CURDATE(), INTERVAL ".$val['p_days']." DAY) AND ( SELECT @uids := CONCAT_WS(',', id, @uids));
+              orders SET order_status_id = 4
+              WHERE (order_status_id = 7) and driver_id > 0 and invoice_id = 0 and driver_invoice_id = 0 and confirm=1 and to_city = '".$val['city_id']."' and
+              DATE(date) < DATE_SUB(CURDATE(), INTERVAL ".$val['p_days']." DAY) AND ( SELECT @uids := CONCAT_WS(',', id, @uids)) limit 500;
               SELECT @uids as ids;";
-//   $idsp = getAllUpdatedIds($mysqlicon,$auto);
-//   $idss = explode (",", $idsp[0][0]);
-//   $tracking = "insert into tracking (order_id,order_status_id,note,staff_id) values(?,?,?,?)";
-//   foreach($idss as $id){
-//       $sql = "select isfrom ,clients.sync_token as token,clients.sync_dns as dns from orders
-//               inner join clients on clients.id = orders.client_id
-//               where orders.id=?";
-//       $order = getData($con,$sql,[$id]);
-//       if($order[0]['isfrom'] == 2){
-//         $response = httpPost($order[0]['dns'].'/api/orderStatusSync.php',
-//              [
-//               'token'=>$order[0]['token'],
-//               'status'=>4,
-//               'note'=>'',
-//               'id'=>$id,
-//              ]);
-//       }
-//     if($id > 0){
-//     $addTrack = setData($con,$tracking,[$id,4,'( ?? ????? ????? ????????) ',$_SESSION['userid']]);
-//     $j++;
-//     }
-//   }
+   $idsp = getAllUpdatedIds($mysqlicon,$auto);
+   $idss = explode (",", $idsp[0][0]);
+   $tracking = "insert into tracking (order_id,order_status_id,note,staff_id) values(?,?,?,?)";
+   foreach($idss as $id){
+       $sql = "select isfrom ,clients.sync_token as token,clients.sync_dns as dns from orders
+               inner join clients on clients.id = orders.client_id
+               where orders.id=?";
+       $order = getData($con,$sql,[$id]);
+       if($order[0]['isfrom'] == 2){
+         $response = httpPost($order[0]['dns'].'/api/orderStatusSync.php',
+              [
+               'token'=>$order[0]['token'],
+               'status'=>4,
+               'note'=>'',
+               'id'=>$id,
+              ]);
+       }
+     if($id > 0){
+     $addTrack = setData($con,$tracking,[$id,4,'( ?? ????? ????? ????????) ',$_SESSION['userid']]);
+     $j++;
+     }
+   }
  }
 }
 /// --- الراجع
@@ -149,15 +145,11 @@ foreach($res as $val){
    if($val['active'] == 1){
    $auto = "SET @uids := '';
               UPDATE
-              orders
-              left join (
-                         select max(id) as last_id,order_id,max(date) as date from tracking group by order_id
-                       ) a on a.order_id = orders.id
-              SET order_status_id = 4 , new_price = price
-              WHERE (orders.order_status_id = 9 ) and driver_id > 0 and invoice_id = 0 and driver_invoice_id = 0 and storage_id=0 and confirm=1 and to_city = '".$val['city_id']."' and
-              DATE(a.date) < DATE_SUB(CURDATE(), INTERVAL ".$val['r_days']." DAY) AND ( SELECT @uids := CONCAT_WS(',', id, @uids)) limit 100;
+              orders SET order_status_id = 4
+              WHERE (order_status_id = 9) and driver_id > 0 and invoice_id = 0 and driver_invoice_id = 0 and confirm=1 and to_city = '".$val['city_id']."' and
+              DATE(date) < DATE_SUB(CURDATE(), INTERVAL ".$val['r_days']." DAY) AND ( SELECT @uids := CONCAT_WS(',', id, @uids)) limit 500;
               SELECT @uids as ids;";
-/*   $ids = getAllUpdatedIds($mysqlicon,$auto);
+   $ids = getAllUpdatedIds($mysqlicon,$auto);
    $idss = explode (",", $ids[0][0]);
    $tracking = "insert into tracking (order_id,order_status_id,note,staff_id) values(?,?,?,?)";
    foreach($idss as $id){
@@ -178,7 +170,7 @@ foreach($res as $val){
      $addTrack = setData($con,$tracking,[$id,4,'( تم تحديث الطلب تلقائياً) ',$_SESSION['userid']]);
      $j++;
      }
-   }*/
+   }
  }
 }
   //--delete old notifications

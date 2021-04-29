@@ -42,6 +42,16 @@ $v->addRule('unique', function($value, $input, $args) {
       return (bool) 1;
     }
 });
+$v->addRuleMessage('istown', 'النمطقه غير صحيحه يرجى حذف هذا الطلب');
+$v->addRule('istown', function($value, $input, $args) {
+    $value  = trim($value);
+    if($args[0] >= 1){
+      $exists = getData($GLOBALS['con'],"SELECT * FROM towns WHERE id=? and city_id=?",[$value,$args[0]]);
+      return  (bool) count($exists);
+    }else{
+      return (bool) 0;
+    }
+});
 $v->addRuleMessages([
     'required' => 'الحقل مطلوب',
     'int'      => 'فقط الارقام مسموع بها',
@@ -113,7 +123,7 @@ foreach($onumber as $k=>$val){
           'store'         => [$mainstore,  'required|int'],
           'customer_phone'=> [$customer_phone[$k],  'required|isPhoneNumber'],
           'city'          => [$city_to[$k],  'required|int'],
-          'town'          => [$town_to[$k],  'required|int'],
+          'town'          => [$town_to[$k],  'required|int|istown('.$city_to[$k].')'],
           'branch_to'     => [$branch_to/*$branch_to[$k]*/,  'required|int'],
           'with_dev'      => [$with_dev,  'required'],
           'order_note'    => [$order_note[$k],  'max(250)'],
@@ -134,7 +144,7 @@ foreach($onumber as $k=>$val){
           'store'         => [$store[$k],  'required|int'],
           'customer_phone'=> [$customer_phone[$k],  'required|isPhoneNumber'],
           'city'          => [$maincity,  'required|int'],
-          'town'          => [$town_to[$k],  'required|int'],
+          'town'          => [$town_to[$k],  'required|int|istown('.$maincity.')'],
           'branch_to'     => [$branch_to/*$branch_to[$k]*/,  'required|int'],
           'with_dev'      => [$with_dev,  'required'],
           'order_note'    => [$order_note[$k],  'max(250)'],
