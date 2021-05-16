@@ -76,7 +76,9 @@ $qty = 1;//$_REQUEST['qty'];
 $order_price = str_replace(',','',$_REQUEST['order_price']);
 $order_price = str_replace('.','',$order_price);
 $usd = str_replace(',','',$_REQUEST['usd']);
-
+if($usd == ''){
+  $usd = 0;
+}
 $branch = $_REQUEST['branch'];
 $store = $_REQUEST['store'];
 $client_phone = $_REQUEST['client_phone'];
