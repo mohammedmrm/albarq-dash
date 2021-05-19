@@ -36,7 +36,7 @@ if(isset($_FILES['staff_id']['tmp_name'])) {
      }
    }
 } else {
-   $img_err =  "يجب رفع صورة للهوية";
+   $img_err =  "";
 }
 
 $v->addRuleMessage('isPhoneNumber', ' رقم هاتف غير صحيح  ');

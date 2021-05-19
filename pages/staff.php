@@ -191,7 +191,7 @@ getCities($("#city"));
                                     <h3 class="kt-section__title kt-section__title-sm">معلومات الموظف:</h3>
                                 </div>
                             </div>
-                            <div class="form-group row">
+<!--                            <div class="form-group row">
                                 <label class="col-xl-3 col-lg-3 col-form-label">صورة من الهوية</label>
                                 <div class="col-lg-9 col-xl-6">
                                     <div class="kt-avatar kt-avatar--outline kt-avatar--circle-" id="kt_profile_avatar">
@@ -206,7 +206,7 @@ getCities($("#city"));
                                     </div>
                                 </div>
                                 <span class="form-text text-danger" id="staff_id_err"></span>
-                            </div>
+                            </div>-->
                             <div class="form-group row">
                                 <label class="col-xl-3 col-lg-3 col-form-label">الاسم الكامل</label>
                                 <div class="col-lg-9 col-xl-6">
