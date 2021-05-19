@@ -250,7 +250,7 @@ getCities($("#city"));
                                     <span class="form-text text-danger" id="staff_salary_err"></span>
                                 </div>
                             </div>
-                            <div class="form-group row">
+<!--                            <div class="form-group row">
                                 <label class="col-xl-3 col-lg-3 col-form-label">البريد الالكتروني</label>
                                 <div class="col-lg-9 col-xl-6">
                                     <div class="input-group">
@@ -259,7 +259,7 @@ getCities($("#city"));
                                     </div>
                                     <span class="form-text text-danger" id="staff_email_err"></span>
                                 </div>
-                            </div>
+                            </div>-->
                             <div class="form-group row">
                                 <label class="col-xl-3 col-lg-3 col-form-label">كلمة المرور</label>
                                 <div class="col-lg-9 col-xl-6">
