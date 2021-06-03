@@ -202,6 +202,7 @@ function getAllClient(ele){
          ele.append("<option value='"+this.id+"'>"+this.name+"-"+this.phone+"</option>");
        });
        console.log(res);
+       ele.trigger("chosen:updated");
        ele.selectpicker('refresh');
      },
      error:function(e){
