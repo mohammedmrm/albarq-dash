@@ -15,6 +15,7 @@ $v = new Violin;
 $success = 0;
 $error = [];
 
+$type= trim($_REQUEST['type']);
 $reason= trim($_REQUEST['reason']);
 $money = trim($_REQUEST['price']);
 $note= trim($_REQUEST['note']);
@@ -38,20 +39,22 @@ $v->addRuleMessages([
 ]);
 
 $v->validate([
-    'reason'  => [$reason,'required|max(200)'],
+    'reason'  => [$reason,'max(200)'],
     'money'   => [$money, 'required|isPrice'],
-    'note'    => [$note,  'max(1000)'],
+    'type'    => [$type, 'required|int'],
+    'note'    => [$note,  'required|max(1000)'],
 ]);
 
 $month_err = implode($v->errors()->get('year'))."-".implode($v->errors()->get('month'));
 if($v->passes())  {
- $sql = "insert into pays (reason,price,note,staff_id) values (?,?,?,?)";
- $res = setData($con,$sql,[$reason,$money,$note,$_SESSION['userid']]);
+ $sql = "insert into pays (type,price,note,staff_id) values (?,?,?,?)";
+ $res = setData($con,$sql,[$type,$money,$note,$_SESSION['userid']]);
  if($res > 0){
    $success = 1;
  }
 }
   $error = [
+           'type'=> implode($v->errors()->get('type')),
            'reason'=> implode($v->errors()->get('reason')),
            'note'=> implode($v->errors()->get('note')),
            'money'=> implode($v->errors()->get('money')),

@@ -24,7 +24,7 @@
 
           <div class="row kt-margin-b-20">
             <div class="col-lg-3 kt-margin-b-10-tablet-and-mobile">
-            	<button type="button" data-toggle="modal" data-target="#awardMoneyMainModal" class="form-control btn text-center btn-success" >صرف</button>
+            	<button type="button" data-toggle="modal" data-target="#awardMoneyMainModal" class="form-control btn text-center btn-success" > اضافه مبلغ  او صرف</button>
             </div>
             <div class="col-lg-3 kt-margin-b-10-tablet-and-mobile">
              <div class="text-danger" id="MoneyMain_pay_err">
@@ -53,7 +53,7 @@
 		<table class="table  table-bordered  responsive no-wrap" id="tb-MoneyMain">
 			       <thead>
 	  						<tr>
-								<th>السبب</th>
+								<th>المستخدم</th>
 								<th>المبلغ</th>
 								<th>التاريخ</th>
 								<th>الملاحضات</th>
@@ -96,17 +96,10 @@
                     <div class="text-danger" id="MoneyMain_err"></div>
                     <div class="form-group">
 						<label>الغرض من الصرف:</label>
-						<select class="form-control selectpicker" id="reason" name="reason">
+						<select class="form-control selectpicker" id="reason" name="type">
                            <option value="">-- اختر --</option>
-                           <option value="كَاز">كَاز</option>
-                           <option value="كارتات">كارتات</option>
-                           <option value="ضيافه">ضيافه</option>
-                           <option value="سلف">سلف</option>
-                           <option value="حولات">حولات</option>
-                           <option value="انترنيت">انترنيت</option>
-                           <option value="ماء و كهرباء">ماء و كهرباء</option>
-                           <option value="اجور نقل البريد">اجور نقل البريد</option>
-                           <option value="ايجار عقار">ايجار عقار</option>
+                           <option value="1">اضافه مبلغ</option>
+                           <option value="2">صرف مبلغ</option>
                         </select>
                         <span class="form-text  text-danger" id="type_err"></span>
 					</div>
@@ -215,12 +208,19 @@ $.ajax({
    $("#tb-MoneyMain").DataTable().destroy();
    $("#MoneyMainTable").html("");
    $.each(res.data,function(){
+     if(this.type == 2){
+       price = this.price * -1;
+       price = '<div class="fc-draggable-handle kt-badge kt-badge--lg kt-badge--danger kt-badge--inline " data-color="fc-event-danger">'+formatMoney(price)+'</div>';
+     }else{
+       price = this.price;
+       price = '<div class="fc-draggable-handle kt-badge kt-badge--lg kt-badge--success kt-badge--inline " data-color="fc-event-success">'+formatMoney(price)+'</div>';
+     }
      $("#MoneyMainTable").append(
        '<tr class="">'+
-            '<td>'+this.reason+'</td>'+
-            '<td>'+formatMoney(this.price)+'</td>'+
+            '<td>'+this.staff_name+'</td>'+
+            '<td>'+price+'</td>'+
             '<td>'+this.date+'</td>'+
-            '<td >'+this.note+'</td>'+
+            '<td>'+this.note+'</td>'+
             '<td >'+
                 '<button type="button" class="btn btn-clean btn-link" onclick="deleteMoneyMain('+this.p_id+')" data-toggle="modal" data-target="#deleteloansModal"><span class="flaticon-delete"></sapn></button>'+
             '</td>'+
@@ -249,7 +249,7 @@ $.ajax({
       Toast.success('تم الاضافة');
       getPays();
    }else{
-      $("#reason_err").text(res.error.reason);
+      $("#reason_err").text(res.error.type);
       $("#price_err").text(res.error.money);
       $("#note_err").text(res.error.note);
    }
