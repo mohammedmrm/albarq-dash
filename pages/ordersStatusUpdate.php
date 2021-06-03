@@ -159,6 +159,7 @@ min-height: 100px;
                                         <th>مبلغ الوصل</th>
                                         <th>اسم و هاتف العميل</th>
 										<th width="200px;">تـــــــــــحديث الحالــــــــــــــة</th>
+										<th width="200px;">سبب الــــــــرجع</th>
 										<th>الحاله</th>
 										<th>المبلغ المستلم</th>
 										<th>ادخال ا خراج مخزني</th>
@@ -219,6 +220,36 @@ if (event.which === 13 || event.keyCode === 13 ) {
 });
 function getorders(){
   options = `<option style="" value="_">-- اختر الحالة --</option><option style="background-color:" value="1">تم تسجيل الطلب</option><option style="background-color:" value="2">جاهز للارسال</option><option style="background-color:" value="3">بالطريق مع المندوب</option><option style="background-color:#9CDE7C" value="4">تم تسليم الطلب</option><option style="background-color:#FFFFAC" value="5">استبدال الطلب</option><option style="background-color:" value="6">راجع جزئي</option><option style="background-color:" value="7">مؤجل </option><option style="background-color:" value="8">تغير عنوان</option><option style="background-color:#F2A69B" value="9">راجع كلي</option><option style="background-color:" value="10">راجع بمخزن المحافظه</option><option style="background-color:" value="11">راجع بالمخزن الرئيسي</option><option style="background-color:" value="12">راجع للعميل</option><option style="background-color:" value="13">اعادة ارسال</option>`;
+  reason = `         <option value="لايرد">لايرد</option>
+                     <option value="لايرد مع رسالة">لايرد مع رسالة</option>
+                     <option value="تم اغلاق الهاتف">تم اغلاق الهاتف</option>
+                     <option value="رفض الطلب">رفض الطلب</option>
+                     <option value="مكرر">مكرر</option>
+                     <option value="كاذب">كاذب</option>
+                     <option value="الرقم غير معرف">الرقم غير معرف</option>
+                     <option value="رفض الطلب">رفض الطلب</option>
+                     <option value="حظر المندوب">حظر المندوب</option>
+                     <option value="لايرد بعد التاجيل">لايرد بعد التاجيل</option>
+                     <option value="مسافر">مسافر</option>
+                     <option value="تالف">تالف</option>
+                     <option value="راجع بسبب الحظر">راجع بسبب الحظر</option>
+                     <option value="لايمكن الاتصال به">لايمكن الاتصال به</option>
+                     <option value="مغلق بعد الاتفاق">مغلق بعد الاتفاق</option>
+                     <option value="مستلم سابقا">مستلم سابقا</option>
+                     <option value="لم يطلب">لم يطلب</option>
+                     <option value="لايرد بعد سماع المكالمة">لايرد بعد سماع المكالمة</option>
+                     <option value="غلق بعد سماع المكالمة">غلق بعد سماع المكالمة</option>
+                     <option value="مغلق">مغلق</option>
+                     <option value="تم الوصول والرفض">تم الوصول والرفض</option>
+                     <option value="لايرد بعد الاتفاق">لايرد بعد الاتفاق</option>
+                     <option value="غير داخل بالخدمة">غير داخل بالخدمة</option>
+                     <option value="خطأ بالعنوان">خطأ بالعنوان</option>
+                     <option value="مستلم سابقا">مستلم سابقا</option>
+                     <option value="خطأ بالتجهيز">خطأ بالتجهيز</option>
+                     <option value="نقص رقم">نقص رقم</option>
+                     <option value="زيادة رقم">زيادة رقم</option>
+                     <option value="وصل بدون طلبية">وصل بدون طلبية</option>
+                     <option value="الغاء الحجز">الغاء الحجز</option>`
 $.ajax({
   url:"script/_getOrdersReport.php",
   type:"POST",
@@ -326,6 +357,11 @@ $.ajax({
             '<td>'+
               '<select status="status" class="form-control" style="height:40px;" name="statuses[]"  value="">'+
                 options+
+              '</select>'+
+            '</td>'+
+            '<td>'+
+              '<select reason="reason" class="form-control" style="height:40px;" name="reason[]"  value="">'+
+                reason+
               '</select>'+
             '</td>'+
             '<td>'+this.status_name+'<br />('+this.storage_status+')</td>'+
