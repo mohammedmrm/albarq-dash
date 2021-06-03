@@ -159,7 +159,7 @@ getAllStores($("#getAllStoresTable"));
 				<div class="kt-portlet__body">
 					<div class="form-group">
 						<label>العميل:</label>
-						<select type="name" id="e_client" name="e_client" class="selectpicker form-control" data-live-search="true"></select>
+						<select chosen type="name" id="e_client" name="e_client" class="selectpicker form-control" data-live-search="true"></select>
 						<span class="form-text  text-danger" id="e_client_err"></span>
 					</div>
 					<div class="form-group">
@@ -196,7 +196,7 @@ function getAllClient(ele){
      success:function(res){
        ele.html("");
        ele.append(
-           '<option value="">... اختر ...</option>'
+           '<option value=""></option>'
        );
        $.each(res.data,function(){
          ele.append("<option value='"+this.id+"'>"+this.name+"-"+this.phone+"</option>");
