@@ -83,7 +83,7 @@ $branch = $_REQUEST['branch'];
 $store = $_REQUEST['store'];
 $client_phone = $_REQUEST['client_phone'];
 $company = $_REQUEST['company'];
-$customer_name = "";//$_REQUEST['customer_name'];
+$customer_name = $_REQUEST['customer_name'];
 $customer_phone =  str_replace('-','',$_REQUEST['customer_phone']);
 $customer_phone =  str_replace('_','',$customer_phone);
 $city_to = $_REQUEST['city'];
@@ -129,6 +129,7 @@ foreach($onumber as $k=>$val){
           'branch_to'     => [$branch_to/*$branch_to[$k]*/,  'required|int'],
           'with_dev'      => [$with_dev,  'required'],
           'order_note'    => [$order_note[$k],  'max(250)'],
+          'customer_name' => [$customer_name[$k],  'max(200)'],
           'order_address' => [$order_address[$k],  'max(250)'],
           'company' => [$company,  'int'],
       ]);
@@ -150,6 +151,7 @@ foreach($onumber as $k=>$val){
           'branch_to'     => [$branch_to/*$branch_to[$k]*/,  'required|int'],
           'with_dev'      => [$with_dev,  'required'],
           'order_note'    => [$order_note[$k],  'max(250)'],
+          'customer_name' => [$customer_name[$k],  'max(200)'],
           'order_address' => [$order_address[$k],  'max(250)'],
           'company' => [$company,  'int'],
       ]);
@@ -238,7 +240,7 @@ if($v->passes()) {
 
         $result = setData($con,$sql,
                          [$usd[$k],$driver,$manger,$prefix.$onumber[$k],$order_type,$weight[$k],$qty,
-                          $order_price[$k],$dev_price,$client_phone[$k],$customer_name,
+                          $order_price[$k],$dev_price,$client_phone[$k],$customer_name[$K],
                           $customer_phone[$k],$city_to[$k],$town_to[$k],$to_branch,$with_dev,$order_note[$k],$order_address[$k],$confirm,date('Y-m-d H:m:i'),$new_price,$order_id[$k]]);
          // get nofificaton tokens
          $sql = 'select token from orders
@@ -261,7 +263,7 @@ if($v->passes()) {
         $result = setDataWithLastID($con,$sql,
                          [$usd[$k],$driver,$manger,$prefix.$onumber[$k],$order_type,$weight[$k],$qty,
                           $order_price[$k],$dev_price,$mainbranch,
-                          $client,$client_phone[$k],$mainstore,$customer_name,
+                          $client,$client_phone[$k],$mainstore,$customer_name[$k],
                           $customer_phone[$k],$city_to[$k],$town_to[$k],$to_branch,$with_dev,$order_note[$k],$new_price,$order_address[$k],$company,$confirm]);
           $sqlNote = 'select token from clients where id ='.$client;
           $res = getData($con,$sqlNote,[$client]);
@@ -356,7 +358,7 @@ if($v->passes()) {
                                     ';
         $result = setData($con,$sql,
                          [$usd[$k],$driver,$manger,$prefix.$onumber[$k],$order_type,$weight[$k],$qty,
-                          $order_price[$k],$dev_price,$client_phone[$k],$customer_name,
+                          $order_price[$k],$dev_price,$client_phone[$k],$customer_name[$k],
                           $customer_phone[$k],$store[$k],$town_to[$k],$to_branch,$with_dev,$order_note[$k],$order_address[$k],$confirm,date('Y-m-d H:m:i'),$new_price,$order_id[$k]]);
           $sql = 'select token from clients where id = ? ';
           $res = getData($con,$sql,[$client]);

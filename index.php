@@ -9,9 +9,9 @@ if(! in_array($_SESSION['user_details']['role_id'],$access_roles)){
     die();
 }*/
 require_once("script/_access.php");
-access([1,2,3,4,5,6,7,8,9,10,11,12]);
+access([1,2,3,4,5,6,7,8,9,10,11,12,15]);
 require_once("config.php");
-
+error_reporting(0);
 
 ?>
 <!-- Theme: Keen - The Ultimate Bootstrap Admin ThemeAuthor: KeenThemesWebsite: http://www.keenthemes.com/Contact: support@keenthemes.comFollow: www.twitter.com/keenthemesDribbble: www.dribbble.com/keenthemesLike: www.facebook.com/keenthemesLicense: You must have a valid license purchased only from https://themes.getbootstrap.com/product/keen-the-ultimate-bootstrap-admin-theme/ in order to legally use the theme for your project.-->
