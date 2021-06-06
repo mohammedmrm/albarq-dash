@@ -85,20 +85,19 @@ try{
              where is_client = 0 and admin_seen = 0
              group by message.order_id
             ) a on a.order_id = orders.id
-
             left join (
              select order_no,count(*) as rep from orders  where confirm = 1 or  confirm = 4
               GROUP BY order_no
               HAVING COUNT(orders.id) > 1
             ) b on b.order_no = orders.order_no
-
             ";
 
     $where = "where (order_status_id=6 or order_status_id=9 or order_status_id=5) and ";
     if(($_SESSION['role'] == 1 || $_SESSION['role'] == 5 || $_SESSION['role'] == 8) &&  $_SESSION['user_details']['branch_id'] == 1){
       $filter .= "";
     }else{
-       $filter .= " and (from_branch = '".$_SESSION['user_details']['branch_id']."' or to_branch = '".$_SESSION['user_details']['branch_id']."') ";
+       $filter .= " and ((from_branch = '".$_SESSION['user_details']['branch_id']."' or to_branch = '".$_SESSION['user_details']['branch_id']."')
+          or (orders.to_city in (select city_id from branch_cities where branch_cities.branch_id ='".$_SESSION['user_details']['branch_id']."')))";
     }
    if($confirm == 1 || $confirm == 4){
     $filter .= " and orders.confirm ='".$confirm."'";
