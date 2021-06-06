@@ -7,7 +7,7 @@ access([1,2,3,5,7,6,8,9]);
 require_once("dbconnection.php");
 $branch = $_REQUEST['branch'];
 try{
-  if($_SESSION['user_details']['role_id'] == 1){
+  if(in_array($_SESSION['user_details']['role_id'],[1,5,9])){
   $query = "select clients.*,branches.name as branch from clients
   inner join branches on branches.id = clients.branch_id";
   }else{

@@ -11,7 +11,7 @@ try{
   if($_SESSION['role'] == 1 || $_SESSION['role'] == 5 || $_SESSION['role'] == 7 || $_SESSION['role'] == 9){
        $branch ="";
   }else{
-   $branch = " and clients.branch_id=".$_SESSION['user_details']['branch_id'];
+   $branch = " where clients.branch_id=".$_SESSION['user_details']['branch_id'];
   }
   if(empty($client)){
    $query = "select stores.*, clients.name as client_name , clients.phone as client_phone,
@@ -49,5 +49,5 @@ try{
    $data=["error"=>$ex];
    $success="0";
 }
-print_r(json_encode(array("success"=>$success,"data"=>$data)));
+print_r(json_encode(array("tesssssssssst"=>$query,"success"=>$success,"data"=>$data)));
 ?>

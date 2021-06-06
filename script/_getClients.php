@@ -8,12 +8,14 @@ $branch = $_REQUEST['branch'];
 
 require_once("dbconnection.php");
 try{
-  if(!empty($branch) && $branch > 0){
-   $query = "select * from clients where branch_id=".$branch;
+  if(in_array($_SESSION['user_details']['role_id'],[1,5,9])){
+  $query = "select clients.*,branches.name as branch from clients
+  inner join branches on branches.id = clients.branch_id";
   }else{
-   $query = "select * from clients";
+  $query = "select clients.*,branches.name as branch from clients
+  inner join branches on branches.id = clients.branch_id where branch_id = ?";
   }
-  $data = getData($con,$query);
+  $data = getData($con,$query,[$_SESSION['user_details']['branch_id']]);
   $success="1";
 } catch(PDOException $ex) {
    $data=["error"=>$ex];

@@ -539,27 +539,6 @@ $(function () {
 function  customerHistory(){
   $('[data-toggle="popover"]').popover();
 }
-function getAllClient(ele){
-   $.ajax({
-     url:"script/_getClientsAll.php",
-     type:"POST",
-     success:function(res){
-       ele.html("");
-       ele.append(
-           '<option value="">... اختر ...</option>'
-       );
-       $.each(res.data,function(){
-         ele.append("<option value='"+this.id+"'>"+this.name+"-"+this.phone+"</option>");
-       });
-       console.log(res);
-       ele.selectpicker('refresh');
-     },
-     error:function(e){
-        ele.append("<option value='' class='bg-danger'>خطأ اتصل بمصمم النظام</option>");
-        console.log(e);
-     }
-   });
-}
 
 $(document).scannerDetection({
 	timeBeforeScanTest: 200, // wait for the next character for upto 200ms
