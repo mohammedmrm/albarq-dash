@@ -234,7 +234,8 @@ try{
   if($_SESSION['role'] == 1 || $_SESSION['role'] == 15 || $_SESSION['role'] == 5 || $_SESSION['role'] == 9){
      $where = "where";
   }else{
-     $where = "where (from_branch = '".$_SESSION['user_details']['branch_id']."' or to_branch = '".$_SESSION['user_details']['branch_id']."') and ";
+     $where = "where (from_branch = '".$_SESSION['user_details']['branch_id']."' or to_branch = '".$_SESSION['user_details']['branch_id']."')
+        or (orders.to_city in (select city_id from branch_cities where branch_cities.branch_id ='".$_SESSION['user_details']['branch_id']."'))) and ";
   }
    if($confirm == 1 || $confirm == 4){
     $filter .= " and orders.confirm ='".$confirm."'";
