@@ -47,11 +47,16 @@ $v->validate([
 
 $month_err = implode($v->errors()->get('year'))."-".implode($v->errors()->get('month'));
 if($v->passes())  {
+ try{
  $sql = "insert into pays (type,price,note,staff_id) values (?,?,?,?)";
  $res = setData($con,$sql,[$type,$money,$note,$_SESSION['userid']]);
  if($res > 0){
    $success = 1;
  }
+ }catch(PDOException $ex) {
+          $error=["error"=>$ex];
+          $success="0";
+   }
 }
   $error = [
            'type'=> implode($v->errors()->get('type')),
