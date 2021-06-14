@@ -313,7 +313,7 @@ $.ajax({
      btn ='<button type="button" class="btn btn-icon text-success btn-lg" onclick="setOrderOutStorage('+this.id+')"><span class="flaticon-upload"></span></button>';
      btn +='<button type="button" class="btn btn-icon text-info btn-lg" onclick="setOrderResend('+this.id+')"><span class="flaticon2-refresh"></span></button>';
      if(this.storage_invoice_id == 0 && this.staff_storage != this.storage_id){
-     btn +='<button type="button" class="btn btn-icon text-danger btn-lg" onclick="setOrderStorage('+this.id+')"><span class="flaticon-download"></span></button>';
+       btn +='<button type="button" class="btn btn-icon text-danger btn-lg" onclick="setOrderStorage('+this.id+')"><span class="flaticon-download"></span></button>';
      }
    }else{
      btn ="";

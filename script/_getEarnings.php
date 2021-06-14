@@ -135,7 +135,7 @@ $total[0]['pays'] = $pay[0]['pays'];
 
 $sql = 'select sum(new_price) as with_driver from orders
 where date between "'.$start.'" and "'.$end.'" and driver_invoice_id=0
-and (order_status_id = 4 or order_status_id=5 or order_status_id=6)';
+and (order_status_id = 4 or order_status_id=5 or order_status_id=6) and order.confrim=1';
 
 $withdriver = getData($con,$sql);
 $total[0]['with_driver'] = $withdriver[0]['with_driver'];
