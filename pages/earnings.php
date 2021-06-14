@@ -49,7 +49,7 @@ access([1,2,5]);
               	</div>
                 </div>
                 <div class="col-lg-3 kt-margin-b-10-tablet-and-mobile"></div>
-                <div class="col-lg-4 kt-margin-b-10-tablet-and-mobile">
+                <div class="col-lg-4 kt-margin-b-10-tablet-and-mobile" id="totals">
                     <label class="h4">الفترة الزمنية: <label class="" id="total_peroid"></label></label><br />
                     <label class="h4">مجموع الارباح: <label class="text-success" id="total_earnings"></label></label><br />
                     <label class="h4">مجموع صافي العملاء: <label class="text-danger" id="total_client_price"></label></label><br />
@@ -133,7 +133,13 @@ $.ajax({
   url:"script/_getEarnings.php",
   type:"POST",
   data: {start:$("#start").val(),end:$("#end").val()},
+  beforeSend:function(){
+    $("#totals").addClass("loading");
+    $("#tb-getEarnings").addClass("loading");
+  },
   success:function(res){
+   $("#totals").removeClass("loading");
+   $("#tb-getEarnings").removeClass("loading");
    $("#tb-getEarnings").DataTable().destroy();
    console.log(res);
    elem.html("");
@@ -175,6 +181,8 @@ $.ajax({
     },
    error:function(e){
     console.log(e);
+    $("#totals").removeClass("loading");
+    $("#tb-getEarnings").removeClass("loading");
   }
 });
 }
