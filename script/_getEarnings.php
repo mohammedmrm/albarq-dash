@@ -144,5 +144,5 @@ $total[0]['end'] = date('Y-m-d', strtotime($end." -1 day"));
 }catch (PDOException $ex) {
               $data = [$ex,'error'];
 }
-echo json_encode([$sqlw,'data'=>$data,"total"=>$total]);
+echo json_encode([$sqlw,$sql,'data'=>$data,"total"=>$total]);
 ?>
