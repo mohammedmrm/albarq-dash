@@ -45,7 +45,6 @@ $v->validate([
     'note'    => [$note,  'required|max(1000)'],
 ]);
 
-$month_err = implode($v->errors()->get('year'))."-".implode($v->errors()->get('month'));
 if($v->passes())  {
  try{
  $sql = "insert into pays (type,price,note,staff_id) values (?,?,?,?)";
@@ -56,7 +55,7 @@ if($v->passes())  {
  }catch(PDOException $ex) {
           $error=["error"=>$ex];
           $success="0";
-   }
+ }
 }
   $error = [
            'type'=> implode($v->errors()->get('type')),

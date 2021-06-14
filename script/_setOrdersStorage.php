@@ -11,7 +11,7 @@ $msg="";
 
 if(count($ids)){
       try{
-          $sql2 = "update orders set storage_id=? where id = ? and (order_status_id=? or order_status_id=? or order_status_id=? )";
+          $sql2 = "update orders set storage_id=? where id = ? and (order_status_id=? or order_status_id=? or order_status_id=? ) and storage_invoice_id=0";
           foreach($ids as $v){
             $data = setData($con,$sql2,[$_SESSION['user_details']['storage_id'],$v,9,6,5]);
             $success="1";

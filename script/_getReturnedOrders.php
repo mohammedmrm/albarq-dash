@@ -62,7 +62,7 @@ try{
             stores.name as store_name,a.nuseen_msg,callcenter.name as callcenter_name,
             if(order_status_id <> 4 ,if(orders.storage_id =0,'عند المندوب',if(orders.storage_id =-1,'عند العميل',storage.name)),'') as storage_status,
             cites.name as city,towns.name as town,branches.name as branch_name,to_branch.name as to_branch_name,
-            order_status.status as status_name,staff.name as staff_name,b.rep as repated , driver.name as driver_name,
+            order_status.status as status_name,staff.name as staff_name,staff.storage_id as staff_storage,b.rep as repated , driver.name as driver_name,
             orders.invoice_id as invoice_id,invoice.path as invoice_path,invoice.invoice_status as invoice_status,
             storage_invoice.path as storage_invoice_path
             from orders left join
