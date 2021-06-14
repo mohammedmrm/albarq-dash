@@ -9,10 +9,10 @@ require_once("../config.php");
 $start = trim($_REQUEST['start']);
 $end = trim($_REQUEST['end']);
 if(empty($end)) {
-  $end = date('Y-m-d 00:00:00', strtotime($end. ' + 1 day'));
+  $end = date('Y-m-d 23:59:59', strtotime($end));
 }else{
-   $end =date('Y-m-d', strtotime($end. ' + 1 day'));
-   $end .=" 00:00:00";
+   $end =date('Y-m-d', strtotime($end));
+   $end .=" 23:59:59";
 }
 if(empty($start)) {
   $start = date('Y-m-d 00:00:00',strtotime($start. ' - 7 day'));
@@ -140,9 +140,9 @@ and (order_status_id = 4 or order_status_id=5 or order_status_id=6) and orders.c
 $withdriver = getData($con,$sql);
 $total[0]['with_driver'] = $withdriver[0]['with_driver'];
 $total[0]['start'] = date('Y-m-d', strtotime($start));
-$total[0]['end'] = date('Y-m-d', strtotime($end." -1 day"));
+$total[0]['end'] = date('Y-m-d', strtotime($end));
 }catch (PDOException $ex) {
               $data = [$ex,'error'];
 }
-echo json_encode([$sqlw,$sql,'data'=>$data,"total"=>$total]);
+echo json_encode(['data'=>$data,"total"=>$total]);
 ?>
