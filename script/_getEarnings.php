@@ -142,7 +142,7 @@ $total[0]['with_driver'] = $withdriver[0]['with_driver'];
 $total[0]['start'] = date('Y-m-d', strtotime($start));
 $total[0]['end'] = date('Y-m-d', strtotime($end));
 }catch (PDOException $ex) {
-              $data = [$ex,'error'];
+ $data = [$ex,'error'];
 }
-echo json_encode(['data'=>$data,"total"=>$total]);
+echo json_encode([$sql,'data'=>$data,"total"=>$total]);
 ?>
