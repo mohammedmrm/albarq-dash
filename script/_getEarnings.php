@@ -9,9 +9,9 @@ require_once("../config.php");
 $start = trim($_REQUEST['start']);
 $end = trim($_REQUEST['end']);
 if(empty($end)) {
-  $end = date('Y-m-d 23:59:59', strtotime($end));
+  $end = date('Y-m-d 23:59:59');
 }else{
-   $end =date('Y-m-d', strtotime($end));
+   $end =date('Y-m-d');
    $end .=" 23:59:59";
 }
 if(empty($start)) {
