@@ -154,17 +154,16 @@ min-height: 100px;
         <table class="table table-striped table-bordered table-hover table-checkable responsive nowarp" id="tb-orders">
 			       <thead>
 	  						<tr>
-										<th>رقم الشحنه</th>
+										<th>العنوان</th>
                                         <th>رقم الوصل</th>
                                         <th>مبلغ الوصل</th>
-                                        <th>اسم و هاتف العميل</th>
-										<th width="200px;">تـــــــــــحديث الحالــــــــــــــة</th>
+                                        <th width="200px;">تـــــــــــحديث الحالــــــــــــــة</th>
 										<th width="200px;">سبب الــــــــرجع</th>
 										<th>الحاله</th>
-										<th>المبلغ المستلم</th>
-										<th>ادخال ا خراج مخزني</th>
+										<th width="120px">المبلغ المستلم</th>
+										<th>ادخال مخزني</th>
+										<th>اسم و هاتف العميل</th>
 										<th>رقم هاتف المستلم</th>
-										<th>عنوان المستلم</th>
 										<th>مبلغ التوصيل</th>
                                         <th width="120px">التاريخ</th>
                                         <th>المدخل</th>
@@ -349,11 +348,10 @@ $.ajax({
      }
      $("#ordersTable").append(
        '<tr class="'+bg+'">'+
-            '<td>'+this.id+'<input type="hidden" value="'+this.id+'" name="ids[]">'+
+            '<td>'+this.city+"<br />"+this.town+'<input type="hidden" value="'+this.id+'" name="ids[]">'+
             '</td>'+
             '<td>'+this.order_no+'</td>'+
             '<td>'+formatMoney(this.price)+usd+'</td>'+
-            '<td>'+this.store_name+'<br />'+(this.client_phone)+'</td>'+
             '<td>'+
               '<select status="status" class="form-control" style="height:40px;" name="statuses[]"  value="">'+
                 options+
@@ -365,10 +363,10 @@ $.ajax({
               '</select>'+
             '</td>'+
             '<td>'+this.status_name+'<br />('+this.storage_status+')</td>'+
-            '<td><input type="text" value="'+this.new_price+'" oninput="CurrencyFormatted($(this),$(this).val())" onload="CurrencyFormatted($(this),$(this).val())"  name="new_price[]" class="form-control"></td>'+
+            '<td><input type="text" value="'+this.new_price+'" oninput="CurrencyFormatted($(this),$(this).val())" onload="CurrencyFormatted($(this),$(this).val())"  name="new_price[]" class="form-control" width="50px"></td>'+
             '<td>'+btn+'</td>'+
+            '<td>'+this.store_name+'<br />'+(this.client_phone)+'</td>'+
             '<td>'+(this.customer_phone)+'</td>'+
-            '<td>'+this.city+' - '+this.town+'</td>'+
             '<td>'+formatMoney(this.dev_price)+'</td>'+
             '<td>'+this.date+'</td>'+
             '<td>'+this.staff_name+'</td>'+
