@@ -449,7 +449,7 @@ function getall(p){
 $.ajax({
   url:"script/_getOrdersReport.php",
   type:"POST",
-  data:{p:p,store:$("#store").val(),limit:10,orderStatus:[1,2,3,5,7,8,10,13],start:$("#start").val(),end:$("#end").val()},
+  data:{p:p,store:$("#store").val(),limit:10,invoice:1,orderStatus:[1,2,3,5,7,8,10,13],start:$("#start").val(),end:$("#end").val()},
   beforeSend:function(){
     $("#tb-all").addClass("loading");
   },

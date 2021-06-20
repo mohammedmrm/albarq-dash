@@ -20,7 +20,7 @@ try{
     sum(if(
     order_status_id <> 4 and
     order_status_id <> 6 and
-    order_status_id <> 9 
+    order_status_id <> 9
 
     ,1,0)) as others,
     clients.name as client_name , clients.phone as client_phone
