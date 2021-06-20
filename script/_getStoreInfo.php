@@ -13,16 +13,14 @@ try{
     sum(if(
     order_status_id = 6 or
     order_status_id = 9 or
-    order_status_id = 10 or  
+    order_status_id = 10 or
     order_status_id = 11
 
      ,1,0)) as returned,
     sum(if(
     order_status_id <> 4 and
     order_status_id <> 6 and
-    order_status_id <> 9 and
-    order_status_id <> 10 and
-    order_status_id <> 11
+    order_status_id <> 9 
 
     ,1,0)) as others,
     clients.name as client_name , clients.phone as client_phone
