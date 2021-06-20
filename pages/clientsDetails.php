@@ -183,6 +183,11 @@ hr {
                                 <i class="fa fa-file-pdf"></i> الكشوفات
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link fa-1x" data-toggle="tab" onclick="getall(1)" href="#all" role="tab" aria-selected="true">
+                                <i class="fa fa-file-pdf"></i> الشحنات المعلقه
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -280,6 +285,36 @@ hr {
                                     </tbody>
                       </table>
 
+              </div>
+              <div class="tab-pane" id="all" role="tabpanel">
+                    <h1 id="count-all"></h1>
+                	<table class="table  table-bordered  responsive no-wrap" id="tb-all">
+                			       <thead>
+                	  						<tr>
+        										<th>رقم الوصل</th>
+                                                <th>حالة الطلب</th>
+        										<th>تاريخ الطلب</th>
+        										<th>رقم المستلم</th>
+        										<th>العنوان</th>
+        										<th>اسم المندوب</th>
+        										<th>مبلغ الوصل</th>
+        										<th>المبلغ المستلم</th>
+        										<th>سعر التوصيل</th>
+        										<th>الصافي للعميل</th>
+
+                		  					</tr>
+                      	            </thead>
+                                    <tbody id="allTable">
+                                    </tbody>
+                    </table>
+                    <div class="kt-section__content kt-section__content--border">
+            		<nav aria-label="...">
+            			<ul class="pagination" id="pagination">
+
+            			</ul>
+                    <input type="hidden" id="p" name="p" value="<?php if(!empty($_GET['p'])){ echo $_GET['p'];}else{ echo 1;}?>"/>
+            		</nav>
+                 	</div>
               </div>
             </div>
             </div>
@@ -408,6 +443,98 @@ function  getStoreDetails(){
      console.log(e);
     }
   })
+}
+
+function getall(p){
+$.ajax({
+  url:"script/_getOrdersReport.php",
+  type:"POST",
+  data:{p:p,store:$("#store").val(),limit:10,orderStatus:[1,2,3,5,7,8,10,13],start:$("#start").val(),end:$("#end").val()},
+  beforeSend:function(){
+    $("#tb-all").addClass("loading");
+  },
+  success:function(res){
+   console.log(res);
+   $("#tb-all").removeClass("loading");
+   $("#count-all").text(res.total[0].orders)
+   $("#tb-all").DataTable().destroy();
+   $('#allTable').html("");
+   $("#pagination").html("");
+   if(res.pages >= 1){
+     if(res.page > 1){
+         $("#pagination").append(
+          '<li class="page-item"><a href="#" onclick="getall('+(Number(res.page)-1)+')" class="page-link">السابق</a></li>'
+         );
+     }else{
+         $("#pagination").append(
+          '<li class="page-item disabled"><a href="#" class="page-link">السابق</a></li>'
+         );
+     }
+     if(Number(res.pages) <= 5){
+       i = 1;
+     }else{
+       i =  Number(res.page) - 5;
+     }
+     if(i <=0 ){
+       i=1;
+     }
+     for(i; i <= res.pages; i++){
+       if(res.page != i){
+         $("#pagination").append(
+          '<li class="page-item"><a href="#" onclick="getall('+(i)+')"  class="page-link">'+i+'</a></li>'
+         );
+       }else{
+         $("#pagination").append(
+          '<li class="page-item active"><span class="page-link">'+i+'</span></li>'
+         );
+       }
+       if(i == Number(res.page) + 5 ){
+         break;
+       }
+     }
+     if(res.page < res.pages){
+         $("#pagination").append(
+          '<li class="page-item"><a href="#" onclick="getall('+(Number(res.page)+1)+')" class="page-link">التالي</a></li>'
+         );
+     }else{
+         $("#pagination").append(
+          '<li class="page-item disabled"><a href="#" class="page-link">التالي</a></li>'
+         );
+     }
+   }
+   $.each(res.data,function(){
+      $('#allTable').append(
+       '<tr>'+
+            '<td>'+this.order_no+'</td>'+
+            '<td>'+this.status_name+'</td>'+
+            '<td>'+this.date+'</td>'+
+            '<td>'+phone_format(this.customer_phone)+'</td>'+
+            '<td>'+this.city+'/'+this.town+'<br />'+this.address+'</td>'+
+            '<td>'+this.driver_name+'</td>'+
+            '<td>'+formatMoney(this.price)+'</td>'+
+            '<td>'+formatMoney(this.new_price)+'</td>'+
+            '<td>'+formatMoney(this.dev_price)+'</td>'+
+            '<td>'+formatMoney(this.client_price)+'</td>'+
+         '</tr>');
+     });
+
+     var myTable= $('#tb-all').DataTable({
+      "oLanguage": {
+        "sLengthMenu": "عرض_MENU_سجل",
+        "sSearch": "بحث:"
+      },
+       "aaSorting": [],
+       "bPaginate": false,
+       "bLengthChange": false,
+       "bFilter": false,
+       serverPaging: true
+      });
+    },
+   error:function(e){
+     $("#tb-all").removeClass("loading");
+    console.log(e);
+  }
+});
 }
 
 
