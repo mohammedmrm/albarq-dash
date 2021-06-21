@@ -11,7 +11,6 @@ $end = trim($_REQUEST['end']);
 if(empty($end)) {
   $end = date('Y-m-d 23:59:59');
 }else{
-   $end =date('Y-m-d');
    $end .=" 23:59:59";
 }
 if(empty($start)) {
