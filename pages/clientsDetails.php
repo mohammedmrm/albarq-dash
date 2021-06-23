@@ -287,7 +287,29 @@ hr {
 
               </div>
               <div class="tab-pane" id="all" role="tabpanel">
-                    <h1 id="count-all"></h1>
+                    <div class="row">
+                      <div class="col-lg-2">
+                      <label>عدد الشحنات</label>
+                        <h1 id="count-all"></h1>
+                      </div>
+                      <div class="col-lg-2 kt-margin-b-10-tablet-and-mobile">
+                        	<label>عدد السجلات</label>
+                        	<select onchange="getall(1)" class="form-control selectpicker" id="limit" name="limit" data-col-index="7">
+                              <option value="10">10</option>
+                        		<option value="15">15</option>
+                        		<option value="20">20</option>
+                        		<option value="25">25</option>
+                        		<option value="30">30</option>
+                              <option value="50">50</option>
+                              <option value="100">100</option>
+                              <option value="250">250</option>
+                              <option value="500">500</option>
+                              <option value="750">750</option>
+                              <option value="1000">1000</option>
+                        	</select>
+                      </div>
+                    </div>
+
                 	<table class="table  table-bordered  responsive no-wrap" id="tb-all">
                 			       <thead>
                 	  						<tr>
@@ -434,7 +456,7 @@ function  getStoreDetails(){
 
 
      var table= $('#tb-orders-reciverd').DataTable({
-       lengthMenu:[10,20,30,50,100,250,500,1000]
+       lengthMenu:[10,20,30,50,100,250,500,1000,1500,2000]
      });
     },
     error:function(e){
@@ -449,7 +471,7 @@ function getall(p){
 $.ajax({
   url:"script/_getOrdersReport.php",
   type:"POST",
-  data:{p:p,store:$("#store").val(),limit:10,invoice:1,orderStatus:[1,2,3,5,7,8,10,13],start:$("#start").val(),end:$("#end").val()},
+  data:{p:p,store:$("#store").val(),limit:$("#limit").val(),invoice:1,orderStatus:[1,2,3,5,7,8,10,13],start:$("#start").val(),end:$("#end").val()},
   beforeSend:function(){
     $("#tb-all").addClass("loading");
   },
@@ -571,7 +593,7 @@ function getStoreReturned(){
              });
       $("#returnedTable").append(content);
       $("#tb-returned").DataTable({
-        lengthMenu:[10,20,30,50,100,250,500,1000]
+        lengthMenu:[10,20,30,50,100,250,500,1000,1500,2000]
       });
       $("#tb-orders").DataTable();
     },

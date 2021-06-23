@@ -364,5 +364,5 @@ $total[0]['orders'] = $orders;
    $total=["error"=>$ex];
    $success="0";
 }
-echo json_encode(array($driver_invoice,$query,"success"=>$success,"data"=>$data,'total'=>$total,"pages"=>$pages,"page"=>$page));
+echo json_encode(array($driver_invoice,"success"=>$success,"data"=>$data,'total'=>$total,"pages"=>$pages,"page"=>$page));
 ?>
