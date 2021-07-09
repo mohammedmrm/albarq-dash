@@ -39,7 +39,7 @@ if(isset($_REQUEST['ids'])){
                  $note = $reason[$i];
                }
                setData($con,$query2,[$v,$statues[$i],date('Y-m-d H:i:s'),$_SESSION['userid'],$note]);
-               setData($con,$updateRecord,[$statues[$i],$v]);
+               //setData($con,$updateRecord,[$statues[$i],$v]);
                if($statues[$i] == 9){
                  setData($con,$price,[0,$v]);
                }
